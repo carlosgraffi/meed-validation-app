@@ -20,10 +20,14 @@
 
 [build]
 builder = "NIXPACKS"
-buildCommand = "npm install && npx prisma generate && npx prisma db push --skip-generate && npm run build"
+# Build time: just generate the Prisma client and compile Next. DB migration is
+# at runtime (the /data volume is not mounted during build, and DATABASE_URL
+# is a runtime env var on Railway).
+buildCommand = "npm install && npx prisma generate && npm run build"
 
 [deploy]
-startCommand = "node node_modules/next/dist/bin/next start -p $PORT"
+# Sync schema with the volume-backed SQLite, then launch Next.
+startCommand = "npx prisma db push --skip-generate --accept-data-loss && node node_modules/next/dist/bin/next start -p $PORT"
 healthcheckPath = "/"
 healthcheckTimeout = 100
 restartPolicyType = "ON_FAILURE"

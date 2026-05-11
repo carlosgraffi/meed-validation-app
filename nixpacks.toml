@@ -5,11 +5,14 @@ nixPkgs = ["nodejs_20", "openssl"]
 cmds = ["npm ci"]
 
 [phases.build]
+# Build time: only generate the Prisma client (no DB needed) and compile Next.
+# DB migration runs at start time, when the persistent volume is mounted and
+# DATABASE_URL is available.
 cmds = [
   "npx prisma generate",
-  "npx prisma db push --skip-generate",
   "npm run build"
 ]
 
 [start]
-cmd = "node node_modules/next/dist/bin/next start -p $PORT"
+# Start time: sync schema with the volume-backed SQLite, then launch Next.
+cmd = "npx prisma db push --skip-generate --accept-data-loss && node node_modules/next/dist/bin/next start -p $PORT"
