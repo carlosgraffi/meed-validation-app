@@ -1,0 +1,15 @@
+[
+  { "expertId": "exp_01", "email": "expert01+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 01", "sectorSpecialization": "Energía" },
+  { "expertId": "exp_02", "email": "expert02+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 02", "sectorSpecialization": "Transporte" },
+  { "expertId": "exp_03", "email": "expert03+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 03", "sectorSpecialization": "Residuos" },
+  { "expertId": "exp_04", "email": "expert04+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 04", "sectorSpecialization": "IPPU" },
+  { "expertId": "exp_05", "email": "expert05+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 05", "sectorSpecialization": "AFOLU" },
+  { "expertId": "exp_06", "email": "expert06+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 06", "sectorSpecialization": "Transversal" },
+  { "expertId": "exp_07", "email": "expert07+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 07", "sectorSpecialization": "Energía" },
+  { "expertId": "exp_08", "email": "expert08+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 08", "sectorSpecialization": "Transporte" },
+  { "expertId": "exp_09", "email": "expert09+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 09", "sectorSpecialization": "Transversal" },
+  { "expertId": "exp_10", "email": "expert10+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 10", "sectorSpecialization": "Energía" },
+  { "expertId": "exp_11", "email": "expert11+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 11", "sectorSpecialization": "Residuos" },
+  { "expertId": "exp_12", "email": "expert12+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 12", "sectorSpecialization": "Transporte" },
+  { "expertId": "exp_13", "email": "expert13+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 13", "sectorSpecialization": "Transversal" }
+]

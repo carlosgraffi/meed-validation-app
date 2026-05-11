@@ -1,0 +1,15 @@
+[phases.setup]
+nixPkgs = ["nodejs_20", "openssl"]
+
+[phases.install]
+cmds = ["npm ci"]
+
+[phases.build]
+cmds = [
+  "npx prisma generate",
+  "npx prisma db push --skip-generate",
+  "npm run build"
+]
+
+[start]
+cmd = "node node_modules/next/dist/bin/next start -p $PORT"

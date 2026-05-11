@@ -1,0 +1,232 @@
+[
+  {
+    "cityId": "city_01",
+    "displayName": "Ciudad Costera del Norte",
+    "population": 245000,
+    "populationDensity": 580,
+    "region": "Región de Antofagasta",
+    "biome": "Desierto costero",
+    "elevationM": 25,
+    "sectorEmissions": {
+      "stationaryEnergy": 1240000,
+      "transportation": 890000,
+      "waste": 210000,
+      "ippu": null,
+      "afolu": null
+    },
+    "totalEmissions": 2340000,
+    "topHazards": [
+      { "hazard": "drought", "riskScore": 0.78 },
+      { "hazard": "sealevelrise", "riskScore": 0.61 },
+      { "hazard": "heatwave", "riskScore": 0.54 }
+    ],
+    "statedSectorPriority": "stationaryEnergy"
+  },
+  {
+    "cityId": "city_02",
+    "displayName": "Ciudad Minera del Altiplano",
+    "population": 95000,
+    "populationDensity": 120,
+    "region": "Región de Tarapacá",
+    "biome": "Desierto absoluto interior",
+    "elevationM": 1820,
+    "sectorEmissions": {
+      "stationaryEnergy": 980000,
+      "transportation": 410000,
+      "waste": 65000,
+      "ippu": 720000,
+      "afolu": null
+    },
+    "totalEmissions": 2175000,
+    "topHazards": [
+      { "hazard": "drought", "riskScore": 0.84 },
+      { "hazard": "heatwave", "riskScore": 0.48 },
+      { "hazard": "landslide", "riskScore": 0.41 }
+    ],
+    "statedSectorPriority": "ippu"
+  },
+  {
+    "cityId": "city_03",
+    "displayName": "Ciudad Capital Regional Central",
+    "population": 1180000,
+    "populationDensity": 4200,
+    "region": "Región Metropolitana",
+    "biome": "Matorral mediterráneo",
+    "elevationM": 540,
+    "sectorEmissions": {
+      "stationaryEnergy": 3850000,
+      "transportation": 4120000,
+      "waste": 680000,
+      "ippu": 215000,
+      "afolu": null
+    },
+    "totalEmissions": 8865000,
+    "topHazards": [
+      { "hazard": "heatwave", "riskScore": 0.82 },
+      { "hazard": "drought", "riskScore": 0.74 },
+      { "hazard": "wildfire", "riskScore": 0.69 }
+    ],
+    "statedSectorPriority": "transportation"
+  },
+  {
+    "cityId": "city_04",
+    "displayName": "Ciudad Portuaria del Centro",
+    "population": 320000,
+    "populationDensity": 2100,
+    "region": "Región de Valparaíso",
+    "biome": "Matorral mediterráneo costero",
+    "elevationM": 45,
+    "sectorEmissions": {
+      "stationaryEnergy": 1080000,
+      "transportation": 1340000,
+      "waste": 240000,
+      "ippu": 95000,
+      "afolu": null
+    },
+    "totalEmissions": 2755000,
+    "topHazards": [
+      { "hazard": "sealevelrise", "riskScore": 0.79 },
+      { "hazard": "wildfire", "riskScore": 0.66 },
+      { "hazard": "storm", "riskScore": 0.52 }
+    ],
+    "statedSectorPriority": "transportation"
+  },
+  {
+    "cityId": "city_05",
+    "displayName": "Ciudad Agroindustrial del Valle",
+    "population": 165000,
+    "populationDensity": 380,
+    "region": "Región de O'Higgins",
+    "biome": "Bosque esclerófilo",
+    "elevationM": 220,
+    "sectorEmissions": {
+      "stationaryEnergy": 540000,
+      "transportation": 470000,
+      "waste": 110000,
+      "ippu": null,
+      "afolu": 890000
+    },
+    "totalEmissions": 2010000,
+    "topHazards": [
+      { "hazard": "drought", "riskScore": 0.81 },
+      { "hazard": "wildfire", "riskScore": 0.58 },
+      { "hazard": "heatwave", "riskScore": 0.47 }
+    ],
+    "statedSectorPriority": "afolu"
+  },
+  {
+    "cityId": "city_06",
+    "displayName": "Ciudad Industrial del Maule",
+    "population": 230000,
+    "populationDensity": 950,
+    "region": "Región del Maule",
+    "biome": "Bosque esclerófilo",
+    "elevationM": 105,
+    "sectorEmissions": {
+      "stationaryEnergy": 920000,
+      "transportation": 760000,
+      "waste": 180000,
+      "ippu": 410000,
+      "afolu": null
+    },
+    "totalEmissions": 2270000,
+    "topHazards": [
+      { "hazard": "wildfire", "riskScore": 0.71 },
+      { "hazard": "drought", "riskScore": 0.59 },
+      { "hazard": "flood", "riskScore": 0.42 }
+    ],
+    "statedSectorPriority": "ippu"
+  },
+  {
+    "cityId": "city_07",
+    "displayName": "Ciudad Capital del Biobío",
+    "population": 510000,
+    "populationDensity": 1750,
+    "region": "Región del Biobío",
+    "biome": "Bosque templado costero",
+    "elevationM": 12,
+    "sectorEmissions": {
+      "stationaryEnergy": 1620000,
+      "transportation": 1480000,
+      "waste": 305000,
+      "ippu": 270000,
+      "afolu": null
+    },
+    "totalEmissions": 3675000,
+    "topHazards": [
+      { "hazard": "flood", "riskScore": 0.74 },
+      { "hazard": "sealevelrise", "riskScore": 0.65 },
+      { "hazard": "wildfire", "riskScore": 0.51 }
+    ],
+    "statedSectorPriority": "stationaryEnergy"
+  },
+  {
+    "cityId": "city_08",
+    "displayName": "Ciudad de La Frontera",
+    "population": 290000,
+    "populationDensity": 1180,
+    "region": "Región de La Araucanía",
+    "biome": "Bosque templado lluvioso valdiviano",
+    "elevationM": 115,
+    "sectorEmissions": {
+      "stationaryEnergy": 980000,
+      "transportation": 720000,
+      "waste": 195000,
+      "ippu": null,
+      "afolu": 420000
+    },
+    "totalEmissions": 2315000,
+    "topHazards": [
+      { "hazard": "flood", "riskScore": 0.69 },
+      { "hazard": "wildfire", "riskScore": 0.62 },
+      { "hazard": "landslide", "riskScore": 0.48 }
+    ],
+    "statedSectorPriority": null
+  },
+  {
+    "cityId": "city_09",
+    "displayName": "Ciudad Lacustre del Sur",
+    "population": 175000,
+    "populationDensity": 480,
+    "region": "Región de Los Lagos",
+    "biome": "Bosque siempreverde norpatagónico",
+    "elevationM": 60,
+    "sectorEmissions": {
+      "stationaryEnergy": 720000,
+      "transportation": 540000,
+      "waste": 130000,
+      "ippu": null,
+      "afolu": 380000
+    },
+    "totalEmissions": 1770000,
+    "topHazards": [
+      { "hazard": "flood", "riskScore": 0.66 },
+      { "hazard": "storm", "riskScore": 0.55 },
+      { "hazard": "landslide", "riskScore": 0.51 }
+    ],
+    "statedSectorPriority": "stationaryEnergy"
+  },
+  {
+    "cityId": "city_10",
+    "displayName": "Ciudad Austral",
+    "population": 135000,
+    "populationDensity": 320,
+    "region": "Región de Magallanes",
+    "biome": "Estepa patagónica",
+    "elevationM": 35,
+    "sectorEmissions": {
+      "stationaryEnergy": 880000,
+      "transportation": 410000,
+      "waste": 95000,
+      "ippu": null,
+      "afolu": null
+    },
+    "totalEmissions": 1385000,
+    "topHazards": [
+      { "hazard": "storm", "riskScore": 0.72 },
+      { "hazard": "sealevelrise", "riskScore": 0.49 },
+      { "hazard": "drought", "riskScore": 0.38 }
+    ],
+    "statedSectorPriority": "stationaryEnergy"
+  }
+]

@@ -1,0 +1,85 @@
+// MEED+ Track A validation app schema.
+// Hews to Section 4 of the spec. Adds MagicToken for admin-distributed magic links
+// (we are not using NextAuth's email-provider adapter — Carlos sends emails manually).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Expert {
+  id                   String       @id // matches experts.json expertId
+  email                String       @unique
+  fullName             String
+  sectorSpecialization String?
+  preferredCityIds     String?      // comma-separated, set during intake
+  consentedAt          DateTime?
+  completedAt          DateTime?
+  assignments          Assignment[]
+  evaluations          Evaluation[]
+  magicTokens          MagicToken[]
+}
+
+model Assignment {
+  id         String   @id @default(cuid())
+  expertId   String
+  cityId     String
+  assignedAt DateTime @default(now())
+  expert     Expert   @relation(fields: [expertId], references: [id], onDelete: Cascade)
+
+  @@unique([expertId, cityId])
+}
+
+model Evaluation {
+  id             String       @id @default(cuid())
+  expertId       String
+  cityId         String
+  startedAt      DateTime     @default(now())
+  submittedAt    DateTime?
+  timeOnTaskSec  Int?
+  missingActions String?      // JSON array of strings, max 3
+  cityComment    String?
+  expert         Expert       @relation(fields: [expertId], references: [id], onDelete: Cascade)
+  ratings        Rating[]
+  reorderTop5    ReorderTop5?
+
+  @@unique([expertId, cityId])
+}
+
+model Rating {
+  id           String     @id @default(cuid())
+  evaluationId String
+  actionId     String
+  modelRank    Int        // 1–10, snapshotted at rating time
+  likert       Int        // 1–5
+  notSure      Boolean    @default(false)
+  ratedAt      DateTime   @default(now())
+  evaluation   Evaluation @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+
+  @@unique([evaluationId, actionId])
+}
+
+model ReorderTop5 {
+  id               String     @id @default(cuid())
+  evaluationId     String     @unique
+  orderedActionIds String     // JSON array of 5 actionIds in expert's order
+  evaluation       Evaluation @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
+}
+
+// One-shot magic link tokens. Admin generates these in the dashboard and pastes them into
+// emails sent from Carlos's account. Tokens are single-use and expire after MAGIC_LINK_TTL_MIN.
+model MagicToken {
+  id        String    @id @default(cuid())
+  token     String    @unique
+  expertId  String
+  createdAt DateTime  @default(now())
+  expiresAt DateTime
+  usedAt    DateTime?
+  expert    Expert    @relation(fields: [expertId], references: [id], onDelete: Cascade)
+
+  @@index([expertId])
+}

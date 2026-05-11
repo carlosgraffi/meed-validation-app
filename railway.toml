@@ -1,0 +1,30 @@
+# Railway deployment configuration.
+#
+# Before deploying:
+#   1. Create a new Railway project, "Deploy from GitHub repo".
+#   2. Add a Volume to the service, mount path: /data
+#   3. Set environment variables in the Railway dashboard:
+#        DATABASE_URL=file:/data/meed.db
+#        NEXTAUTH_SECRET=<run `openssl rand -base64 32`>
+#        NEXTAUTH_URL=https://<your-service>.up.railway.app
+#        ADMIN_EMAIL=<your admin email>
+#        MAGIC_LINK_TTL_MIN=10080
+#   4. The first deploy creates the empty DB at /data/meed.db. After it boots,
+#      run `npx prisma db push` and `npm run seed` against the prod URL —
+#      simplest is via `railway run`:
+#        railway run npx prisma db push
+#        railway run npm run seed
+#
+# Backups: SQLite file is on the persisted volume; snapshot the volume on a
+# cadence via Railway dashboard before the validation window opens.
+
+[build]
+builder = "NIXPACKS"
+buildCommand = "npm install && npx prisma generate && npx prisma db push --skip-generate && npm run build"
+
+[deploy]
+startCommand = "node node_modules/next/dist/bin/next start -p $PORT"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
