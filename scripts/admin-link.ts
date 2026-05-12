@@ -39,9 +39,10 @@ async function main() {
   });
 
   console.log("");
-  console.log("Admin magic link:");
+  console.log("======================== ADMIN MAGIC LINK ========================");
   console.log(`  ${baseUrl}/auth/magic/${token}`);
-  console.log(`  (expires ${expiresAt.toISOString()})`);
+  console.log(`  expires ${expiresAt.toISOString()}`);
+  console.log("==================================================================");
   console.log("");
 }
 

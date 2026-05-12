@@ -26,8 +26,9 @@ builder = "NIXPACKS"
 buildCommand = "npm install && npx prisma generate && npm run build"
 
 [deploy]
-# Sync schema with the volume-backed SQLite, then launch Next.
-startCommand = "npx prisma db push --skip-generate --accept-data-loss && node node_modules/next/dist/bin/next start -p $PORT"
+# Sync schema with the volume-backed SQLite, seed experts (idempotent),
+# print a fresh admin magic link to logs, then launch Next.
+startCommand = "npx prisma db push --skip-generate --accept-data-loss && npx tsx prisma/seed.ts --stratify && npx tsx scripts/admin-link.ts && node node_modules/next/dist/bin/next start -p $PORT"
 healthcheckPath = "/"
 healthcheckTimeout = 100
 restartPolicyType = "ON_FAILURE"
