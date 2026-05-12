@@ -1,7 +1,15 @@
+import { timingSafeEqual } from "node:crypto";
 import type { NextAuthOptions, Session, User } from "next-auth";
 import type { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "./db";
+
+function constantTimeEquals(a: string, b: string): boolean {
+  const ab = Buffer.from(a);
+  const bb = Buffer.from(b);
+  if (ab.length !== bb.length) return false;
+  return timingSafeEqual(ab, bb);
+}
 
 export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt", maxAge: 60 * 60 * 24 * 14 }, // 2 weeks
@@ -34,6 +42,27 @@ export const authOptions: NextAuthOptions = {
           email: record.expert.email,
           name: record.expert.fullName,
         };
+      },
+    }),
+    // Admin password login — Carlos has a permanent /admin URL gated by a password,
+    // rather than needing a fresh magic link every time.
+    CredentialsProvider({
+      id: "admin-password",
+      name: "Admin Password",
+      credentials: { password: { label: "Password", type: "password" } },
+      async authorize(credentials) {
+        const expected = process.env.ADMIN_PASSWORD;
+        const adminEmail = process.env.ADMIN_EMAIL?.toLowerCase();
+        if (!expected || !adminEmail) return null;
+        const supplied = credentials?.password;
+        if (!supplied || typeof supplied !== "string") return null;
+        if (!constantTimeEquals(supplied, expected)) return null;
+
+        const admin = await prisma.expert.findUnique({
+          where: { email: adminEmail },
+        });
+        if (!admin) return null;
+        return { id: admin.id, email: admin.email, name: admin.fullName };
       },
     }),
   ],

@@ -81,13 +81,22 @@ Open the URL printed by `admin-link.ts` to log in as admin. From the admin dashb
 
 ## How auth works (no email provider needed)
 
-The spec called for an email provider, but you asked to skip it and send invitations manually. The wiring is:
+The spec called for an email provider, but you asked to skip it and send invitations manually. There are two auth paths.
 
-1. **Magic-link generation** lives in the admin dashboard. The admin clicks **Generate** next to an expert and gets a single-use URL like `/auth/magic/<random-32-byte-token>`. Tokens default to a 7-day TTL (`MAGIC_LINK_TTL_MIN`).
-2. **Carlos copies the URL** into a manually-sent email.
-3. **Expert clicks the link.** The `auth/magic/[token]` page calls NextAuth's `signIn("magic", { token })`. The Credentials provider in `lib/auth.ts` validates the token, marks it `usedAt`, and creates a JWT session.
-4. **Session is a JWT cookie** with the expert's id, name, email, and an `isAdmin` flag derived from `ADMIN_EMAIL`. Sessions last 2 weeks.
-5. The landing page (`/`) accepts an email and creates a magic token. The expert sees a "check your email" confirmation. Carlos sees the new token in the admin dashboard's **Magic links** section and forwards it manually if/when they ask.
+### Experts: magic-link auth
+1. **Magic-link generation** lives in the admin dashboard. Click **Generate** next to an expert and copy the single-use URL like `/auth/magic/<random-32-byte-token>`. Tokens default to a 7-day TTL (`MAGIC_LINK_TTL_MIN`).
+2. **Carlos pastes the URL** into a manually-sent email.
+3. **Expert clicks the link.** The `auth/magic/[token]` page calls NextAuth's `signIn("magic", { token })`. The Credentials provider validates the token, marks it `usedAt`, and creates a JWT session.
+4. **Session is a JWT cookie** lasting 2 weeks.
+5. The landing page (`/`) accepts an email and creates a magic token. The expert sees a "check your email" confirmation. Carlos sees the new token in the admin dashboard's **Magic links** section.
+
+### Admin: password auth
+The admin uses a permanent URL with a password — no per-session magic link.
+
+1. **Set `ADMIN_PASSWORD`** in your env (local `.env` or Railway service variables).
+2. **Visit `/admin/login`** at any time. Enter the password. You're in for 2 weeks.
+3. **The `/admin` URL** redirects to `/admin/login` if you're not signed in, and to the dashboard if you are.
+4. The bootstrap admin-link script (`scripts/admin-link.ts`, auto-run on Railway boot and printed to logs) still works as a fallback if you forget the password or want a one-off URL.
 
 ## Stratification
 
