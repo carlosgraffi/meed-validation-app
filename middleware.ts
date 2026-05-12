@@ -4,8 +4,8 @@ import { getToken } from "next-auth/jwt";
 
 const PROTECTED_PREFIXES = ["/dashboard", "/onboarding", "/evaluate", "/complete"];
 const ADMIN_PREFIXES = ["/admin"];
-// /admin/login is a public page (the login form itself) — must not be guarded.
-const PUBLIC_ADMIN_PATHS = ["/admin/login"];
+// The login forms themselves are public — must not be guarded.
+const PUBLIC_ADMIN_PATHS = ["/admin/login", "/demo/login"];
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -49,5 +49,12 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/onboarding/:path*", "/evaluate/:path*", "/complete/:path*", "/admin/:path*"],
+  matcher: [
+    "/dashboard/:path*",
+    "/onboarding/:path*",
+    "/evaluate/:path*",
+    "/complete/:path*",
+    "/admin/:path*",
+    "/demo/:path*",
+  ],
 };

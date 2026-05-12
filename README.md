@@ -98,6 +98,18 @@ The admin uses a permanent URL with a password — no per-session magic link.
 3. **The `/admin` URL** redirects to `/admin/login` if you're not signed in, and to the dashboard if you are.
 4. The bootstrap admin-link script (`scripts/admin-link.ts`, auto-run on Railway boot and printed to logs) still works as a fallback if you forget the password or want a one-off URL.
 
+### Demo: password auth (sandbox expert)
+For testing the expert flow without burning real magic-link tokens:
+
+1. **Set `DEMO_PASSWORD`** in your env.
+2. **Visit `/demo/login`** and enter the password. You're signed in as a dedicated demo expert (id `demo`, separate from the 13 real experts).
+3. The demo expert is pre-assigned to 3 cities (`city_03`, `city_05`, `city_10`) so you see a realistic mix of profiles.
+4. **Demo evaluations are filtered out** of `computedMetrics` and the JSON export. They never pollute the real CORFO data.
+5. The demo state persists across reseeds — Carlos's draft ratings stay until manually cleared.
+
+### Magic-link reusability
+Magic links are valid for **multiple uses** within their TTL (default 7 days). If an expert closes a tab, gets logged out, or shares devices, the same URL still works. The admin can explicitly revoke a link by clicking **Regenerate** in the admin dashboard — the previous URL becomes invalid immediately.
+
 ## Stratification
 
 `lib/stratification.ts` is deterministic and idempotent. Given the same 13 experts and 10 cities, it always produces the same 52 assignments:

@@ -28,14 +28,11 @@ export const authOptions: NextAuthOptions = {
           include: { expert: true },
         });
         if (!record) return null;
+        // `usedAt` is now a revocation flag (admin sets it when regenerating a
+        // link), NOT a single-use marker. Experts can use the same link multiple
+        // times until the link expires or admin regenerates.
         if (record.usedAt) return null;
         if (record.expiresAt < new Date()) return null;
-
-        // Single-use: mark consumed.
-        await prisma.magicToken.update({
-          where: { id: record.id },
-          data: { usedAt: new Date() },
-        });
 
         return {
           id: record.expertId,
@@ -44,8 +41,7 @@ export const authOptions: NextAuthOptions = {
         };
       },
     }),
-    // Admin password login — Carlos has a permanent /admin URL gated by a password,
-    // rather than needing a fresh magic link every time.
+    // Admin password login — permanent /admin URL gated by ADMIN_PASSWORD.
     CredentialsProvider({
       id: "admin-password",
       name: "Admin Password",
@@ -63,6 +59,25 @@ export const authOptions: NextAuthOptions = {
         });
         if (!admin) return null;
         return { id: admin.id, email: admin.email, name: admin.fullName };
+      },
+    }),
+    // Demo expert login — permanent /demo URL gated by DEMO_PASSWORD. Logs in as
+    // a dedicated demo expert (id "demo") whose evaluations are excluded from
+    // metrics and the export so they don't pollute real validation data.
+    CredentialsProvider({
+      id: "demo-password",
+      name: "Demo Expert Password",
+      credentials: { password: { label: "Password", type: "password" } },
+      async authorize(credentials) {
+        const expected = process.env.DEMO_PASSWORD;
+        if (!expected) return null;
+        const supplied = credentials?.password;
+        if (!supplied || typeof supplied !== "string") return null;
+        if (!constantTimeEquals(supplied, expected)) return null;
+
+        const demo = await prisma.expert.findUnique({ where: { id: "demo" } });
+        if (!demo) return null;
+        return { id: demo.id, email: demo.email, name: demo.fullName };
       },
     }),
   ],

@@ -6,12 +6,17 @@
  * (derived from /data/model_outputs.json).
  */
 import { prisma } from "./db";
-import { loadModelOutputs } from "./fixtures";
+import { loadExperts, loadModelOutputs } from "./fixtures";
 import { computeMetrics, type MetricsOutput } from "./metrics";
 
 export async function computeLiveMetrics(): Promise<MetricsOutput> {
+  // Only fixture experts count toward the CORFO metric — exclude admin + demo accounts.
+  const fixtureExpertIds = loadExperts().map((e) => e.expertId);
   const evals = await prisma.evaluation.findMany({
-    where: { submittedAt: { not: null } },
+    where: {
+      submittedAt: { not: null },
+      expertId: { in: fixtureExpertIds },
+    },
     include: { ratings: true, reorderTop5: true },
   });
   const outputs = loadModelOutputs();

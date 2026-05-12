@@ -82,6 +82,31 @@ async function main() {
     console.warn("  ! ADMIN_EMAIL not set — no admin login will work");
   }
 
+  // Demo expert — a single dedicated test account, separate from the 13 real
+  // experts. Pre-assigned 3 cities covering different profiles so Carlos can
+  // demo the flow without going through admin every time. Demo evaluations are
+  // filtered out of metrics + export (see lib/admin-metrics.ts and the export route).
+  console.log("→ Upserting demo expert…");
+  await prisma.expert.upsert({
+    where: { id: "demo" },
+    create: {
+      id: "demo",
+      email: "demo@meed.local",
+      fullName: "Demo Expert (sandbox)",
+      sectorSpecialization: "Transversal",
+    },
+    update: {}, // preserve state across reseeds
+  });
+  const demoCities = ["city_03", "city_05", "city_10"];
+  for (const cityId of demoCities) {
+    await prisma.assignment.upsert({
+      where: { expertId_cityId: { expertId: "demo", cityId } },
+      create: { expertId: "demo", cityId },
+      update: {},
+    });
+  }
+  console.log(`  ok — demo expert assigned to ${demoCities.length} cities`);
+
   if (doStratify) {
     console.log("→ Running stratification…");
     const { stratify } = await import("../lib/stratification");

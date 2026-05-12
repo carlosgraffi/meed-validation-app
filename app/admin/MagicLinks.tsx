@@ -51,8 +51,10 @@ export function MagicLinks({
           <div>
             <CardTitle>Magic links (for manual send)</CardTitle>
             <CardDescription>
-              Generate a single-use login link per expert. Carlos pastes the URL into the invitation
-              email he sends from his own account. Links expire after 7 days by default.
+              Generate a reusable login link per expert. Paste the URL into the invitation
+              email you send from your own account. Each link is valid for 7 days and can
+              be used multiple times within that window. Clicking <b>Regenerate</b> invalidates
+              the previous URL immediately.
             </CardDescription>
           </div>
           <Button variant="outline" onClick={generateAll} disabled={busy === "__all__"}>
