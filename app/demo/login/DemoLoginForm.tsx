@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { LangToggle } from "@/components/LangToggle";
 
 export function DemoLoginForm() {
   const router = useRouter();
@@ -33,6 +34,9 @@ export function DemoLoginForm() {
 
   return (
     <main className="min-h-screen flex items-center justify-center p-6">
+      <div className="absolute top-4 right-4">
+        <LangToggle />
+      </div>
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle>Demo expert sign in</CardTitle>

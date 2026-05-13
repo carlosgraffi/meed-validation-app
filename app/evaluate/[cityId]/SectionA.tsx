@@ -3,11 +3,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { formatNumber, formatEmissions, t } from "@/lib/utils";
+import { formatNumber, formatEmissions } from "@/lib/utils";
+import { useT } from "@/app/LangProvider";
 import type { City } from "@/lib/fixtures";
 import { EmissionsChart } from "./EmissionsChart";
 
 export function SectionA({ city, onContinue }: { city: City; onContinue: () => void }) {
+  const t = useT();
   const total = city.totalEmissions;
   const sectors = [
     { key: "stationaryEnergy", value: city.sectorEmissions.stationaryEnergy },

@@ -1,9 +1,10 @@
 "use client";
 
 import { signOut } from "next-auth/react";
-import { t } from "@/lib/utils";
+import { useT } from "@/app/LangProvider";
 
 export function SignOutLink() {
+  const t = useT();
   return (
     <button
       onClick={() => signOut({ callbackUrl: "/" })}

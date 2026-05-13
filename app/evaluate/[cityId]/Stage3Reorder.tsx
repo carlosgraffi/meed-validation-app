@@ -21,7 +21,8 @@ import { GripVertical } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { cn, t } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { useT } from "@/app/LangProvider";
 import type { RankedAction } from "./page";
 
 /**
@@ -44,6 +45,7 @@ export function Stage3Reorder({
   onReset: () => void;
   readOnly?: boolean;
 }) {
+  const t = useT();
   const orderIds: string[] = (() => {
     if (customOrder && customOrder.length === 5) return customOrder;
     return modelTop5.map((r) => r.action.actionId);

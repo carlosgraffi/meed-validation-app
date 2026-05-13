@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { t } from "@/lib/utils";
+import { useT } from "@/app/LangProvider";
 
 const MAX = 1000;
 
@@ -16,6 +16,7 @@ export function SectionE({
   onBlur: (next: string) => void;
   disabled?: boolean;
 }) {
+  const t = useT();
   const [local, setLocal] = useState(comment);
 
   return (

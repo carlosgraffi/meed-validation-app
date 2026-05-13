@@ -10,7 +10,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { PillarDisclosure } from "@/components/PillarDisclosure";
-import { cn, t } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { useT } from "@/app/LangProvider";
 
 const SECTORS = ["energia", "transporte", "residuos", "ippu", "afolu", "transversal", "otro"] as const;
 
@@ -28,6 +29,7 @@ type CityRow = {
 };
 
 export function OnboardingForm({ expert, cities }: { expert: Expert; cities: CityRow[] }) {
+  const t = useT();
   const router = useRouter();
   const [consent, setConsent] = useState(false);
   const [name, setName] = useState(expert.fullName);

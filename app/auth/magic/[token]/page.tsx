@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useParams, useRouter } from "next/navigation";
-import { t } from "@/lib/utils";
+import { useT } from "@/app/LangProvider";
 
 export default function MagicConsume() {
+  const t = useT();
   const params = useParams<{ token: string }>();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);

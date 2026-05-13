@@ -5,12 +5,14 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { t } from "@/lib/utils";
+import { getServerT } from "@/lib/i18n-server";
+import { LangToggle } from "@/components/LangToggle";
 import { SignOutLink } from "../dashboard/SignOutLink";
 
 export const dynamic = "force-dynamic";
 
 export default async function CompletePage() {
+  const t = getServerT();
   const session = await getServerSession(authOptions);
   if (!session) redirect("/");
   if (session.user.isAdmin) redirect("/admin");
@@ -31,7 +33,10 @@ export default async function CompletePage() {
             <Button asChild variant="outline">
               <Link href="/dashboard">{t("complete.backHome")}</Link>
             </Button>
-            <SignOutLink />
+            <div className="flex items-center gap-3">
+              <LangToggle />
+              <SignOutLink />
+            </div>
           </div>
         </CardContent>
       </Card>

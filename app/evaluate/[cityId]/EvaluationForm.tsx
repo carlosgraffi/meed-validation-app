@@ -1,17 +1,18 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { PillarDisclosure } from "@/components/PillarDisclosure";
-import { cn, t } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { useT } from "@/app/LangProvider";
 import type { City } from "@/lib/fixtures";
 import { SectionA } from "./SectionA";
 import { SectionC } from "./SectionC";
 import { SectionE } from "./SectionE";
 import { StageRating, type RatingMap } from "./StageRating";
 import { Stage3Reorder } from "./Stage3Reorder";
+import { StageSection } from "./StageSection";
 import type { RankedAction, Stage } from "./page";
 
 export type Initial = {
@@ -25,13 +26,15 @@ export type Initial = {
   cityComment: string;
 };
 
-const STAGE_INDEX: Record<Stage, number> = {
+// Linear ordering of the stage pipeline. Used to compute stage state ("active"
+// vs "complete") for the StageSection wrapper.
+const STAGE_RANK: Record<Stage, number> = {
   stage1: 1,
   stage2: 2,
-  sectionC: 2,
-  stage3: 3,
-  sectionE: 3,
-  complete: 3,
+  sectionC: 3,
+  stage3: 4,
+  sectionE: 5,
+  complete: 6,
 };
 
 const NEXT_STAGE: Record<Stage, Stage> = {
@@ -42,6 +45,13 @@ const NEXT_STAGE: Record<Stage, Stage> = {
   sectionE: "complete",
   complete: "complete",
 };
+
+// Top-of-page progress indicator. 3 dots for Stage 1/2/3; Sections C/E
+// are minor side-tasks that don't get their own dot, but they do count
+// toward the overall progress when displayed in the badge.
+function topLevelStageIndex(s: Stage): number {
+  return { stage1: 1, stage2: 2, sectionC: 2, stage3: 3, sectionE: 3, complete: 3 }[s];
+}
 
 export function EvaluationForm({
   city,
@@ -56,6 +66,7 @@ export function EvaluationForm({
   stage2Order: RankedAction[];
   initial: Initial;
 }) {
+  const t = useT();
   const router = useRouter();
   const [currentStage, setCurrentStage] = useState<Stage>(initial.currentStage);
   const [top3Ratings, setTop3Ratings] = useState<RatingMap>(initial.top3Ratings);
@@ -69,7 +80,6 @@ export function EvaluationForm({
   const [stageError, setStageError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
-  // Debounced patch helper.
   const patchTimer = useRef<NodeJS.Timeout | null>(null);
   const pending = useRef<Record<string, unknown>>({});
   const flushPending = async () => {
@@ -108,7 +118,6 @@ export function EvaluationForm({
     }, 500);
   };
 
-  // Rating handlers — bound to the question being rated.
   const ratingChangeFor = (question: "top3" | "top10", target: typeof setTop3Ratings) =>
     (actionId: string, modelRank: number, likert: number) => {
       target((prev) => ({
@@ -137,7 +146,6 @@ export function EvaluationForm({
     }
   };
 
-  // Section C/E persistence.
   const onMissingBlur = (next: string[]) => {
     setMissing(next);
     sendPatch({ missingActions: next.filter((s) => s.trim().length > 0).slice(0, 3) });
@@ -155,7 +163,6 @@ export function EvaluationForm({
     sendPatch({ cityComment: next.slice(0, 1000) });
   };
 
-  // Validation per stage advance.
   const validateCurrent = (): string | null => {
     if (currentStage === "stage1") {
       const top3Actions = rankedActions.slice(0, 3);
@@ -170,7 +177,6 @@ export function EvaluationForm({
       ).length;
       if (missingCount > 0) return t("evaluate.validationMissingStage2");
     }
-    // sectionC, stage3, sectionE are optional → no blocking validation.
     return null;
   };
 
@@ -213,9 +219,13 @@ export function EvaluationForm({
     router.refresh();
   };
 
-  const stageIndex = STAGE_INDEX[currentStage];
-  const stageDone = (s: Stage) => stageRank(currentStage) > stageRank(s);
-  const isReadOnly = (s: Stage) => initial.submitted || stageDone(s);
+  const stageState = (s: Stage): "active" | "complete" =>
+    STAGE_RANK[currentStage] > STAGE_RANK[s] ? "complete" : "active";
+
+  // Summary strings for collapsed stage headers.
+  const stage1Rated = Object.values(top3Ratings).filter((r) => r.likert >= 1).length;
+  const stage2Rated = Object.values(top10Ratings).filter((r) => r.likert >= 1).length;
+  const missingFilled = missing.filter((s) => s.trim().length > 0).length;
 
   return (
     <main className="min-h-screen p-6 max-w-4xl mx-auto space-y-6 pb-32">
@@ -224,7 +234,7 @@ export function EvaluationForm({
           ← {t("common.back")}
         </Button>
         <div className="flex items-center gap-3">
-          <StageProgressIndicator current={stageIndex} />
+          <StageProgressIndicator current={topLevelStageIndex(currentStage)} />
           <AutosaveBadge state={autosaveState} />
         </div>
       </header>
@@ -234,56 +244,134 @@ export function EvaluationForm({
       <SectionA city={city} onContinue={() => {}} />
 
       {/* Stage 1 — top-3 set membership */}
-      <StageBlock readOnly={isReadOnly("stage1")}>
+      <StageSection
+        stageKey="stage1"
+        state={stageState("stage1")}
+        title={t("evaluate.stage1ShortTitle")}
+        subtitle={stageState("stage1") === "active" ? t("evaluate.stage1Intro") : undefined}
+        badge={
+          stageState("stage1") === "active"
+            ? t("evaluate.stageCurrentBadge")
+            : t("evaluate.stageCompletedBadge")
+        }
+        summary={t("evaluate.stageSummaryRatings", {
+          rated: stage1Rated,
+          total: 3,
+        })}
+      >
         <StageRating
           question="top3"
           actions={stage1Order}
           ratings={top3Ratings}
           onRatingChange={ratingChangeFor("top3", setTop3Ratings)}
           onNotSureChange={notSureChangeFor("top3", setTop3Ratings, top3Ratings)}
-          readOnly={isReadOnly("stage1")}
+          readOnly={stageState("stage1") === "complete"}
         />
-      </StageBlock>
+      </StageSection>
 
-      {/* Stage 2 — top-10 set membership (visible only once stage 1 advanced) */}
-      {stageRank(currentStage) >= 2 && (
-        <StageBlock readOnly={isReadOnly("stage2")}>
+      {/* Stage 2 — top-10 set membership (visible only once Stage 1 advanced) */}
+      {STAGE_RANK[currentStage] >= 2 && (
+        <StageSection
+          stageKey="stage2"
+          state={stageState("stage2")}
+          title={t("evaluate.stage2ShortTitle")}
+          subtitle={stageState("stage2") === "active" ? t("evaluate.stage2Intro") : undefined}
+          badge={
+            stageState("stage2") === "active"
+              ? t("evaluate.stageCurrentBadge")
+              : t("evaluate.stageCompletedBadge")
+          }
+          summary={t("evaluate.stageSummaryRatings", {
+            rated: stage2Rated,
+            total: 10,
+          })}
+        >
           <StageRating
             question="top10"
             actions={stage2Order}
             ratings={top10Ratings}
             onRatingChange={ratingChangeFor("top10", setTop10Ratings)}
             onNotSureChange={notSureChangeFor("top10", setTop10Ratings, top10Ratings)}
-            readOnly={isReadOnly("stage2")}
+            readOnly={stageState("stage2") === "complete"}
           />
-        </StageBlock>
+        </StageSection>
       )}
 
-      {/* Section C — missing actions (between Stage 2 and Stage 3) */}
-      {stageRank(currentStage) >= 3 && (
-        <StageBlock readOnly={isReadOnly("sectionC")}>
-          <SectionC missing={missing} onChange={onMissingBlur} disabled={isReadOnly("sectionC")} />
-        </StageBlock>
+      {/* Section C — missing actions */}
+      {STAGE_RANK[currentStage] >= 3 && (
+        <StageSection
+          stageKey="sectionC"
+          state={stageState("sectionC")}
+          title={t("evaluate.sectionCShortTitle")}
+          subtitle={stageState("sectionC") === "active" ? t("evaluate.sectionCsubtitle") : undefined}
+          badge={
+            stageState("sectionC") === "active"
+              ? t("common.optional")
+              : t("evaluate.stageCompletedBadge")
+          }
+          summary={t("evaluate.stageSummaryMissing", { count: missingFilled })}
+        >
+          <SectionC
+            missing={missing}
+            onChange={onMissingBlur}
+            disabled={stageState("sectionC") === "complete"}
+          />
+        </StageSection>
       )}
 
-      {/* Stage 3 — reorder top 5 (ranks revealed) */}
-      {stageRank(currentStage) >= 4 && (
-        <StageBlock readOnly={isReadOnly("stage3")}>
+      {/* Stage 3 — reorder */}
+      {STAGE_RANK[currentStage] >= 4 && (
+        <StageSection
+          stageKey="stage3"
+          state={stageState("stage3")}
+          title={t("evaluate.stage3ShortTitle")}
+          subtitle={stageState("stage3") === "active" ? t("evaluate.stage3Intro") : undefined}
+          badge={
+            stageState("stage3") === "active"
+              ? t("evaluate.stageCurrentBadge")
+              : t("evaluate.stageCompletedBadge")
+          }
+          summary={t("evaluate.stageSummaryReorder", {
+            state: reorder
+              ? t("evaluate.stageSummaryReorderModified")
+              : t("evaluate.stageSummaryReorderUnchanged"),
+          })}
+        >
           <Stage3Reorder
             modelTop5={rankedActions.slice(0, 5)}
             customOrder={reorder}
             onChange={onReorder}
             onReset={onReorderReset}
-            readOnly={isReadOnly("stage3")}
+            readOnly={stageState("stage3") === "complete"}
           />
-        </StageBlock>
+        </StageSection>
       )}
 
       {/* Section E — comments */}
-      {stageRank(currentStage) >= 5 && (
-        <StageBlock readOnly={isReadOnly("sectionE")}>
-          <SectionE comment={comment} onBlur={onCommentBlur} disabled={isReadOnly("sectionE")} />
-        </StageBlock>
+      {STAGE_RANK[currentStage] >= 5 && (
+        <StageSection
+          stageKey="sectionE"
+          state={stageState("sectionE")}
+          title={t("evaluate.sectionEShortTitle")}
+          subtitle={stageState("sectionE") === "active" ? t("evaluate.sectionEsubtitle") : undefined}
+          badge={
+            stageState("sectionE") === "active"
+              ? t("common.optional")
+              : t("evaluate.stageCompletedBadge")
+          }
+          summary={t("evaluate.stageSummaryComment", {
+            state:
+              comment.trim().length > 0
+                ? t("evaluate.stageSummaryCommentFilled")
+                : t("evaluate.stageSummaryCommentEmpty"),
+          })}
+        >
+          <SectionE
+            comment={comment}
+            onBlur={onCommentBlur}
+            disabled={stageState("sectionE") === "complete"}
+          />
+        </StageSection>
       )}
 
       <footer className="fixed bottom-0 left-0 right-0 border-t bg-background/95 backdrop-blur p-4">
@@ -321,33 +409,8 @@ export function EvaluationForm({
   );
 }
 
-// Rank within the linear stage sequence. 1=stage1, 2=stage2, 3=sectionC, 4=stage3, 5=sectionE, 6=complete.
-function stageRank(s: Stage): number {
-  return { stage1: 1, stage2: 2, sectionC: 3, stage3: 4, sectionE: 5, complete: 6 }[s];
-}
-
-function StageBlock({
-  readOnly,
-  children,
-}: {
-  readOnly: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="space-y-2">
-      {readOnly && (
-        <Card className="border-muted bg-muted/30">
-          <CardContent className="p-3 text-xs text-muted-foreground">
-            {t("evaluate.stageReadOnlyBanner")}
-          </CardContent>
-        </Card>
-      )}
-      {children}
-    </section>
-  );
-}
-
 function StageProgressIndicator({ current }: { current: number }) {
+  const t = useT();
   return (
     <div className="flex items-center gap-1.5 text-xs">
       <span className="text-muted-foreground">{t("evaluate.stageProgress", { current })}</span>
@@ -368,6 +431,7 @@ function StageProgressIndicator({ current }: { current: number }) {
 }
 
 function AutosaveBadge({ state }: { state: "idle" | "saving" | "saved" | "error" }) {
+  const t = useT();
   if (state === "idle") return null;
   const label =
     state === "saving"

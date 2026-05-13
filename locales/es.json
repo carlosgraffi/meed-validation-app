@@ -18,6 +18,11 @@
     "yes": "Sí",
     "no": "No"
   },
+  "lang": {
+    "toggle": "Idioma",
+    "es": "Español",
+    "en": "English"
+  },
   "landing": {
     "title": "MEED+ — Validación de Expertos",
     "intro1": "La Open Earth Foundation (OEF) y SSG, en el marco del contrato CORFO, están validando el modelo MEED+ de priorización de acciones climáticas para municipios chilenos.",
@@ -102,6 +107,21 @@
     "stageProgress": "Etapa {{current}} de 3",
     "stageReadOnlyBanner": "Etapa completada — ya no se puede modificar.",
     "stageContinue": "Continuar a la siguiente etapa",
+    "stageCurrentBadge": "Etapa actual",
+    "stageCompletedBadge": "Completada",
+    "stageSummaryRatings": "{{rated}} de {{total}} acciones evaluadas",
+    "stageSummaryReorder": "Reordenamiento {{state}}",
+    "stageSummaryReorderModified": "modificado",
+    "stageSummaryReorderUnchanged": "sin cambios",
+    "stageSummaryMissing": "{{count}} acciones esperadas",
+    "stageSummaryComment": "Comentario {{state}}",
+    "stageSummaryCommentEmpty": "vacío",
+    "stageSummaryCommentFilled": "registrado",
+    "stage1ShortTitle": "Top 3 — ¿son las prioritarias?",
+    "stage2ShortTitle": "Top 10 — ¿son las recomendadas?",
+    "stage3ShortTitle": "Orden del top 5",
+    "sectionCShortTitle": "Acciones faltantes",
+    "sectionEShortTitle": "Comentarios",
     "sectionAtitle": "A. Contexto de la ciudad",
     "sectionAsubtitle": "Lee brevemente el contexto de la ciudad antes de evaluar las acciones recomendadas.",
     "populationLabel": "Población",

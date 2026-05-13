@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { PILLARS, PILLAR_KEYS, type PillarKey } from "@/lib/pillars";
-import { cn, t } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { useT } from "@/app/LangProvider";
 
 const PILLAR_COLORS: Record<PillarKey, string> = {
   impact: "bg-primary",
@@ -30,6 +31,7 @@ export function PillarDisclosure({
 }
 
 function FullVariant({ className }: { className?: string }) {
+  const t = useT();
   return (
     <section className={cn("rounded-lg border bg-card p-5 space-y-4", className)}>
       <header className="space-y-1">
@@ -57,6 +59,7 @@ function CompactVariant({
   expanded: boolean;
   onToggle: () => void;
 }) {
+  const t = useT();
   return (
     <section className={cn("rounded-lg border bg-muted/30 px-4 py-3 space-y-2", className)}>
       <div className="flex items-center justify-between gap-3">
@@ -109,6 +112,7 @@ function PillarRow({
   showDescription?: boolean;
   compact?: boolean;
 }) {
+  const t = useT();
   const weight = PILLARS[pillarKey].weight;
   return (
     <div className="space-y-1">

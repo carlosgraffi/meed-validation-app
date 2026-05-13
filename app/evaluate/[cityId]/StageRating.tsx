@@ -5,7 +5,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { cn, t } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { useT } from "@/app/LangProvider";
 import type { Action } from "@/lib/fixtures";
 import type { RankedAction } from "./page";
 
@@ -35,6 +36,7 @@ export function StageRating({
   onNotSureChange: (actionId: string, modelRank: number, notSure: boolean) => void;
   readOnly?: boolean;
 }) {
+  const t = useT();
   const titleKey = question === "top3" ? "evaluate.stage1Title" : "evaluate.stage2Title";
   const introKey = question === "top3" ? "evaluate.stage1Intro" : "evaluate.stage2Intro";
   const promptKey =
@@ -81,6 +83,7 @@ function ActionCard({
   onNotSureChange: (b: boolean) => void;
   disabled?: boolean;
 }) {
+  const t = useT();
   return (
     <div className="rounded-lg border border-input bg-card p-5">
       <div className="space-y-3">

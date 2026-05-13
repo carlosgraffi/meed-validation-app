@@ -5,15 +5,17 @@ import { signOut } from "next-auth/react";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { loadCities } from "@/lib/fixtures";
+import { getServerT } from "@/lib/i18n-server";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { t } from "@/lib/utils";
+import { LangToggle } from "@/components/LangToggle";
 import { SignOutLink } from "./SignOutLink";
 
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
+  const t = getServerT();
   const session = await getServerSession(authOptions);
   if (!session) redirect("/");
   if (session.user.isAdmin) redirect("/admin");
@@ -81,7 +83,10 @@ export default async function DashboardPage() {
           </h1>
           <p className="text-muted-foreground mt-1">{t("dashboard.subtitle")}</p>
         </div>
-        <SignOutLink />
+        <div className="flex items-center gap-3">
+          <LangToggle />
+          <SignOutLink />
+        </div>
       </header>
 
       <div className="flex items-center justify-between">
@@ -158,12 +163,14 @@ function dominantSectorOf(s: {
 }
 
 function StatusBadge({ status }: { status: "not_started" | "in_progress" | "completed" }) {
+  const t = getServerT();
   if (status === "completed") return <Badge variant="default">{t("dashboard.statusCompleted")}</Badge>;
   if (status === "in_progress") return <Badge variant="accent">{t("dashboard.statusInProgress")}</Badge>;
   return <Badge variant="outline">{t("dashboard.statusNotStarted")}</Badge>;
 }
 
 function actionLabel(status: "not_started" | "in_progress" | "completed"): string {
+  const t = getServerT();
   if (status === "completed") return t("dashboard.buttonReview");
   if (status === "in_progress") return t("dashboard.buttonContinue");
   return t("dashboard.buttonStart");

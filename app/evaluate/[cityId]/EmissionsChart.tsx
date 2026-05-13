@@ -1,7 +1,8 @@
 "use client";
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
-import { t, formatEmissions } from "@/lib/utils";
+import { formatEmissions } from "@/lib/utils";
+import { useT } from "@/app/LangProvider";
 
 const PALETTE = ["#0f766e", "#0e7490", "#65a30d", "#a16207", "#7c3aed"];
 
@@ -10,6 +11,7 @@ export function EmissionsChart({
 }: {
   sectors: { key: string; label: string; value: number | null }[];
 }) {
+  const t = useT();
   const total = sectors.reduce(
     (acc, s) => acc + (typeof s.value === "number" ? s.value : 0),
     0

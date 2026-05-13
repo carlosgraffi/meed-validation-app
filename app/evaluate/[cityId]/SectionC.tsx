@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { t } from "@/lib/utils";
+import { useT } from "@/app/LangProvider";
 
 export function SectionC({
   missing,
@@ -15,6 +15,7 @@ export function SectionC({
   onChange: (next: string[]) => void;
   disabled?: boolean;
 }) {
+  const t = useT();
   const [local, setLocal] = useState<string[]>(missing);
 
   const setIdx = (i: number, value: string) => {
