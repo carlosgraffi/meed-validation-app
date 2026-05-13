@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { PillarDisclosure } from "@/components/PillarDisclosure";
 import { cn } from "@/lib/utils";
@@ -13,6 +14,7 @@ import { SectionE } from "./SectionE";
 import { StageRating, type RatingMap } from "./StageRating";
 import { Stage3Reorder } from "./Stage3Reorder";
 import { StageSection } from "./StageSection";
+import { StageStepper } from "./StageStepper";
 import type { RankedAction, Stage } from "./page";
 
 export type Initial = {
@@ -229,12 +231,12 @@ export function EvaluationForm({
 
   return (
     <main className="min-h-screen p-6 max-w-4xl mx-auto space-y-6 pb-32">
-      <header className="flex items-center justify-between gap-3">
+      <header className="flex items-center justify-between gap-3 flex-wrap">
         <Button variant="ghost" size="sm" onClick={() => router.push("/dashboard")}>
           ← {t("common.back")}
         </Button>
-        <div className="flex items-center gap-3">
-          <StageProgressIndicator current={topLevelStageIndex(currentStage)} />
+        <div className="flex items-center gap-3 flex-1 justify-end">
+          <StageStepper current={topLevelStageIndex(currentStage) as 1 | 2 | 3} />
           <AutosaveBadge state={autosaveState} />
         </div>
       </header>
@@ -243,7 +245,11 @@ export function EvaluationForm({
 
       <SectionA city={city} onContinue={() => {}} />
 
+      <LayoutGroup>
+      <AnimatePresence initial={false} mode="popLayout">
+
       {/* Stage 1 — top-3 set membership */}
+      <SlideInOnMount key="stage1">
       <StageSection
         stageKey="stage1"
         state={stageState("stage1")}
@@ -268,9 +274,11 @@ export function EvaluationForm({
           readOnly={stageState("stage1") === "complete"}
         />
       </StageSection>
+      </SlideInOnMount>
 
       {/* Stage 2 — top-10 set membership (visible only once Stage 1 advanced) */}
       {STAGE_RANK[currentStage] >= 2 && (
+        <SlideInOnMount key="stage2">
         <StageSection
           stageKey="stage2"
           state={stageState("stage2")}
@@ -295,10 +303,12 @@ export function EvaluationForm({
             readOnly={stageState("stage2") === "complete"}
           />
         </StageSection>
+        </SlideInOnMount>
       )}
 
       {/* Section C — missing actions */}
       {STAGE_RANK[currentStage] >= 3 && (
+        <SlideInOnMount key="sectionC">
         <StageSection
           stageKey="sectionC"
           state={stageState("sectionC")}
@@ -317,10 +327,12 @@ export function EvaluationForm({
             disabled={stageState("sectionC") === "complete"}
           />
         </StageSection>
+        </SlideInOnMount>
       )}
 
       {/* Stage 3 — reorder */}
       {STAGE_RANK[currentStage] >= 4 && (
+        <SlideInOnMount key="stage3">
         <StageSection
           stageKey="stage3"
           state={stageState("stage3")}
@@ -345,10 +357,12 @@ export function EvaluationForm({
             readOnly={stageState("stage3") === "complete"}
           />
         </StageSection>
+        </SlideInOnMount>
       )}
 
       {/* Section E — comments */}
       {STAGE_RANK[currentStage] >= 5 && (
+        <SlideInOnMount key="sectionE">
         <StageSection
           stageKey="sectionE"
           state={stageState("sectionE")}
@@ -372,7 +386,11 @@ export function EvaluationForm({
             disabled={stageState("sectionE") === "complete"}
           />
         </StageSection>
+        </SlideInOnMount>
       )}
+
+      </AnimatePresence>
+      </LayoutGroup>
 
       <footer className="fixed bottom-0 left-0 right-0 border-t bg-background/95 backdrop-blur p-4">
         <div className="max-w-4xl mx-auto flex flex-col gap-2">
@@ -409,24 +427,28 @@ export function EvaluationForm({
   );
 }
 
-function StageProgressIndicator({ current }: { current: number }) {
-  const t = useT();
+/**
+ * Wraps each newly-mounted stage section with a "slide in from the right"
+ * entrance animation. Combined with the body's slide-out-left exit
+ * animation in StageSection, this gives a clear directional cue that we're
+ * advancing forward through the stages.
+ *
+ * Lives here rather than in StageSection.tsx because the entrance animation
+ * only applies on FIRST mount — when a stage advances from complete back to
+ * expanded (the user clicks the chevron), we don't want a slide animation,
+ * just the inline height transition handled by StageSection.
+ */
+function SlideInOnMount({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-1.5 text-xs">
-      <span className="text-muted-foreground">{t("evaluate.stageProgress", { current })}</span>
-      <span className="flex items-center gap-1 ml-1">
-        {[1, 2, 3].map((n) => (
-          <span
-            key={n}
-            className={cn(
-              "h-1.5 w-6 rounded-full",
-              n <= current ? "bg-primary" : "bg-muted"
-            )}
-            aria-hidden
-          />
-        ))}
-      </span>
-    </div>
+    <motion.div
+      layout
+      initial={{ opacity: 0, x: 40 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -40 }}
+      transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
   );
 }
 

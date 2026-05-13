@@ -105,6 +105,9 @@
   "evaluate": {
     "headerProgress": "Evaluation {{n}} of {{total}}",
     "stageProgress": "Stage {{current}} of 3",
+    "stepperLabel1": "Top 3",
+    "stepperLabel2": "Top 10",
+    "stepperLabel3": "Order",
     "stageReadOnlyBanner": "Stage completed — locked from edits.",
     "stageContinue": "Continue to next stage",
     "stageCurrentBadge": "Current stage",

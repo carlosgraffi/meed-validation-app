@@ -105,6 +105,9 @@
   "evaluate": {
     "headerProgress": "Evaluación {{n}} de {{total}}",
     "stageProgress": "Etapa {{current}} de 3",
+    "stepperLabel1": "Top 3",
+    "stepperLabel2": "Top 10",
+    "stepperLabel3": "Orden",
     "stageReadOnlyBanner": "Etapa completada — ya no se puede modificar.",
     "stageContinue": "Continuar a la siguiente etapa",
     "stageCurrentBadge": "Etapa actual",

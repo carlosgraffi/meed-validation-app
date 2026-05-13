@@ -1,24 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { Check, ChevronDown, ChevronUp, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-/**
- * Wraps each stage of the evaluation flow with a distinct, color-accented
- * header so the expert can tell which stage they're in at a glance.
- *
- * - `active`: rendered normally, color-accented border, prominent header
- * - `complete`: collapsed by default, color-accented border, "completada"
- *   badge + summary text; expandable on click for review
- * - `future`: not rendered at all (parent controls this)
- *
- * Color accent is per-stage to disambiguate Stage 1 (top-3 set membership)
- * from Stage 2 (top-10 set membership) visually — both look very similar
- * card-wise, so the colored header is the primary cue.
- */
 export type StageState = "active" | "complete";
 
 const STAGE_ACCENT: Record<string, string> = {
@@ -50,12 +38,11 @@ export function StageSection({
   state: StageState;
   title: string;
   subtitle?: string;
-  /** Top-right badge: e.g. "Etapa 1 de 3" for active, "Completada" for complete */
   badge: string;
-  /** Subtitle shown below the title when collapsed — usually completion summary */
   summary?: string;
   children: React.ReactNode;
 }) {
+  // For completed stages, default-collapse; user can toggle to expand.
   const [expanded, setExpanded] = useState(false);
   const isComplete = state === "complete";
   const showBody = state === "active" || expanded;
@@ -63,9 +50,10 @@ export function StageSection({
   const dot = STAGE_DOT[stageKey] ?? "bg-muted-foreground";
 
   return (
-    <section
+    <motion.section
+      layout
       className={cn(
-        "rounded-lg border bg-card border-l-4 transition-colors",
+        "rounded-lg border bg-card border-l-4 overflow-hidden",
         accent,
         state === "active" && "shadow-sm"
       )}
@@ -130,8 +118,25 @@ export function StageSection({
           )}
         </div>
       </header>
-      {showBody && <div className="p-5">{children}</div>}
-    </section>
+      <AnimatePresence initial={false} mode="wait">
+        {showBody && (
+          <motion.div
+            key={`${stageKey}-body`}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0, x: -40 }}
+            transition={{
+              height: { duration: 0.32, ease: [0.4, 0, 0.2, 1] },
+              opacity: { duration: 0.2 },
+              x: { duration: 0.32, ease: [0.4, 0, 0.2, 1] },
+            }}
+            style={{ overflow: "hidden" }}
+          >
+            <div className="p-5">{children}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.section>
   );
 }
 
@@ -143,10 +148,6 @@ function badgeNumber(stageKey: string): string {
       return "2";
     case "stage3":
       return "3";
-    case "sectionC":
-      return "·";
-    case "sectionE":
-      return "·";
     default:
       return "·";
   }
