@@ -41,6 +41,10 @@ model Evaluation {
   startedAt      DateTime     @default(now())
   submittedAt    DateTime?
   timeOnTaskSec  Int?
+  // Paginated three-stage flow: stage1 (top-3 set membership) → stage2 (top-10 set
+  // membership) → sectionC (missing actions) → stage3 (reorder top 5) → sectionE
+  // (comments) → complete. Each stage becomes read-only once advanced past.
+  currentStage   String       @default("stage1")
   missingActions String?      // JSON array of strings, max 3
   cityComment    String?
   expert         Expert       @relation(fields: [expertId], references: [id], onDelete: Cascade)
@@ -55,12 +59,16 @@ model Rating {
   evaluationId String
   actionId     String
   modelRank    Int        // 1–10, snapshotted at rating time
+  // 'top3' (Stage 1) or 'top10' (Stage 2). Top-3 actions get two rows — one per
+  // question — because symmetric questioning prevents Precision@10 bias from
+  // "this is top-3-worthy" judgments leaking into "is this top-10-worthy?".
+  question     String
   likert       Int        // 1–5
   notSure      Boolean    @default(false)
   ratedAt      DateTime   @default(now())
   evaluation   Evaluation @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
 
-  @@unique([evaluationId, actionId])
+  @@unique([evaluationId, actionId, question])
 }
 
 model ReorderTop5 {

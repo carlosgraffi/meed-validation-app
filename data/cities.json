@@ -15,11 +15,6 @@
       "afolu": null
     },
     "totalEmissions": 2340000,
-    "topHazards": [
-      { "hazard": "drought", "riskScore": 0.78 },
-      { "hazard": "sealevelrise", "riskScore": 0.61 },
-      { "hazard": "heatwave", "riskScore": 0.54 }
-    ],
     "statedSectorPriority": "stationaryEnergy"
   },
   {
@@ -38,11 +33,6 @@
       "afolu": null
     },
     "totalEmissions": 2175000,
-    "topHazards": [
-      { "hazard": "drought", "riskScore": 0.84 },
-      { "hazard": "heatwave", "riskScore": 0.48 },
-      { "hazard": "landslide", "riskScore": 0.41 }
-    ],
     "statedSectorPriority": "ippu"
   },
   {
@@ -61,11 +51,6 @@
       "afolu": null
     },
     "totalEmissions": 8865000,
-    "topHazards": [
-      { "hazard": "heatwave", "riskScore": 0.82 },
-      { "hazard": "drought", "riskScore": 0.74 },
-      { "hazard": "wildfire", "riskScore": 0.69 }
-    ],
     "statedSectorPriority": "transportation"
   },
   {
@@ -84,11 +69,6 @@
       "afolu": null
     },
     "totalEmissions": 2755000,
-    "topHazards": [
-      { "hazard": "sealevelrise", "riskScore": 0.79 },
-      { "hazard": "wildfire", "riskScore": 0.66 },
-      { "hazard": "storm", "riskScore": 0.52 }
-    ],
     "statedSectorPriority": "transportation"
   },
   {
@@ -107,11 +87,6 @@
       "afolu": 890000
     },
     "totalEmissions": 2010000,
-    "topHazards": [
-      { "hazard": "drought", "riskScore": 0.81 },
-      { "hazard": "wildfire", "riskScore": 0.58 },
-      { "hazard": "heatwave", "riskScore": 0.47 }
-    ],
     "statedSectorPriority": "afolu"
   },
   {
@@ -130,11 +105,6 @@
       "afolu": null
     },
     "totalEmissions": 2270000,
-    "topHazards": [
-      { "hazard": "wildfire", "riskScore": 0.71 },
-      { "hazard": "drought", "riskScore": 0.59 },
-      { "hazard": "flood", "riskScore": 0.42 }
-    ],
     "statedSectorPriority": "ippu"
   },
   {
@@ -153,11 +123,6 @@
       "afolu": null
     },
     "totalEmissions": 3675000,
-    "topHazards": [
-      { "hazard": "flood", "riskScore": 0.74 },
-      { "hazard": "sealevelrise", "riskScore": 0.65 },
-      { "hazard": "wildfire", "riskScore": 0.51 }
-    ],
     "statedSectorPriority": "stationaryEnergy"
   },
   {
@@ -176,11 +141,6 @@
       "afolu": 420000
     },
     "totalEmissions": 2315000,
-    "topHazards": [
-      { "hazard": "flood", "riskScore": 0.69 },
-      { "hazard": "wildfire", "riskScore": 0.62 },
-      { "hazard": "landslide", "riskScore": 0.48 }
-    ],
     "statedSectorPriority": null
   },
   {
@@ -199,11 +159,6 @@
       "afolu": 380000
     },
     "totalEmissions": 1770000,
-    "topHazards": [
-      { "hazard": "flood", "riskScore": 0.66 },
-      { "hazard": "storm", "riskScore": 0.55 },
-      { "hazard": "landslide", "riskScore": 0.51 }
-    ],
     "statedSectorPriority": "stationaryEnergy"
   },
   {
@@ -222,11 +177,6 @@
       "afolu": null
     },
     "totalEmissions": 1385000,
-    "topHazards": [
-      { "hazard": "storm", "riskScore": 0.72 },
-      { "hazard": "sealevelrise", "riskScore": 0.49 },
-      { "hazard": "drought", "riskScore": 0.38 }
-    ],
     "statedSectorPriority": "stationaryEnergy"
   }
 ]

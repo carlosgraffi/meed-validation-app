@@ -4,11 +4,6 @@ import { z } from "zod";
 
 const DATA_DIR = join(process.cwd(), "data");
 
-const HazardSchema = z.object({
-  hazard: z.string(),
-  riskScore: z.number().min(0).max(1),
-});
-
 export const CitySchema = z.object({
   cityId: z.string(),
   displayName: z.string(),
@@ -25,7 +20,7 @@ export const CitySchema = z.object({
     afolu: z.number().nullable(),
   }),
   totalEmissions: z.number().positive(),
-  topHazards: z.array(HazardSchema).length(3),
+  // MEED+ is mitigation-only — adaptation hazard inputs are intentionally absent.
   statedSectorPriority: z.string().nullable(),
 });
 export type City = z.infer<typeof CitySchema>;

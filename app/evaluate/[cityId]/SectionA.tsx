@@ -58,23 +58,6 @@ export function SectionA({ city, onContinue }: { city: City; onContinue: () => v
           </p>
         </div>
 
-        <div>
-          <h3 className="text-sm font-medium mb-2">{t("evaluate.hazardsTitle")}</h3>
-          <p className="text-xs text-muted-foreground mb-3">{t("evaluate.hazardsSubtitle")}</p>
-          <ul className="flex flex-wrap gap-2">
-            {city.topHazards.map((h) => (
-              <li key={h.hazard}>
-                <Badge variant="accent" className="gap-2 py-1 px-3">
-                  <span>{t(`hazards.${h.hazard}` as never)}</span>
-                  <span className="text-xs opacity-80">
-                    {t("evaluate.riskScoreLabel")} {h.riskScore.toFixed(2)}
-                  </span>
-                </Badge>
-              </li>
-            ))}
-          </ul>
-        </div>
-
         {city.statedSectorPriority ? (
           <div className="rounded-md border border-accent/50 bg-accent/5 p-3 text-sm">
             {t("evaluate.statedPriorityCallout", {

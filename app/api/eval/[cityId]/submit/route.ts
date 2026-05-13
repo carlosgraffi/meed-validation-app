@@ -23,17 +23,30 @@ export async function POST(_req: Request, { params }: { params: { cityId: string
     return NextResponse.json({ ok: true });
   }
 
-  // Validate: all 10 ranks must be rated.
+  // Validate Stage 1 + Stage 2 completion. Stage 3 reorder and Sections C/E are optional.
   const outputs = loadModelOutputs();
-  const expected = outputs[cityId]?.topActions.map((t) => t.actionId) ?? [];
-  if (expected.length !== 10) {
+  const top10 = outputs[cityId]?.topActions.map((t) => t.actionId) ?? [];
+  if (top10.length !== 10) {
     return NextResponse.json({ error: "no_model_output" }, { status: 500 });
   }
-  const rated = new Set(evaluation.ratings.map((r) => r.actionId));
-  const missing = expected.filter((id) => !rated.has(id));
-  if (missing.length > 0) {
+  const top3 = top10.slice(0, 3);
+  const ratedTop3 = new Set(
+    evaluation.ratings.filter((r) => r.question === "top3").map((r) => r.actionId)
+  );
+  const ratedTop10 = new Set(
+    evaluation.ratings.filter((r) => r.question === "top10").map((r) => r.actionId)
+  );
+  const missingTop3 = top3.filter((id) => !ratedTop3.has(id));
+  const missingTop10 = top10.filter((id) => !ratedTop10.has(id));
+  if (missingTop3.length > 0) {
     return NextResponse.json(
-      { error: `Faltan ${missing.length} acciones por calificar.` },
+      { error: `Faltan ${missingTop3.length} acciones en la Etapa 1.` },
+      { status: 400 }
+    );
+  }
+  if (missingTop10.length > 0) {
+    return NextResponse.json(
+      { error: `Faltan ${missingTop10.length} acciones en la Etapa 2.` },
       { status: 400 }
     );
   }
@@ -43,21 +56,17 @@ export async function POST(_req: Request, { params }: { params: { cityId: string
     0,
     Math.floor((now.getTime() - evaluation.startedAt.getTime()) / 1000)
   );
-  // Heuristic clamp: if total elapsed exceeds 30 minutes, assume the expert took a break.
-  // We don't have per-event timestamps to subtract precisely; cap the recorded time at 30 min
-  // when the elapsed window is suspiciously long. Real per-event reconstruction can be added later.
   const timeOnTaskSec = totalSec > CLAMP_TIME_GAP_SEC ? CLAMP_TIME_GAP_SEC : totalSec;
 
   await prisma.evaluation.update({
     where: { id: evaluation.id },
-    data: { submittedAt: now, timeOnTaskSec },
+    data: { submittedAt: now, timeOnTaskSec, currentStage: "complete" },
   });
 
-  // If this was the expert's last remaining assignment, set completedAt.
   const remaining = await prisma.assignment.count({
     where: {
       expertId: session.user.id,
-      cityId: { notIn: (await submittedCityIds(session.user.id)) },
+      cityId: { notIn: await submittedCityIds(session.user.id) },
     },
   });
   if (remaining === 0) {

@@ -27,11 +27,6 @@ const fakeCities = (n: number): City[] =>
       afolu: null,
     },
     totalEmissions: 3000,
-    topHazards: [
-      { hazard: "drought", riskScore: 0.5 },
-      { hazard: "heatwave", riskScore: 0.5 },
-      { hazard: "flood", riskScore: 0.5 },
-    ],
     statedSectorPriority: null,
   }));
 

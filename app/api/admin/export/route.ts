@@ -29,9 +29,11 @@ export async function GET() {
     startedAt: e.startedAt.toISOString(),
     submittedAt: e.submittedAt?.toISOString() ?? null,
     timeOnTaskSec: e.timeOnTaskSec,
+    currentStage: e.currentStage,
     ratings: e.ratings.map((r) => ({
       actionId: r.actionId,
       modelRank: r.modelRank,
+      question: r.question, // 'top3' (Stage 1) or 'top10' (Stage 2) — symmetric questioning preserved
       likert: r.likert,
       notSure: r.notSure,
     })),

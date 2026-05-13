@@ -3,9 +3,15 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { loadActions, loadCities, loadModelOutputs } from "@/lib/fixtures";
+import { seededShuffle } from "@/lib/randomize";
+import type { Action } from "@/lib/fixtures";
 import { EvaluationForm } from "./EvaluationForm";
 
 export const dynamic = "force-dynamic";
+
+export type Stage = "stage1" | "stage2" | "sectionC" | "stage3" | "sectionE" | "complete";
+
+export type RankedAction = { rank: number; action: Action };
 
 export default async function EvaluatePage({ params }: { params: { cityId: string } }) {
   const session = await getServerSession(authOptions);
@@ -15,7 +21,6 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
   const expertId = session.user.id;
   const cityId = params.cityId;
 
-  // Authorization: this expert must be assigned to this city
   const assignment = await prisma.assignment.findUnique({
     where: { expertId_cityId: { expertId, cityId } },
   });
@@ -30,7 +35,7 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
   if (!cityOutput) notFound();
   const actions = loadActions();
   const actionMap = new Map(actions.map((a) => [a.actionId, a]));
-  const rankedActions = cityOutput.topActions
+  const rankedActions: RankedAction[] = cityOutput.topActions
     .slice()
     .sort((a, b) => a.rank - b.rank)
     .map((t) => {
@@ -39,7 +44,7 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
       return { rank: t.rank, action };
     });
 
-  // Find or create evaluation row (startedAt is set on first load)
+  // Find or create evaluation row (startedAt is set on first load).
   const evaluation = await prisma.evaluation.upsert({
     where: { expertId_cityId: { expertId, cityId } },
     create: { expertId, cityId },
@@ -47,9 +52,12 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
     include: { ratings: true, reorderTop5: true },
   });
 
-  const ratingsByActionId: Record<string, { likert: number; notSure: boolean }> = {};
+  // Split ratings by question so the form can render two independent stages.
+  const top3Ratings: Record<string, { likert: number; notSure: boolean }> = {};
+  const top10Ratings: Record<string, { likert: number; notSure: boolean }> = {};
   for (const r of evaluation.ratings) {
-    ratingsByActionId[r.actionId] = { likert: r.likert, notSure: r.notSure };
+    const target = r.question === "top3" ? top3Ratings : top10Ratings;
+    target[r.actionId] = { likert: r.likert, notSure: r.notSure };
   }
 
   const missingActions: string[] = evaluation.missingActions
@@ -60,14 +68,30 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
     ? (JSON.parse(evaluation.reorderTop5.orderedActionIds) as string[])
     : null;
 
+  // Deterministic display order — same on every load for the same (eval, city, stage).
+  // Seed uses evaluationId so the order is stable per evaluation row (re-creating
+  // the row would re-roll, which is the right semantic for a fresh attempt).
+  const top3RandomOrder = seededShuffle(
+    rankedActions.slice(0, 3),
+    `${evaluation.id}::${cityId}::stage1`
+  );
+  const top10RandomOrder = seededShuffle(
+    rankedActions,
+    `${evaluation.id}::${cityId}::stage2`
+  );
+
   return (
     <EvaluationForm
       city={city}
       rankedActions={rankedActions}
+      stage1Order={top3RandomOrder}
+      stage2Order={top10RandomOrder}
       initial={{
         evaluationId: evaluation.id,
+        currentStage: (evaluation.currentStage as Stage) ?? "stage1",
         submitted: !!evaluation.submittedAt,
-        ratings: ratingsByActionId,
+        top3Ratings,
+        top10Ratings,
         missingActions,
         reorderTop5,
         cityComment: evaluation.cityComment ?? "",

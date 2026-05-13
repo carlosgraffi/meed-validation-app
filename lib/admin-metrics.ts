@@ -36,6 +36,7 @@ export async function computeLiveMetrics(): Promise<MetricsOutput> {
       ratings: e.ratings.map((r) => ({
         actionId: r.actionId,
         modelRank: r.modelRank,
+        question: r.question as "top3" | "top10",
         likert: r.likert,
         notSure: r.notSure,
       })),
