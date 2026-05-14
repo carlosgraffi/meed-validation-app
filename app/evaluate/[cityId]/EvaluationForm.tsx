@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AnimatePresence, LayoutGroup, motion } from "motion/react";
+import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { PillarDisclosure } from "@/components/PillarDisclosure";
 import { cn } from "@/lib/utils";
@@ -203,7 +203,16 @@ export function EvaluationForm({
       return;
     }
     setCurrentStage(next);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Scroll the newly-active section into view at the top of the viewport.
+    // Wait one frame so the new section is in the DOM before we measure it.
+    requestAnimationFrame(() => {
+      const el = document.getElementById(`stage-${next}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
   };
 
   const submitFinal = async () => {
@@ -245,11 +254,8 @@ export function EvaluationForm({
 
       <SectionA city={city} onContinue={() => {}} />
 
-      <LayoutGroup>
-      <AnimatePresence initial={false} mode="popLayout">
-
       {/* Stage 1 — top-3 set membership */}
-      <SlideInOnMount key="stage1">
+      <SlideInOnMount stageKey="stage1">
       <StageSection
         stageKey="stage1"
         state={stageState("stage1")}
@@ -278,7 +284,7 @@ export function EvaluationForm({
 
       {/* Stage 2 — top-10 set membership (visible only once Stage 1 advanced) */}
       {STAGE_RANK[currentStage] >= 2 && (
-        <SlideInOnMount key="stage2">
+        <SlideInOnMount stageKey="stage2">
         <StageSection
           stageKey="stage2"
           state={stageState("stage2")}
@@ -308,7 +314,7 @@ export function EvaluationForm({
 
       {/* Section C — missing actions */}
       {STAGE_RANK[currentStage] >= 3 && (
-        <SlideInOnMount key="sectionC">
+        <SlideInOnMount stageKey="sectionC">
         <StageSection
           stageKey="sectionC"
           state={stageState("sectionC")}
@@ -332,7 +338,7 @@ export function EvaluationForm({
 
       {/* Stage 3 — reorder */}
       {STAGE_RANK[currentStage] >= 4 && (
-        <SlideInOnMount key="stage3">
+        <SlideInOnMount stageKey="stage3">
         <StageSection
           stageKey="stage3"
           state={stageState("stage3")}
@@ -362,7 +368,7 @@ export function EvaluationForm({
 
       {/* Section E — comments */}
       {STAGE_RANK[currentStage] >= 5 && (
-        <SlideInOnMount key="sectionE">
+        <SlideInOnMount stageKey="sectionE">
         <StageSection
           stageKey="sectionE"
           state={stageState("sectionE")}
@@ -388,9 +394,6 @@ export function EvaluationForm({
         </StageSection>
         </SlideInOnMount>
       )}
-
-      </AnimatePresence>
-      </LayoutGroup>
 
       <footer className="fixed bottom-0 left-0 right-0 border-t bg-background/95 backdrop-blur p-4">
         <div className="max-w-4xl mx-auto flex flex-col gap-2">
@@ -428,23 +431,28 @@ export function EvaluationForm({
 }
 
 /**
- * Wraps each newly-mounted stage section with a "slide in from the right"
- * entrance animation. Combined with the body's slide-out-left exit
- * animation in StageSection, this gives a clear directional cue that we're
- * advancing forward through the stages.
+ * Wraps each stage section with a "slide in from the right" entrance
+ * animation that fires on first mount. Sections don't unmount in normal
+ * forward flow (they collapse to a summary instead), so no exit animation
+ * is needed — and removing the surrounding AnimatePresence/LayoutGroup
+ * eliminated the infinite-loop layout fight that was happening with the
+ * stepper pulse.
  *
- * Lives here rather than in StageSection.tsx because the entrance animation
- * only applies on FIRST mount — when a stage advances from complete back to
- * expanded (the user clicks the chevron), we don't want a slide animation,
- * just the inline height transition handled by StageSection.
+ * The wrapper also carries the id used by advanceStage's scrollIntoView,
+ * so each section is individually focusable on stage advance.
  */
-function SlideInOnMount({ children }: { children: React.ReactNode }) {
+function SlideInOnMount({
+  stageKey,
+  children,
+}: {
+  stageKey: Stage | "sectionC" | "sectionE";
+  children: React.ReactNode;
+}) {
   return (
     <motion.div
-      layout
+      id={`stage-${stageKey}`}
       initial={{ opacity: 0, x: 40 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -40 }}
       transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}

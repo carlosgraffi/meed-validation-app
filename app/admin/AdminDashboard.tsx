@@ -73,6 +73,25 @@ export function AdminDashboard({
     window.location.href = "/api/admin/export";
   };
 
+  const [demoResetConfirm, setDemoResetConfirm] = useState(false);
+  const [demoResetting, setDemoResetting] = useState(false);
+  const [demoResetMsg, setDemoResetMsg] = useState<string | null>(null);
+  const resetDemo = async () => {
+    setDemoResetting(true);
+    setDemoResetMsg(null);
+    const res = await fetch("/api/admin/reset-demo", { method: "POST" });
+    setDemoResetting(false);
+    setDemoResetConfirm(false);
+    if (!res.ok) {
+      const data = (await res.json().catch(() => ({}))) as { error?: string };
+      setDemoResetMsg(data.error ?? "Reset failed.");
+      return;
+    }
+    const data = (await res.json()) as { wipedEvaluations?: number };
+    setDemoResetMsg(`Demo expert reset. Wiped ${data.wipedEvaluations ?? 0} evaluation(s).`);
+    setTimeout(() => setDemoResetMsg(null), 4000);
+  };
+
   return (
     <main className="min-h-screen p-6 max-w-6xl mx-auto space-y-6">
       <header className="flex items-start justify-between">
@@ -89,6 +108,42 @@ export function AdminDashboard({
           <SignOutLink />
         </div>
       </header>
+
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <CardTitle>Demo expert</CardTitle>
+              <CardDescription>
+                Wipe the demo expert's evaluations, ratings, reorders, and onboarding
+                state. The demo cities (city_03, city_05, city_10) are re-assigned.
+                Use this between demo runs to start clean.
+              </CardDescription>
+            </div>
+            <div className="flex items-center gap-2">
+              {demoResetMsg && (
+                <span className="text-xs text-muted-foreground">{demoResetMsg}</span>
+              )}
+              <Button
+                variant={demoResetConfirm ? "destructive" : "outline"}
+                onClick={() => (demoResetConfirm ? resetDemo() : setDemoResetConfirm(true))}
+                disabled={demoResetting}
+              >
+                {demoResetting
+                  ? "Resetting…"
+                  : demoResetConfirm
+                  ? "Confirm: reset demo"
+                  : "Reset demo expert"}
+              </Button>
+              {demoResetConfirm && (
+                <Button variant="ghost" size="sm" onClick={() => setDemoResetConfirm(false)}>
+                  Cancel
+                </Button>
+              )}
+            </div>
+          </div>
+        </CardHeader>
+      </Card>
 
       <Card>
         <CardHeader>
