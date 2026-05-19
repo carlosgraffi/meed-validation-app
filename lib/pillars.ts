@@ -1,23 +1,20 @@
 /**
  * MEED+ ranking pillars — single source of truth.
  *
- * The model combines three pillars with the weights below to produce final
- * action rankings. These weights are PLACEHOLDERS pending the methodology
- * doc finalization (Mirco / Ayinawu, expected next week). To swap them in,
- * change `weight` for each entry. Keep the keys (`impact`, `alignment`,
- * `feasibility`) — they're referenced everywhere else.
+ * Weights below are taken from the May 16 prioritization trace
+ * (hiap-meed/logs_temp/.../input_snapshot.json → resolved_weights). They
+ * may evolve once the methodology doc is finalized; update one line here
+ * and the disclosure component re-renders everywhere.
  *
- * Labels and descriptions live in `locales/es.json` under `pillars.<key>.label`
- * and `pillars.<key>.description`. We deliberately keep them in the locale
- * rather than inlining them here (as the brief suggested), to preserve the
- * project-wide invariant that all expert-facing Spanish copy is centralized
- * in one file. This file is the source of truth for the *numerical* model;
- * the locale is the source of truth for *display strings*.
+ * Labels and descriptions live in `locales/es.json` + `locales/en.json`
+ * under `pillars.<key>.label` and `pillars.<key>.description`. We keep
+ * display strings in the locales (not inlined here) to preserve the
+ * invariant that all expert-facing copy is centralized.
  */
 export const PILLARS = {
-  impact: { weight: 0.55 },
-  alignment: { weight: 0.22 },
-  feasibility: { weight: 0.23 },
+  impact: { weight: 0.5 },
+  alignment: { weight: 0.3 },
+  feasibility: { weight: 0.2 },
 } as const;
 
 export type PillarKey = keyof typeof PILLARS;

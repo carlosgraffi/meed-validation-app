@@ -7,6 +7,7 @@ import { formatNumber, formatEmissions } from "@/lib/utils";
 import { useT } from "@/app/LangProvider";
 import type { City } from "@/lib/fixtures";
 import { EmissionsChart } from "./EmissionsChart";
+import { CityPreferences } from "./CityPreferences";
 
 export function SectionA({ city, onContinue }: { city: City; onContinue: () => void }) {
   const t = useT();
@@ -60,17 +61,7 @@ export function SectionA({ city, onContinue }: { city: City; onContinue: () => v
           </p>
         </div>
 
-        {city.statedSectorPriority ? (
-          <div className="rounded-md border border-accent/50 bg-accent/5 p-3 text-sm">
-            {t("evaluate.statedPriorityCallout", {
-              sector: t(`sectors.${city.statedSectorPriority}` as never),
-            })}
-          </div>
-        ) : (
-          <div className="text-xs text-muted-foreground">
-            {t("evaluate.noStatedPriority")}
-          </div>
-        )}
+        <CityPreferences request={city.cityRequest} variant="block" />
 
         <div className="pt-2">
           <Button onClick={onContinue}>{t("evaluate.continueToEvaluation")} ↓</Button>

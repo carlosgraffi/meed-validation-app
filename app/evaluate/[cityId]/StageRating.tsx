@@ -14,7 +14,7 @@ import type { RankedAction } from "./page";
  * Shared component for Stages 1 and 2.
  *
  * Same card design as the old SectionB, with two important differences:
- *   - The rank badge and "Recomendación principal" tag are NEVER shown here.
+ *   - The rank badge and the "main recommendation" tag are NEVER shown here.
  *     Ranks are revealed only in Stage 3 (reorder).
  *   - The Likert prompt is the question-specific one (top3 or top10), not the
  *     old positional prompt.

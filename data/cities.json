@@ -15,7 +15,22 @@
       "afolu": null
     },
     "totalEmissions": 2340000,
-    "statedSectorPriority": "stationaryEnergy"
+    "statedSectorPriority": "stationaryEnergy",
+    "cityRequest": {
+      "preferredSectors": [
+        "stationaryEnergy",
+        "transportation"
+      ],
+      "preferredTimeframes": [
+        "short",
+        "medium"
+      ],
+      "preferredCoBenefits": [
+        "air_quality",
+        "mobility"
+      ],
+      "excludedActionIds": []
+    }
   },
   {
     "cityId": "city_02",
@@ -33,7 +48,21 @@
       "afolu": null
     },
     "totalEmissions": 2175000,
-    "statedSectorPriority": "ippu"
+    "statedSectorPriority": "ippu",
+    "cityRequest": {
+      "preferredSectors": [
+        "ippu",
+        "stationaryEnergy"
+      ],
+      "preferredTimeframes": [
+        "medium"
+      ],
+      "preferredCoBenefits": [
+        "air_quality",
+        "water_quality"
+      ],
+      "excludedActionIds": []
+    }
   },
   {
     "cityId": "city_03",
@@ -51,7 +80,21 @@
       "afolu": null
     },
     "totalEmissions": 8865000,
-    "statedSectorPriority": "transportation"
+    "statedSectorPriority": "transportation",
+    "cityRequest": {
+      "preferredSectors": [
+        "transportation"
+      ],
+      "preferredTimeframes": [
+        "short",
+        "medium"
+      ],
+      "preferredCoBenefits": [
+        "air_quality",
+        "mobility"
+      ],
+      "excludedActionIds": []
+    }
   },
   {
     "cityId": "city_04",
@@ -69,7 +112,22 @@
       "afolu": null
     },
     "totalEmissions": 2755000,
-    "statedSectorPriority": "transportation"
+    "statedSectorPriority": "transportation",
+    "cityRequest": {
+      "preferredSectors": [
+        "transportation",
+        "stationaryEnergy"
+      ],
+      "preferredTimeframes": [
+        "short",
+        "medium"
+      ],
+      "preferredCoBenefits": [
+        "air_quality",
+        "mobility"
+      ],
+      "excludedActionIds": []
+    }
   },
   {
     "cityId": "city_05",
@@ -87,7 +145,22 @@
       "afolu": 890000
     },
     "totalEmissions": 2010000,
-    "statedSectorPriority": "afolu"
+    "statedSectorPriority": "afolu",
+    "cityRequest": {
+      "preferredSectors": [
+        "afolu",
+        "waste"
+      ],
+      "preferredTimeframes": [
+        "medium",
+        "long"
+      ],
+      "preferredCoBenefits": [
+        "water_quality",
+        "habitat"
+      ],
+      "excludedActionIds": []
+    }
   },
   {
     "cityId": "city_06",
@@ -105,7 +178,21 @@
       "afolu": null
     },
     "totalEmissions": 2270000,
-    "statedSectorPriority": "ippu"
+    "statedSectorPriority": "ippu",
+    "cityRequest": {
+      "preferredSectors": [
+        "ippu",
+        "stationaryEnergy"
+      ],
+      "preferredTimeframes": [
+        "medium"
+      ],
+      "preferredCoBenefits": [
+        "air_quality",
+        "cost_of_living"
+      ],
+      "excludedActionIds": []
+    }
   },
   {
     "cityId": "city_07",
@@ -123,7 +210,22 @@
       "afolu": null
     },
     "totalEmissions": 3675000,
-    "statedSectorPriority": "stationaryEnergy"
+    "statedSectorPriority": "stationaryEnergy",
+    "cityRequest": {
+      "preferredSectors": [
+        "stationaryEnergy",
+        "transportation"
+      ],
+      "preferredTimeframes": [
+        "short",
+        "medium"
+      ],
+      "preferredCoBenefits": [
+        "air_quality",
+        "housing"
+      ],
+      "excludedActionIds": []
+    }
   },
   {
     "cityId": "city_08",
@@ -141,7 +243,20 @@
       "afolu": 420000
     },
     "totalEmissions": 2315000,
-    "statedSectorPriority": null
+    "statedSectorPriority": null,
+    "cityRequest": {
+      "preferredSectors": [
+        "stationaryEnergy"
+      ],
+      "preferredTimeframes": [
+        "short"
+      ],
+      "preferredCoBenefits": [
+        "air_quality",
+        "housing"
+      ],
+      "excludedActionIds": []
+    }
   },
   {
     "cityId": "city_09",
@@ -159,7 +274,21 @@
       "afolu": 380000
     },
     "totalEmissions": 1770000,
-    "statedSectorPriority": "stationaryEnergy"
+    "statedSectorPriority": "stationaryEnergy",
+    "cityRequest": {
+      "preferredSectors": [
+        "stationaryEnergy",
+        "afolu"
+      ],
+      "preferredTimeframes": [
+        "medium"
+      ],
+      "preferredCoBenefits": [
+        "habitat",
+        "water_quality"
+      ],
+      "excludedActionIds": []
+    }
   },
   {
     "cityId": "city_10",
@@ -177,6 +306,19 @@
       "afolu": null
     },
     "totalEmissions": 1385000,
-    "statedSectorPriority": "stationaryEnergy"
+    "statedSectorPriority": "stationaryEnergy",
+    "cityRequest": {
+      "preferredSectors": [
+        "stationaryEnergy"
+      ],
+      "preferredTimeframes": [
+        "short"
+      ],
+      "preferredCoBenefits": [
+        "housing",
+        "air_quality"
+      ],
+      "excludedActionIds": []
+    }
   }
 ]

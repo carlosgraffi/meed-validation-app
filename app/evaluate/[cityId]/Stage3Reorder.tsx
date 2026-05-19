@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { useT } from "@/app/LangProvider";
+import { ActionRationale } from "./ActionRationale";
 import type { RankedAction } from "./page";
 
 /**
@@ -93,6 +94,8 @@ export function Stage3Reorder({
                     modelRank={ranked.rank}
                     expertRank={idx + 1}
                     name={ranked.action.nameEs}
+                    rationaleEs={ranked.rationaleEs}
+                    rationaleEn={ranked.rationaleEn}
                     disabled={readOnly}
                   />
                 );
@@ -115,12 +118,16 @@ function SortableItem({
   modelRank,
   expertRank,
   name,
+  rationaleEs,
+  rationaleEn,
   disabled,
 }: {
   id: string;
   modelRank: number;
   expertRank: number;
   name: string;
+  rationaleEs: string;
+  rationaleEn: string;
   disabled?: boolean;
 }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -137,28 +144,31 @@ function SortableItem({
       ref={setNodeRef}
       style={style}
       className={cn(
-        "grid grid-cols-[auto_auto_1fr_auto] items-center gap-3 rounded-md border bg-card p-3",
+        "rounded-md border bg-card p-3",
         isDragging && "shadow-lg ring-2 ring-primary",
         disabled && "opacity-60"
       )}
     >
-      <Badge variant="muted" className="font-mono w-10 justify-center">
-        #{modelRank}
-      </Badge>
-      <Badge variant={moved ? "accent" : "default"} className="font-mono w-10 justify-center">
-        #{expertRank}
-      </Badge>
-      <span className="text-sm">{name}</span>
-      <button
-        type="button"
-        className="shrink-0 text-muted-foreground hover:text-foreground cursor-grab active:cursor-grabbing disabled:cursor-not-allowed"
-        aria-label="Arrastrar"
-        {...attributes}
-        {...listeners}
-        disabled={disabled}
-      >
-        <GripVertical className="h-5 w-5" />
-      </button>
+      <div className="grid grid-cols-[auto_auto_1fr_auto] items-center gap-3">
+        <Badge variant="muted" className="font-mono w-10 justify-center">
+          #{modelRank}
+        </Badge>
+        <Badge variant={moved ? "accent" : "default"} className="font-mono w-10 justify-center">
+          #{expertRank}
+        </Badge>
+        <span className="text-sm">{name}</span>
+        <button
+          type="button"
+          className="shrink-0 text-muted-foreground hover:text-foreground cursor-grab active:cursor-grabbing disabled:cursor-not-allowed"
+          aria-label="Arrastrar"
+          {...attributes}
+          {...listeners}
+          disabled={disabled}
+        >
+          <GripVertical className="h-5 w-5" />
+        </button>
+      </div>
+      <ActionRationale rationaleEs={rationaleEs} rationaleEn={rationaleEn} />
     </li>
   );
 }

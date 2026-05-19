@@ -4,6 +4,22 @@ import { z } from "zod";
 
 const DATA_DIR = join(process.cwd(), "data");
 
+/**
+ * What the city declared as priorities when requesting recommendations.
+ * Surfaced to experts so they can evaluate against what the city asked for,
+ * not just against the city's emission profile.
+ *
+ * Sector keys match the keys in locales/*.json#sectors; timeframe + co-benefit
+ * keys match the model's own taxonomy (see HIAP-MEED+ input_snapshot.json).
+ */
+export const CityRequestSchema = z.object({
+  preferredSectors: z.array(z.string()),
+  preferredTimeframes: z.array(z.enum(["short", "medium", "long"])),
+  preferredCoBenefits: z.array(z.string()),
+  excludedActionIds: z.array(z.string()),
+});
+export type CityRequest = z.infer<typeof CityRequestSchema>;
+
 export const CitySchema = z.object({
   cityId: z.string(),
   displayName: z.string(),
@@ -22,6 +38,7 @@ export const CitySchema = z.object({
   totalEmissions: z.number().positive(),
   // MEED+ is mitigation-only — adaptation hazard inputs are intentionally absent.
   statedSectorPriority: z.string().nullable(),
+  cityRequest: CityRequestSchema,
 });
 export type City = z.infer<typeof CitySchema>;
 
@@ -39,6 +56,13 @@ export const ActionSchema = z.object({
 });
 export type Action = z.infer<typeof ActionSchema>;
 
+export const DiscardedActionSchema = z.object({
+  actionId: z.string(),
+  reasonEs: z.string(),
+  reasonEn: z.string(),
+});
+export type DiscardedAction = z.infer<typeof DiscardedActionSchema>;
+
 export const ModelOutputsSchema = z.record(
   z.string(),
   z.object({
@@ -53,9 +77,28 @@ export const ModelOutputsSchema = z.record(
             alignment: z.number().min(0).max(1),
             feasibility: z.number().min(0).max(1),
           }),
+          /**
+           * Short LLM-style rationale describing why the model placed this
+           * action at this rank. Qualitative only — does not reveal numeric
+           * scores. Generated at request time by HIAP-MEED+; placeholder data
+           * lives here until the real per-city outputs ship.
+           */
+          rationaleEs: z.string(),
+          rationaleEn: z.string(),
         })
       )
       .length(10),
+    /**
+     * Actions that would have been candidates but were blocked by Chilean
+     * legal assessment for this city. Surfaced to experts as a footnote so
+     * they understand why expected actions are missing. Required in the
+     * fixture (can be []) so the inferred type stays non-nullable.
+     */
+    discardedLegal: z.array(DiscardedActionSchema),
+    /**
+     * Actions explicitly excluded by the city in its request.
+     */
+    discardedExcluded: z.array(DiscardedActionSchema),
   })
 );
 export type ModelOutputs = z.infer<typeof ModelOutputsSchema>;

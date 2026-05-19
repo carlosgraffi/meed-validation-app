@@ -4,14 +4,19 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { loadActions, loadCities, loadModelOutputs } from "@/lib/fixtures";
 import { seededShuffle } from "@/lib/randomize";
-import type { Action } from "@/lib/fixtures";
+import type { Action, DiscardedAction } from "@/lib/fixtures";
 import { EvaluationForm } from "./EvaluationForm";
 
 export const dynamic = "force-dynamic";
 
 export type Stage = "stage1" | "stage2" | "sectionC" | "stage3" | "sectionE" | "complete";
 
-export type RankedAction = { rank: number; action: Action };
+export type RankedAction = {
+  rank: number;
+  action: Action;
+  rationaleEs: string;
+  rationaleEn: string;
+};
 
 export default async function EvaluatePage({ params }: { params: { cityId: string } }) {
   const session = await getServerSession(authOptions);
@@ -41,8 +46,22 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
     .map((t) => {
       const action = actionMap.get(t.actionId);
       if (!action) throw new Error(`actions.json missing actionId ${t.actionId}`);
-      return { rank: t.rank, action };
+      return {
+        rank: t.rank,
+        action,
+        rationaleEs: t.rationaleEs,
+        rationaleEn: t.rationaleEn,
+      };
     });
+
+  // Legally-blocked actions for this city — hydrated with the action record
+  // so we can show the action's name in the footnote.
+  const discardedLegal: Array<DiscardedAction & { actionName: string }> = (
+    cityOutput.discardedLegal ?? []
+  ).map((d) => ({
+    ...d,
+    actionName: actionMap.get(d.actionId)?.nameEs ?? d.actionId,
+  }));
 
   // Find or create evaluation row (startedAt is set on first load).
   const evaluation = await prisma.evaluation.upsert({
@@ -86,6 +105,8 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
       rankedActions={rankedActions}
       stage1Order={top3RandomOrder}
       stage2Order={top10RandomOrder}
+      discardedLegal={cityOutput.discardedLegal ?? []}
+      allActions={actions}
       initial={{
         evaluationId: evaluation.id,
         currentStage: (evaluation.currentStage as Stage) ?? "stage1",

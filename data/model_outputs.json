@@ -1,142 +1,1392 @@
 {
   "city_01": {
     "topActions": [
-      { "rank": 1, "actionId": "icare_0061", "finalScore": 0.913, "pillarScores": { "impact": 0.91, "alignment": 0.94, "feasibility": 0.89 } },
-      { "rank": 2, "actionId": "icare_0012", "finalScore": 0.872, "pillarScores": { "impact": 0.93, "alignment": 0.86, "feasibility": 0.83 } },
-      { "rank": 3, "actionId": "icare_0025", "finalScore": 0.831, "pillarScores": { "impact": 0.78, "alignment": 0.88, "feasibility": 0.84 } },
-      { "rank": 4, "actionId": "ipcc_0156", "finalScore": 0.788, "pillarScores": { "impact": 0.71, "alignment": 0.82, "feasibility": 0.83 } },
-      { "rank": 5, "actionId": "ipcc_0118", "finalScore": 0.751, "pillarScores": { "impact": 0.76, "alignment": 0.79, "feasibility": 0.70 } },
-      { "rank": 6, "actionId": "icare_0031", "finalScore": 0.708, "pillarScores": { "impact": 0.69, "alignment": 0.74, "feasibility": 0.69 } },
-      { "rank": 7, "actionId": "c40_0017", "finalScore": 0.671, "pillarScores": { "impact": 0.74, "alignment": 0.68, "feasibility": 0.62 } },
-      { "rank": 8, "actionId": "ipcc_0103", "finalScore": 0.632, "pillarScores": { "impact": 0.63, "alignment": 0.66, "feasibility": 0.60 } },
-      { "rank": 9, "actionId": "icare_0044", "finalScore": 0.591, "pillarScores": { "impact": 0.55, "alignment": 0.61, "feasibility": 0.61 } },
-      { "rank": 10, "actionId": "c40_0011", "finalScore": 0.554, "pillarScores": { "impact": 0.52, "alignment": 0.58, "feasibility": 0.56 } }
-    ]
+      {
+        "rank": 1,
+        "actionId": "icare_0061",
+        "finalScore": 0.913,
+        "pillarScores": {
+          "impact": 0.91,
+          "alignment": 0.94,
+          "feasibility": 0.89
+        },
+        "rationaleEs": "Esta acción encabeza el ranking porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action tops the ranking because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 2,
+        "actionId": "icare_0012",
+        "finalScore": 0.872,
+        "pillarScores": {
+          "impact": 0.93,
+          "alignment": 0.86,
+          "feasibility": 0.83
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 3,
+        "actionId": "icare_0025",
+        "finalScore": 0.831,
+        "pillarScores": {
+          "impact": 0.78,
+          "alignment": 0.88,
+          "feasibility": 0.84
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 4,
+        "actionId": "ipcc_0156",
+        "finalScore": 0.788,
+        "pillarScores": {
+          "impact": 0.71,
+          "alignment": 0.82,
+          "feasibility": 0.83
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: su impacto directo en emisiones es limitado.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. Its main limitation: it its direct emissions impact is limited."
+      },
+      {
+        "rank": 5,
+        "actionId": "ipcc_0118",
+        "finalScore": 0.751,
+        "pillarScores": {
+          "impact": 0.76,
+          "alignment": 0.79,
+          "feasibility": 0.7
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 6,
+        "actionId": "icare_0031",
+        "finalScore": 0.708,
+        "pillarScores": {
+          "impact": 0.69,
+          "alignment": 0.74,
+          "feasibility": 0.69
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 7,
+        "actionId": "c40_0017",
+        "finalScore": 0.671,
+        "pillarScores": {
+          "impact": 0.74,
+          "alignment": 0.68,
+          "feasibility": 0.62
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. Its main limitation: it does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 8,
+        "actionId": "ipcc_0103",
+        "finalScore": 0.632,
+        "pillarScores": {
+          "impact": 0.63,
+          "alignment": 0.66,
+          "feasibility": 0.6
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it fits the implementation timeframe the city prefers. Its main limitation: it does not match the city's stated sector priority; does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 9,
+        "actionId": "icare_0044",
+        "finalScore": 0.591,
+        "pillarScores": {
+          "impact": 0.55,
+          "alignment": 0.61,
+          "feasibility": 0.61
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it fits the implementation timeframe the city prefers. Its main limitation: it does not match the city's stated sector priority; does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 10,
+        "actionId": "c40_0011",
+        "finalScore": 0.554,
+        "pillarScores": {
+          "impact": 0.52,
+          "alignment": 0.58,
+          "feasibility": 0.56
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: su impacto directo en emisiones es limitado; no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. Its main limitation: it its direct emissions impact is limited; does not explicitly address the city's preferred co-benefits."
+      }
+    ],
+    "discardedLegal": [
+      {
+        "actionId": "icare_0128",
+        "reasonEs": "Requiere mandato nacional vigente; aún no implementado para municipios.",
+        "reasonEn": "Requires a national mandate not yet implemented for municipalities."
+      },
+      {
+        "actionId": "c40_0028",
+        "reasonEs": "Reglamentación específica aún pendiente; revisión legal en curso por SSG.",
+        "reasonEn": "Specific regulation still pending; legal review under way at SSG."
+      },
+      {
+        "actionId": "icare_0115",
+        "reasonEs": "Jurisdicción compartida con el Estado central; municipio no puede actuar de forma autónoma.",
+        "reasonEn": "Shared jurisdiction with the central government; the municipality cannot act autonomously."
+      }
+    ],
+    "discardedExcluded": []
   },
   "city_02": {
     "topActions": [
-      { "rank": 1, "actionId": "icare_0115", "finalScore": 0.921, "pillarScores": { "impact": 0.95, "alignment": 0.91, "feasibility": 0.91 } },
-      { "rank": 2, "actionId": "ipcc_0188", "finalScore": 0.881, "pillarScores": { "impact": 0.89, "alignment": 0.90, "feasibility": 0.85 } },
-      { "rank": 3, "actionId": "icare_0128", "finalScore": 0.843, "pillarScores": { "impact": 0.92, "alignment": 0.86, "feasibility": 0.75 } },
-      { "rank": 4, "actionId": "icare_0061", "finalScore": 0.802, "pillarScores": { "impact": 0.81, "alignment": 0.80, "feasibility": 0.80 } },
-      { "rank": 5, "actionId": "c40_0022", "finalScore": 0.762, "pillarScores": { "impact": 0.69, "alignment": 0.81, "feasibility": 0.78 } },
-      { "rank": 6, "actionId": "icare_0025", "finalScore": 0.722, "pillarScores": { "impact": 0.68, "alignment": 0.74, "feasibility": 0.75 } },
-      { "rank": 7, "actionId": "ipcc_0156", "finalScore": 0.683, "pillarScores": { "impact": 0.62, "alignment": 0.71, "feasibility": 0.72 } },
-      { "rank": 8, "actionId": "icare_0073", "finalScore": 0.644, "pillarScores": { "impact": 0.66, "alignment": 0.63, "feasibility": 0.64 } },
-      { "rank": 9, "actionId": "ipcc_0103", "finalScore": 0.601, "pillarScores": { "impact": 0.58, "alignment": 0.62, "feasibility": 0.60 } },
-      { "rank": 10, "actionId": "icare_0031", "finalScore": 0.559, "pillarScores": { "impact": 0.53, "alignment": 0.58, "feasibility": 0.57 } }
-    ]
+      {
+        "rank": 1,
+        "actionId": "icare_0115",
+        "finalScore": 0.921,
+        "pillarScores": {
+          "impact": 0.95,
+          "alignment": 0.91,
+          "feasibility": 0.91
+        },
+        "rationaleEs": "Esta acción encabeza el ranking porque coincide con el sector prioritario declarado por la ciudad, y muestra un potencial de reducción de emisiones alto. Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action tops the ranking because it matches the sector the city declared as a priority, and shows a high emissions-reduction potential. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 2,
+        "actionId": "ipcc_0188",
+        "finalScore": 0.881,
+        "pillarScores": {
+          "impact": 0.89,
+          "alignment": 0.9,
+          "feasibility": 0.85
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 3,
+        "actionId": "icare_0128",
+        "finalScore": 0.843,
+        "pillarScores": {
+          "impact": 0.92,
+          "alignment": 0.86,
+          "feasibility": 0.75
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque aporta co-beneficios buscados por la ciudad (calidad del aire), y muestra un potencial de reducción de emisiones alto. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad.",
+        "rationaleEn": "This action is among the priority three because it delivers co-benefits the city is asking for, and shows a high emissions-reduction potential. Its main limitation: it does not match the city's stated sector priority."
+      },
+      {
+        "rank": 4,
+        "actionId": "icare_0061",
+        "finalScore": 0.802,
+        "pillarScores": {
+          "impact": 0.81,
+          "alignment": 0.8,
+          "feasibility": 0.8
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 5,
+        "actionId": "c40_0022",
+        "finalScore": 0.762,
+        "pillarScores": {
+          "impact": 0.69,
+          "alignment": 0.81,
+          "feasibility": 0.78
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 6,
+        "actionId": "icare_0025",
+        "finalScore": 0.722,
+        "pillarScores": {
+          "impact": 0.68,
+          "alignment": 0.74,
+          "feasibility": 0.75
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 7,
+        "actionId": "ipcc_0156",
+        "finalScore": 0.683,
+        "pillarScores": {
+          "impact": 0.62,
+          "alignment": 0.71,
+          "feasibility": 0.72
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: queda fuera de los plazos preferidos por la ciudad; su impacto directo en emisiones es limitado.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. Its main limitation: it falls outside the timeframes the city prefers; its direct emissions impact is limited."
+      },
+      {
+        "rank": 8,
+        "actionId": "icare_0073",
+        "finalScore": 0.644,
+        "pillarScores": {
+          "impact": 0.66,
+          "alignment": 0.63,
+          "feasibility": 0.64
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 9,
+        "actionId": "ipcc_0103",
+        "finalScore": 0.601,
+        "pillarScores": {
+          "impact": 0.58,
+          "alignment": 0.62,
+          "feasibility": 0.6
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it fits the implementation timeframe the city prefers. Its main limitation: it does not match the city's stated sector priority; does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 10,
+        "actionId": "icare_0031",
+        "finalScore": 0.559,
+        "pillarScores": {
+          "impact": 0.53,
+          "alignment": 0.58,
+          "feasibility": 0.57
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque aporta co-beneficios buscados por la ciudad (calidad del aire). Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it delivers co-benefits the city is asking for. Its main limitation: it does not match the city's stated sector priority; falls outside the timeframes the city prefers."
+      }
+    ],
+    "discardedLegal": [
+      {
+        "actionId": "ipcc_0118",
+        "reasonEs": "Fuera de las potestades municipales según la Ley Orgánica Constitucional de Municipalidades (Ley 18.695).",
+        "reasonEn": "Outside municipal powers per the Constitutional Organic Law on Municipalities (Law 18.695)."
+      },
+      {
+        "actionId": "c40_0028",
+        "reasonEs": "Reglamentación específica aún pendiente; revisión legal en curso por SSG.",
+        "reasonEn": "Specific regulation still pending; legal review under way at SSG."
+      }
+    ],
+    "discardedExcluded": []
   },
   "city_03": {
     "topActions": [
-      { "rank": 1, "actionId": "icare_0012", "finalScore": 0.932, "pillarScores": { "impact": 0.96, "alignment": 0.95, "feasibility": 0.88 } },
-      { "rank": 2, "actionId": "ipcc_0172", "finalScore": 0.892, "pillarScores": { "impact": 0.93, "alignment": 0.91, "feasibility": 0.83 } },
-      { "rank": 3, "actionId": "ipcc_0118", "finalScore": 0.853, "pillarScores": { "impact": 0.83, "alignment": 0.88, "feasibility": 0.85 } },
-      { "rank": 4, "actionId": "icare_0031", "finalScore": 0.812, "pillarScores": { "impact": 0.79, "alignment": 0.84, "feasibility": 0.81 } },
-      { "rank": 5, "actionId": "c40_0033", "finalScore": 0.771, "pillarScores": { "impact": 0.74, "alignment": 0.80, "feasibility": 0.78 } },
-      { "rank": 6, "actionId": "icare_0061", "finalScore": 0.733, "pillarScores": { "impact": 0.78, "alignment": 0.72, "feasibility": 0.70 } },
-      { "rank": 7, "actionId": "c40_0049", "finalScore": 0.692, "pillarScores": { "impact": 0.65, "alignment": 0.71, "feasibility": 0.72 } },
-      { "rank": 8, "actionId": "icare_0073", "finalScore": 0.651, "pillarScores": { "impact": 0.70, "alignment": 0.64, "feasibility": 0.61 } },
-      { "rank": 9, "actionId": "ipcc_0156", "finalScore": 0.611, "pillarScores": { "impact": 0.56, "alignment": 0.64, "feasibility": 0.63 } },
-      { "rank": 10, "actionId": "ipcc_0149", "finalScore": 0.572, "pillarScores": { "impact": 0.53, "alignment": 0.61, "feasibility": 0.58 } }
-    ]
+      {
+        "rank": 1,
+        "actionId": "icare_0012",
+        "finalScore": 0.932,
+        "pillarScores": {
+          "impact": 0.96,
+          "alignment": 0.95,
+          "feasibility": 0.88
+        },
+        "rationaleEs": "Esta acción encabeza el ranking porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action tops the ranking because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 2,
+        "actionId": "ipcc_0172",
+        "finalScore": 0.892,
+        "pillarScores": {
+          "impact": 0.93,
+          "alignment": 0.91,
+          "feasibility": 0.83
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y aporta co-beneficios buscados por la ciudad (movilidad). Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and delivers co-benefits the city is asking for. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 3,
+        "actionId": "ipcc_0118",
+        "finalScore": 0.853,
+        "pillarScores": {
+          "impact": 0.83,
+          "alignment": 0.88,
+          "feasibility": 0.85
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 4,
+        "actionId": "icare_0031",
+        "finalScore": 0.812,
+        "pillarScores": {
+          "impact": 0.79,
+          "alignment": 0.84,
+          "feasibility": 0.81
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 5,
+        "actionId": "c40_0033",
+        "finalScore": 0.771,
+        "pillarScores": {
+          "impact": 0.74,
+          "alignment": 0.8,
+          "feasibility": 0.78
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: su impacto directo en emisiones es limitado.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. Its main limitation: it its direct emissions impact is limited."
+      },
+      {
+        "rank": 6,
+        "actionId": "icare_0061",
+        "finalScore": 0.733,
+        "pillarScores": {
+          "impact": 0.78,
+          "alignment": 0.72,
+          "feasibility": 0.7
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it fits the implementation timeframe the city prefers. Its main limitation: it does not match the city's stated sector priority."
+      },
+      {
+        "rank": 7,
+        "actionId": "c40_0049",
+        "finalScore": 0.692,
+        "pillarScores": {
+          "impact": 0.65,
+          "alignment": 0.71,
+          "feasibility": 0.72
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: su impacto directo en emisiones es limitado.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. Its main limitation: it its direct emissions impact is limited."
+      },
+      {
+        "rank": 8,
+        "actionId": "icare_0073",
+        "finalScore": 0.651,
+        "pillarScores": {
+          "impact": 0.7,
+          "alignment": 0.64,
+          "feasibility": 0.61
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it fits the implementation timeframe the city prefers. Its main limitation: it does not match the city's stated sector priority."
+      },
+      {
+        "rank": 9,
+        "actionId": "ipcc_0156",
+        "finalScore": 0.611,
+        "pillarScores": {
+          "impact": 0.56,
+          "alignment": 0.64,
+          "feasibility": 0.63
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; su impacto directo en emisiones es limitado.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it fits the implementation timeframe the city prefers. Its main limitation: it does not match the city's stated sector priority; its direct emissions impact is limited."
+      },
+      {
+        "rank": 10,
+        "actionId": "ipcc_0149",
+        "finalScore": 0.572,
+        "pillarScores": {
+          "impact": 0.53,
+          "alignment": 0.61,
+          "feasibility": 0.58
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque aporta co-beneficios buscados por la ciudad (calidad del aire). Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it delivers co-benefits the city is asking for. Its main limitation: it does not match the city's stated sector priority; falls outside the timeframes the city prefers."
+      }
+    ],
+    "discardedLegal": [
+      {
+        "actionId": "icare_0128",
+        "reasonEs": "Requiere mandato nacional vigente; aún no implementado para municipios.",
+        "reasonEn": "Requires a national mandate not yet implemented for municipalities."
+      },
+      {
+        "actionId": "icare_0094",
+        "reasonEs": "Jurisdicción compartida con el Estado central; municipio no puede actuar de forma autónoma.",
+        "reasonEn": "Shared jurisdiction with the central government; the municipality cannot act autonomously."
+      },
+      {
+        "actionId": "icare_0115",
+        "reasonEs": "Jurisdicción compartida con el Estado central; municipio no puede actuar de forma autónoma.",
+        "reasonEn": "Shared jurisdiction with the central government; the municipality cannot act autonomously."
+      }
+    ],
+    "discardedExcluded": []
   },
   "city_04": {
     "topActions": [
-      { "rank": 1, "actionId": "icare_0012", "finalScore": 0.911, "pillarScores": { "impact": 0.92, "alignment": 0.93, "feasibility": 0.88 } },
-      { "rank": 2, "actionId": "ipcc_0211", "finalScore": 0.872, "pillarScores": { "impact": 0.86, "alignment": 0.88, "feasibility": 0.88 } },
-      { "rank": 3, "actionId": "icare_0031", "finalScore": 0.832, "pillarScores": { "impact": 0.80, "alignment": 0.85, "feasibility": 0.84 } },
-      { "rank": 4, "actionId": "icare_0089", "finalScore": 0.791, "pillarScores": { "impact": 0.85, "alignment": 0.80, "feasibility": 0.72 } },
-      { "rank": 5, "actionId": "icare_0061", "finalScore": 0.751, "pillarScores": { "impact": 0.74, "alignment": 0.78, "feasibility": 0.73 } },
-      { "rank": 6, "actionId": "ipcc_0118", "finalScore": 0.712, "pillarScores": { "impact": 0.73, "alignment": 0.72, "feasibility": 0.69 } },
-      { "rank": 7, "actionId": "c40_0017", "finalScore": 0.672, "pillarScores": { "impact": 0.71, "alignment": 0.67, "feasibility": 0.64 } },
-      { "rank": 8, "actionId": "c40_0011", "finalScore": 0.633, "pillarScores": { "impact": 0.61, "alignment": 0.65, "feasibility": 0.64 } },
-      { "rank": 9, "actionId": "ipcc_0156", "finalScore": 0.592, "pillarScores": { "impact": 0.54, "alignment": 0.62, "feasibility": 0.62 } },
-      { "rank": 10, "actionId": "icare_0044", "finalScore": 0.553, "pillarScores": { "impact": 0.51, "alignment": 0.58, "feasibility": 0.57 } }
-    ]
+      {
+        "rank": 1,
+        "actionId": "icare_0012",
+        "finalScore": 0.911,
+        "pillarScores": {
+          "impact": 0.92,
+          "alignment": 0.93,
+          "feasibility": 0.88
+        },
+        "rationaleEs": "Esta acción encabeza el ranking porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action tops the ranking because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 2,
+        "actionId": "ipcc_0211",
+        "finalScore": 0.872,
+        "pillarScores": {
+          "impact": 0.86,
+          "alignment": 0.88,
+          "feasibility": 0.88
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: su impacto directo en emisiones es limitado.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. Its main limitation: it its direct emissions impact is limited."
+      },
+      {
+        "rank": 3,
+        "actionId": "icare_0031",
+        "finalScore": 0.832,
+        "pillarScores": {
+          "impact": 0.8,
+          "alignment": 0.85,
+          "feasibility": 0.84
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 4,
+        "actionId": "icare_0089",
+        "finalScore": 0.791,
+        "pillarScores": {
+          "impact": 0.85,
+          "alignment": 0.8,
+          "feasibility": 0.72
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y aporta co-beneficios buscados por la ciudad (movilidad y calidad del aire). Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and delivers co-benefits the city is asking for. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 5,
+        "actionId": "icare_0061",
+        "finalScore": 0.751,
+        "pillarScores": {
+          "impact": 0.74,
+          "alignment": 0.78,
+          "feasibility": 0.73
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 6,
+        "actionId": "ipcc_0118",
+        "finalScore": 0.712,
+        "pillarScores": {
+          "impact": 0.73,
+          "alignment": 0.72,
+          "feasibility": 0.69
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 7,
+        "actionId": "c40_0017",
+        "finalScore": 0.672,
+        "pillarScores": {
+          "impact": 0.71,
+          "alignment": 0.67,
+          "feasibility": 0.64
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. Its main limitation: it does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 8,
+        "actionId": "c40_0011",
+        "finalScore": 0.633,
+        "pillarScores": {
+          "impact": 0.61,
+          "alignment": 0.65,
+          "feasibility": 0.64
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: su impacto directo en emisiones es limitado; no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. Its main limitation: it its direct emissions impact is limited; does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 9,
+        "actionId": "ipcc_0156",
+        "finalScore": 0.592,
+        "pillarScores": {
+          "impact": 0.54,
+          "alignment": 0.62,
+          "feasibility": 0.62
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: su impacto directo en emisiones es limitado; no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. Its main limitation: it its direct emissions impact is limited; does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 10,
+        "actionId": "icare_0044",
+        "finalScore": 0.553,
+        "pillarScores": {
+          "impact": 0.51,
+          "alignment": 0.58,
+          "feasibility": 0.57
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it fits the implementation timeframe the city prefers. Its main limitation: it does not match the city's stated sector priority; does not explicitly address the city's preferred co-benefits."
+      }
+    ],
+    "discardedLegal": [
+      {
+        "actionId": "icare_0128",
+        "reasonEs": "Requiere mandato nacional vigente; aún no implementado para municipios.",
+        "reasonEn": "Requires a national mandate not yet implemented for municipalities."
+      },
+      {
+        "actionId": "icare_0094",
+        "reasonEs": "Jurisdicción compartida con el Estado central; municipio no puede actuar de forma autónoma.",
+        "reasonEn": "Shared jurisdiction with the central government; the municipality cannot act autonomously."
+      }
+    ],
+    "discardedExcluded": []
   },
   "city_05": {
     "topActions": [
-      { "rank": 1, "actionId": "icare_0094", "finalScore": 0.901, "pillarScores": { "impact": 0.92, "alignment": 0.91, "feasibility": 0.87 } },
-      { "rank": 2, "actionId": "ipcc_0237", "finalScore": 0.862, "pillarScores": { "impact": 0.88, "alignment": 0.87, "feasibility": 0.83 } },
-      { "rank": 3, "actionId": "icare_0102", "finalScore": 0.823, "pillarScores": { "impact": 0.85, "alignment": 0.82, "feasibility": 0.80 } },
-      { "rank": 4, "actionId": "ipcc_0149", "finalScore": 0.782, "pillarScores": { "impact": 0.72, "alignment": 0.81, "feasibility": 0.82 } },
-      { "rank": 5, "actionId": "icare_0044", "finalScore": 0.742, "pillarScores": { "impact": 0.69, "alignment": 0.77, "feasibility": 0.77 } },
-      { "rank": 6, "actionId": "icare_0061", "finalScore": 0.702, "pillarScores": { "impact": 0.71, "alignment": 0.71, "feasibility": 0.69 } },
-      { "rank": 7, "actionId": "ipcc_0188", "finalScore": 0.661, "pillarScores": { "impact": 0.68, "alignment": 0.66, "feasibility": 0.64 } },
-      { "rank": 8, "actionId": "icare_0025", "finalScore": 0.621, "pillarScores": { "impact": 0.58, "alignment": 0.64, "feasibility": 0.64 } },
-      { "rank": 9, "actionId": "ipcc_0156", "finalScore": 0.583, "pillarScores": { "impact": 0.52, "alignment": 0.61, "feasibility": 0.62 } },
-      { "rank": 10, "actionId": "ipcc_0118", "finalScore": 0.543, "pillarScores": { "impact": 0.51, "alignment": 0.56, "feasibility": 0.56 } }
-    ]
+      {
+        "rank": 1,
+        "actionId": "icare_0094",
+        "finalScore": 0.901,
+        "pillarScores": {
+          "impact": 0.92,
+          "alignment": 0.91,
+          "feasibility": 0.87
+        },
+        "rationaleEs": "Esta acción encabeza el ranking porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action tops the ranking because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 2,
+        "actionId": "ipcc_0237",
+        "finalScore": 0.862,
+        "pillarScores": {
+          "impact": 0.88,
+          "alignment": 0.87,
+          "feasibility": 0.83
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 3,
+        "actionId": "icare_0102",
+        "finalScore": 0.823,
+        "pillarScores": {
+          "impact": 0.85,
+          "alignment": 0.82,
+          "feasibility": 0.8
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 4,
+        "actionId": "ipcc_0149",
+        "finalScore": 0.782,
+        "pillarScores": {
+          "impact": 0.72,
+          "alignment": 0.81,
+          "feasibility": 0.82
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: su impacto directo en emisiones es limitado.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. Its main limitation: it its direct emissions impact is limited."
+      },
+      {
+        "rank": 5,
+        "actionId": "icare_0044",
+        "finalScore": 0.742,
+        "pillarScores": {
+          "impact": 0.69,
+          "alignment": 0.77,
+          "feasibility": 0.77
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y aporta co-beneficios buscados por la ciudad (biodiversidad). Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and delivers co-benefits the city is asking for. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 6,
+        "actionId": "icare_0061",
+        "finalScore": 0.702,
+        "pillarScores": {
+          "impact": 0.71,
+          "alignment": 0.71,
+          "feasibility": 0.69
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it fits the implementation timeframe the city prefers. Its main limitation: it does not match the city's stated sector priority; does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 7,
+        "actionId": "ipcc_0188",
+        "finalScore": 0.661,
+        "pillarScores": {
+          "impact": 0.68,
+          "alignment": 0.66,
+          "feasibility": 0.64
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it fits the implementation timeframe the city prefers. Its main limitation: it does not match the city's stated sector priority; does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 8,
+        "actionId": "icare_0025",
+        "finalScore": 0.621,
+        "pillarScores": {
+          "impact": 0.58,
+          "alignment": 0.64,
+          "feasibility": 0.64
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque presenta un balance favorable entre los tres pilares del modelo. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it shows a favorable balance across the three model pillars. Its main limitation: it does not match the city's stated sector priority; falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 9,
+        "actionId": "ipcc_0156",
+        "finalScore": 0.583,
+        "pillarScores": {
+          "impact": 0.52,
+          "alignment": 0.61,
+          "feasibility": 0.62
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque presenta un balance favorable entre los tres pilares del modelo. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it shows a favorable balance across the three model pillars. Its main limitation: it does not match the city's stated sector priority; falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 10,
+        "actionId": "ipcc_0118",
+        "finalScore": 0.543,
+        "pillarScores": {
+          "impact": 0.51,
+          "alignment": 0.56,
+          "feasibility": 0.56
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque aporta co-beneficios buscados por la ciudad (biodiversidad). Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it delivers co-benefits the city is asking for. Its main limitation: it does not match the city's stated sector priority; falls outside the timeframes the city prefers."
+      }
+    ],
+    "discardedLegal": [
+      {
+        "actionId": "ipcc_0118",
+        "reasonEs": "Fuera de las potestades municipales según la Ley Orgánica Constitucional de Municipalidades (Ley 18.695).",
+        "reasonEn": "Outside municipal powers per the Constitutional Organic Law on Municipalities (Law 18.695)."
+      },
+      {
+        "actionId": "icare_0089",
+        "reasonEs": "Requiere autorización presupuestaria sectorial que excede el alcance comunal.",
+        "reasonEn": "Requires sector-level budget authorization beyond the comunal scope."
+      },
+      {
+        "actionId": "c40_0028",
+        "reasonEs": "Reglamentación específica aún pendiente; revisión legal en curso por SSG.",
+        "reasonEn": "Specific regulation still pending; legal review under way at SSG."
+      }
+    ],
+    "discardedExcluded": []
   },
   "city_06": {
     "topActions": [
-      { "rank": 1, "actionId": "ipcc_0188", "finalScore": 0.918, "pillarScores": { "impact": 0.93, "alignment": 0.92, "feasibility": 0.90 } },
-      { "rank": 2, "actionId": "c40_0022", "finalScore": 0.872, "pillarScores": { "impact": 0.82, "alignment": 0.89, "feasibility": 0.89 } },
-      { "rank": 3, "actionId": "icare_0115", "finalScore": 0.834, "pillarScores": { "impact": 0.90, "alignment": 0.83, "feasibility": 0.77 } },
-      { "rank": 4, "actionId": "icare_0052", "finalScore": 0.793, "pillarScores": { "impact": 0.85, "alignment": 0.78, "feasibility": 0.75 } },
-      { "rank": 5, "actionId": "icare_0061", "finalScore": 0.751, "pillarScores": { "impact": 0.75, "alignment": 0.76, "feasibility": 0.74 } },
-      { "rank": 6, "actionId": "icare_0025", "finalScore": 0.711, "pillarScores": { "impact": 0.69, "alignment": 0.72, "feasibility": 0.72 } },
-      { "rank": 7, "actionId": "ipcc_0203", "finalScore": 0.672, "pillarScores": { "impact": 0.71, "alignment": 0.67, "feasibility": 0.64 } },
-      { "rank": 8, "actionId": "ipcc_0156", "finalScore": 0.632, "pillarScores": { "impact": 0.58, "alignment": 0.65, "feasibility": 0.67 } },
-      { "rank": 9, "actionId": "ipcc_0149", "finalScore": 0.591, "pillarScores": { "impact": 0.54, "alignment": 0.62, "feasibility": 0.61 } },
-      { "rank": 10, "actionId": "icare_0031", "finalScore": 0.551, "pillarScores": { "impact": 0.52, "alignment": 0.58, "feasibility": 0.56 } }
-    ]
+      {
+        "rank": 1,
+        "actionId": "ipcc_0188",
+        "finalScore": 0.918,
+        "pillarScores": {
+          "impact": 0.93,
+          "alignment": 0.92,
+          "feasibility": 0.9
+        },
+        "rationaleEs": "Esta acción encabeza el ranking porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action tops the ranking because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 2,
+        "actionId": "c40_0022",
+        "finalScore": 0.872,
+        "pillarScores": {
+          "impact": 0.82,
+          "alignment": 0.89,
+          "feasibility": 0.89
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 3,
+        "actionId": "icare_0115",
+        "finalScore": 0.834,
+        "pillarScores": {
+          "impact": 0.9,
+          "alignment": 0.83,
+          "feasibility": 0.77
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y aporta co-beneficios buscados por la ciudad (costo de vida). Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and delivers co-benefits the city is asking for. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 4,
+        "actionId": "icare_0052",
+        "finalScore": 0.793,
+        "pillarScores": {
+          "impact": 0.85,
+          "alignment": 0.78,
+          "feasibility": 0.75
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque se ajusta al plazo de implementación que la ciudad prefiere, y aporta co-beneficios buscados por la ciudad (calidad del aire). Su principal limitación: no coincide con el sector prioritario declarado por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it fits the implementation timeframe the city prefers, and delivers co-benefits the city is asking for. Its main limitation: it does not match the city's stated sector priority."
+      },
+      {
+        "rank": 5,
+        "actionId": "icare_0061",
+        "finalScore": 0.751,
+        "pillarScores": {
+          "impact": 0.75,
+          "alignment": 0.76,
+          "feasibility": 0.74
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 6,
+        "actionId": "icare_0025",
+        "finalScore": 0.711,
+        "pillarScores": {
+          "impact": 0.69,
+          "alignment": 0.72,
+          "feasibility": 0.72
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 7,
+        "actionId": "ipcc_0203",
+        "finalScore": 0.672,
+        "pillarScores": {
+          "impact": 0.71,
+          "alignment": 0.67,
+          "feasibility": 0.64
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it fits the implementation timeframe the city prefers. Its main limitation: it does not match the city's stated sector priority."
+      },
+      {
+        "rank": 8,
+        "actionId": "ipcc_0156",
+        "finalScore": 0.632,
+        "pillarScores": {
+          "impact": 0.58,
+          "alignment": 0.65,
+          "feasibility": 0.67
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: queda fuera de los plazos preferidos por la ciudad; su impacto directo en emisiones es limitado.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. Its main limitation: it falls outside the timeframes the city prefers; its direct emissions impact is limited."
+      },
+      {
+        "rank": 9,
+        "actionId": "ipcc_0149",
+        "finalScore": 0.591,
+        "pillarScores": {
+          "impact": 0.54,
+          "alignment": 0.62,
+          "feasibility": 0.61
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque aporta co-beneficios buscados por la ciudad (calidad del aire). Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it delivers co-benefits the city is asking for. Its main limitation: it does not match the city's stated sector priority; falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 10,
+        "actionId": "icare_0031",
+        "finalScore": 0.551,
+        "pillarScores": {
+          "impact": 0.52,
+          "alignment": 0.58,
+          "feasibility": 0.56
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque aporta co-beneficios buscados por la ciudad (calidad del aire). Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it delivers co-benefits the city is asking for. Its main limitation: it does not match the city's stated sector priority; falls outside the timeframes the city prefers."
+      }
+    ],
+    "discardedLegal": [
+      {
+        "actionId": "icare_0128",
+        "reasonEs": "Requiere mandato nacional vigente; aún no implementado para municipios.",
+        "reasonEn": "Requires a national mandate not yet implemented for municipalities."
+      },
+      {
+        "actionId": "icare_0094",
+        "reasonEs": "Jurisdicción compartida con el Estado central; municipio no puede actuar de forma autónoma.",
+        "reasonEn": "Shared jurisdiction with the central government; the municipality cannot act autonomously."
+      }
+    ],
+    "discardedExcluded": []
   },
   "city_07": {
     "topActions": [
-      { "rank": 1, "actionId": "icare_0012", "finalScore": 0.909, "pillarScores": { "impact": 0.93, "alignment": 0.92, "feasibility": 0.88 } },
-      { "rank": 2, "actionId": "icare_0061", "finalScore": 0.871, "pillarScores": { "impact": 0.87, "alignment": 0.88, "feasibility": 0.87 } },
-      { "rank": 3, "actionId": "icare_0073", "finalScore": 0.832, "pillarScores": { "impact": 0.84, "alignment": 0.85, "feasibility": 0.81 } },
-      { "rank": 4, "actionId": "ipcc_0134", "finalScore": 0.793, "pillarScores": { "impact": 0.82, "alignment": 0.79, "feasibility": 0.77 } },
-      { "rank": 5, "actionId": "c40_0011", "finalScore": 0.752, "pillarScores": { "impact": 0.71, "alignment": 0.78, "feasibility": 0.77 } },
-      { "rank": 6, "actionId": "icare_0052", "finalScore": 0.712, "pillarScores": { "impact": 0.79, "alignment": 0.71, "feasibility": 0.64 } },
-      { "rank": 7, "actionId": "ipcc_0118", "finalScore": 0.672, "pillarScores": { "impact": 0.66, "alignment": 0.69, "feasibility": 0.67 } },
-      { "rank": 8, "actionId": "c40_0028", "finalScore": 0.632, "pillarScores": { "impact": 0.74, "alignment": 0.62, "feasibility": 0.54 } },
-      { "rank": 9, "actionId": "icare_0031", "finalScore": 0.591, "pillarScores": { "impact": 0.56, "alignment": 0.62, "feasibility": 0.59 } },
-      { "rank": 10, "actionId": "ipcc_0211", "finalScore": 0.553, "pillarScores": { "impact": 0.52, "alignment": 0.59, "feasibility": 0.55 } }
-    ]
+      {
+        "rank": 1,
+        "actionId": "icare_0012",
+        "finalScore": 0.909,
+        "pillarScores": {
+          "impact": 0.93,
+          "alignment": 0.92,
+          "feasibility": 0.88
+        },
+        "rationaleEs": "Esta acción encabeza el ranking porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action tops the ranking because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 2,
+        "actionId": "icare_0061",
+        "finalScore": 0.871,
+        "pillarScores": {
+          "impact": 0.87,
+          "alignment": 0.88,
+          "feasibility": 0.87
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 3,
+        "actionId": "icare_0073",
+        "finalScore": 0.832,
+        "pillarScores": {
+          "impact": 0.84,
+          "alignment": 0.85,
+          "feasibility": 0.81
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 4,
+        "actionId": "ipcc_0134",
+        "finalScore": 0.793,
+        "pillarScores": {
+          "impact": 0.82,
+          "alignment": 0.79,
+          "feasibility": 0.77
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 5,
+        "actionId": "c40_0011",
+        "finalScore": 0.752,
+        "pillarScores": {
+          "impact": 0.71,
+          "alignment": 0.78,
+          "feasibility": 0.77
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: su impacto directo en emisiones es limitado.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. Its main limitation: it its direct emissions impact is limited."
+      },
+      {
+        "rank": 6,
+        "actionId": "icare_0052",
+        "finalScore": 0.712,
+        "pillarScores": {
+          "impact": 0.79,
+          "alignment": 0.71,
+          "feasibility": 0.64
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it fits the implementation timeframe the city prefers. Its main limitation: it does not match the city's stated sector priority."
+      },
+      {
+        "rank": 7,
+        "actionId": "ipcc_0118",
+        "finalScore": 0.672,
+        "pillarScores": {
+          "impact": 0.66,
+          "alignment": 0.69,
+          "feasibility": 0.67
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 8,
+        "actionId": "c40_0028",
+        "finalScore": 0.632,
+        "pillarScores": {
+          "impact": 0.74,
+          "alignment": 0.62,
+          "feasibility": 0.54
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 9,
+        "actionId": "icare_0031",
+        "finalScore": 0.591,
+        "pillarScores": {
+          "impact": 0.56,
+          "alignment": 0.62,
+          "feasibility": 0.59
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 10,
+        "actionId": "ipcc_0211",
+        "finalScore": 0.553,
+        "pillarScores": {
+          "impact": 0.52,
+          "alignment": 0.59,
+          "feasibility": 0.55
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: su impacto directo en emisiones es limitado.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. Its main limitation: it its direct emissions impact is limited."
+      }
+    ],
+    "discardedLegal": [
+      {
+        "actionId": "icare_0128",
+        "reasonEs": "Requiere mandato nacional vigente; aún no implementado para municipios.",
+        "reasonEn": "Requires a national mandate not yet implemented for municipalities."
+      },
+      {
+        "actionId": "icare_0089",
+        "reasonEs": "Requiere autorización presupuestaria sectorial que excede el alcance comunal.",
+        "reasonEn": "Requires sector-level budget authorization beyond the comunal scope."
+      }
+    ],
+    "discardedExcluded": []
   },
   "city_08": {
     "topActions": [
-      { "rank": 1, "actionId": "ipcc_0134", "finalScore": 0.921, "pillarScores": { "impact": 0.94, "alignment": 0.94, "feasibility": 0.88 } },
-      { "rank": 2, "actionId": "icare_0073", "finalScore": 0.881, "pillarScores": { "impact": 0.88, "alignment": 0.91, "feasibility": 0.85 } },
-      { "rank": 3, "actionId": "c40_0028", "finalScore": 0.832, "pillarScores": { "impact": 0.91, "alignment": 0.83, "feasibility": 0.75 } },
-      { "rank": 4, "actionId": "ipcc_0224", "finalScore": 0.792, "pillarScores": { "impact": 0.78, "alignment": 0.81, "feasibility": 0.78 } },
-      { "rank": 5, "actionId": "icare_0061", "finalScore": 0.752, "pillarScores": { "impact": 0.74, "alignment": 0.76, "feasibility": 0.76 } },
-      { "rank": 6, "actionId": "icare_0012", "finalScore": 0.712, "pillarScores": { "impact": 0.74, "alignment": 0.71, "feasibility": 0.69 } },
-      { "rank": 7, "actionId": "ipcc_0237", "finalScore": 0.671, "pillarScores": { "impact": 0.69, "alignment": 0.67, "feasibility": 0.65 } },
-      { "rank": 8, "actionId": "icare_0094", "finalScore": 0.631, "pillarScores": { "impact": 0.67, "alignment": 0.62, "feasibility": 0.60 } },
-      { "rank": 9, "actionId": "icare_0044", "finalScore": 0.591, "pillarScores": { "impact": 0.57, "alignment": 0.61, "feasibility": 0.59 } },
-      { "rank": 10, "actionId": "ipcc_0149", "finalScore": 0.552, "pillarScores": { "impact": 0.52, "alignment": 0.58, "feasibility": 0.56 } }
-    ]
+      {
+        "rank": 1,
+        "actionId": "ipcc_0134",
+        "finalScore": 0.921,
+        "pillarScores": {
+          "impact": 0.94,
+          "alignment": 0.94,
+          "feasibility": 0.88
+        },
+        "rationaleEs": "Esta acción encabeza el ranking porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action tops the ranking because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 2,
+        "actionId": "icare_0073",
+        "finalScore": 0.881,
+        "pillarScores": {
+          "impact": 0.88,
+          "alignment": 0.91,
+          "feasibility": 0.85
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y aporta co-beneficios buscados por la ciudad (calidad del aire y vivienda). Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and delivers co-benefits the city is asking for. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 3,
+        "actionId": "c40_0028",
+        "finalScore": 0.832,
+        "pillarScores": {
+          "impact": 0.91,
+          "alignment": 0.83,
+          "feasibility": 0.75
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y aporta co-beneficios buscados por la ciudad (calidad del aire y vivienda). Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and delivers co-benefits the city is asking for. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 4,
+        "actionId": "ipcc_0224",
+        "finalScore": 0.792,
+        "pillarScores": {
+          "impact": 0.78,
+          "alignment": 0.81,
+          "feasibility": 0.78
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y aporta co-beneficios buscados por la ciudad (calidad del aire y vivienda). Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and delivers co-benefits the city is asking for. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 5,
+        "actionId": "icare_0061",
+        "finalScore": 0.752,
+        "pillarScores": {
+          "impact": 0.74,
+          "alignment": 0.76,
+          "feasibility": 0.76
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y aporta co-beneficios buscados por la ciudad (calidad del aire). Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and delivers co-benefits the city is asking for. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 6,
+        "actionId": "icare_0012",
+        "finalScore": 0.712,
+        "pillarScores": {
+          "impact": 0.74,
+          "alignment": 0.71,
+          "feasibility": 0.69
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque aporta co-beneficios buscados por la ciudad (calidad del aire). Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it delivers co-benefits the city is asking for. Its main limitation: it does not match the city's stated sector priority; falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 7,
+        "actionId": "ipcc_0237",
+        "finalScore": 0.671,
+        "pillarScores": {
+          "impact": 0.69,
+          "alignment": 0.67,
+          "feasibility": 0.65
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque presenta un balance favorable entre los tres pilares del modelo. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it shows a favorable balance across the three model pillars. Its main limitation: it does not match the city's stated sector priority; falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 8,
+        "actionId": "icare_0094",
+        "finalScore": 0.631,
+        "pillarScores": {
+          "impact": 0.67,
+          "alignment": 0.62,
+          "feasibility": 0.6
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque presenta un balance favorable entre los tres pilares del modelo. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it shows a favorable balance across the three model pillars. Its main limitation: it does not match the city's stated sector priority; falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 9,
+        "actionId": "icare_0044",
+        "finalScore": 0.591,
+        "pillarScores": {
+          "impact": 0.57,
+          "alignment": 0.61,
+          "feasibility": 0.59
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it fits the implementation timeframe the city prefers. Its main limitation: it does not match the city's stated sector priority; does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 10,
+        "actionId": "ipcc_0149",
+        "finalScore": 0.552,
+        "pillarScores": {
+          "impact": 0.52,
+          "alignment": 0.58,
+          "feasibility": 0.56
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque aporta co-beneficios buscados por la ciudad (calidad del aire). Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it delivers co-benefits the city is asking for. Its main limitation: it does not match the city's stated sector priority; falls outside the timeframes the city prefers."
+      }
+    ],
+    "discardedLegal": [
+      {
+        "actionId": "icare_0089",
+        "reasonEs": "Requiere autorización presupuestaria sectorial que excede el alcance comunal.",
+        "reasonEn": "Requires sector-level budget authorization beyond the comunal scope."
+      },
+      {
+        "actionId": "icare_0115",
+        "reasonEs": "Jurisdicción compartida con el Estado central; municipio no puede actuar de forma autónoma.",
+        "reasonEn": "Shared jurisdiction with the central government; the municipality cannot act autonomously."
+      }
+    ],
+    "discardedExcluded": []
   },
   "city_09": {
     "topActions": [
-      { "rank": 1, "actionId": "ipcc_0134", "finalScore": 0.913, "pillarScores": { "impact": 0.93, "alignment": 0.93, "feasibility": 0.88 } },
-      { "rank": 2, "actionId": "icare_0073", "finalScore": 0.873, "pillarScores": { "impact": 0.86, "alignment": 0.90, "feasibility": 0.86 } },
-      { "rank": 3, "actionId": "icare_0102", "finalScore": 0.832, "pillarScores": { "impact": 0.85, "alignment": 0.82, "feasibility": 0.83 } },
-      { "rank": 4, "actionId": "ipcc_0237", "finalScore": 0.792, "pillarScores": { "impact": 0.78, "alignment": 0.81, "feasibility": 0.78 } },
-      { "rank": 5, "actionId": "icare_0094", "finalScore": 0.751, "pillarScores": { "impact": 0.75, "alignment": 0.75, "feasibility": 0.75 } },
-      { "rank": 6, "actionId": "ipcc_0203", "finalScore": 0.711, "pillarScores": { "impact": 0.74, "alignment": 0.71, "feasibility": 0.68 } },
-      { "rank": 7, "actionId": "icare_0061", "finalScore": 0.671, "pillarScores": { "impact": 0.66, "alignment": 0.69, "feasibility": 0.66 } },
-      { "rank": 8, "actionId": "c40_0028", "finalScore": 0.633, "pillarScores": { "impact": 0.75, "alignment": 0.62, "feasibility": 0.54 } },
-      { "rank": 9, "actionId": "icare_0044", "finalScore": 0.591, "pillarScores": { "impact": 0.55, "alignment": 0.61, "feasibility": 0.61 } },
-      { "rank": 10, "actionId": "ipcc_0149", "finalScore": 0.553, "pillarScores": { "impact": 0.52, "alignment": 0.59, "feasibility": 0.55 } }
-    ]
+      {
+        "rank": 1,
+        "actionId": "ipcc_0134",
+        "finalScore": 0.913,
+        "pillarScores": {
+          "impact": 0.93,
+          "alignment": 0.93,
+          "feasibility": 0.88
+        },
+        "rationaleEs": "Esta acción encabeza el ranking porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action tops the ranking because it matches the sector the city declared as a priority. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 2,
+        "actionId": "icare_0073",
+        "finalScore": 0.873,
+        "pillarScores": {
+          "impact": 0.86,
+          "alignment": 0.9,
+          "feasibility": 0.86
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. Its main limitation: it does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 3,
+        "actionId": "icare_0102",
+        "finalScore": 0.832,
+        "pillarScores": {
+          "impact": 0.85,
+          "alignment": 0.82,
+          "feasibility": 0.83
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y aporta co-beneficios buscados por la ciudad (biodiversidad y calidad del agua). Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and delivers co-benefits the city is asking for. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 4,
+        "actionId": "ipcc_0237",
+        "finalScore": 0.792,
+        "pillarScores": {
+          "impact": 0.78,
+          "alignment": 0.81,
+          "feasibility": 0.78
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y aporta co-beneficios buscados por la ciudad (biodiversidad y calidad del agua). Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and delivers co-benefits the city is asking for. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 5,
+        "actionId": "icare_0094",
+        "finalScore": 0.751,
+        "pillarScores": {
+          "impact": 0.75,
+          "alignment": 0.75,
+          "feasibility": 0.75
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 6,
+        "actionId": "ipcc_0203",
+        "finalScore": 0.711,
+        "pillarScores": {
+          "impact": 0.74,
+          "alignment": 0.71,
+          "feasibility": 0.68
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it fits the implementation timeframe the city prefers. Its main limitation: it does not match the city's stated sector priority."
+      },
+      {
+        "rank": 7,
+        "actionId": "icare_0061",
+        "finalScore": 0.671,
+        "pillarScores": {
+          "impact": 0.66,
+          "alignment": 0.69,
+          "feasibility": 0.66
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. Its main limitation: it does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 8,
+        "actionId": "c40_0028",
+        "finalScore": 0.633,
+        "pillarScores": {
+          "impact": 0.75,
+          "alignment": 0.62,
+          "feasibility": 0.54
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: queda fuera de los plazos preferidos por la ciudad; no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. Its main limitation: it falls outside the timeframes the city prefers; does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 9,
+        "actionId": "icare_0044",
+        "finalScore": 0.591,
+        "pillarScores": {
+          "impact": 0.55,
+          "alignment": 0.61,
+          "feasibility": 0.61
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque aporta co-beneficios buscados por la ciudad (biodiversidad). Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it delivers co-benefits the city is asking for. Its main limitation: it does not match the city's stated sector priority; falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 10,
+        "actionId": "ipcc_0149",
+        "finalScore": 0.553,
+        "pillarScores": {
+          "impact": 0.52,
+          "alignment": 0.59,
+          "feasibility": 0.55
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: queda fuera de los plazos preferidos por la ciudad; su impacto directo en emisiones es limitado.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. Its main limitation: it falls outside the timeframes the city prefers; its direct emissions impact is limited."
+      }
+    ],
+    "discardedLegal": [
+      {
+        "actionId": "icare_0128",
+        "reasonEs": "Requiere mandato nacional vigente; aún no implementado para municipios.",
+        "reasonEn": "Requires a national mandate not yet implemented for municipalities."
+      },
+      {
+        "actionId": "ipcc_0118",
+        "reasonEs": "Fuera de las potestades municipales según la Ley Orgánica Constitucional de Municipalidades (Ley 18.695).",
+        "reasonEn": "Outside municipal powers per the Constitutional Organic Law on Municipalities (Law 18.695)."
+      }
+    ],
+    "discardedExcluded": []
   },
   "city_10": {
     "topActions": [
-      { "rank": 1, "actionId": "icare_0073", "finalScore": 0.931, "pillarScores": { "impact": 0.96, "alignment": 0.94, "feasibility": 0.89 } },
-      { "rank": 2, "actionId": "ipcc_0134", "finalScore": 0.892, "pillarScores": { "impact": 0.91, "alignment": 0.91, "feasibility": 0.85 } },
-      { "rank": 3, "actionId": "c40_0028", "finalScore": 0.843, "pillarScores": { "impact": 0.92, "alignment": 0.84, "feasibility": 0.77 } },
-      { "rank": 4, "actionId": "icare_0061", "finalScore": 0.793, "pillarScores": { "impact": 0.76, "alignment": 0.81, "feasibility": 0.81 } },
-      { "rank": 5, "actionId": "icare_0102", "finalScore": 0.752, "pillarScores": { "impact": 0.78, "alignment": 0.75, "feasibility": 0.73 } },
-      { "rank": 6, "actionId": "icare_0012", "finalScore": 0.711, "pillarScores": { "impact": 0.73, "alignment": 0.71, "feasibility": 0.70 } },
-      { "rank": 7, "actionId": "icare_0025", "finalScore": 0.672, "pillarScores": { "impact": 0.65, "alignment": 0.69, "feasibility": 0.68 } },
-      { "rank": 8, "actionId": "ipcc_0156", "finalScore": 0.633, "pillarScores": { "impact": 0.58, "alignment": 0.65, "feasibility": 0.67 } },
-      { "rank": 9, "actionId": "icare_0044", "finalScore": 0.591, "pillarScores": { "impact": 0.56, "alignment": 0.61, "feasibility": 0.60 } },
-      { "rank": 10, "actionId": "ipcc_0149", "finalScore": 0.552, "pillarScores": { "impact": 0.51, "alignment": 0.59, "feasibility": 0.56 } }
-    ]
+      {
+        "rank": 1,
+        "actionId": "icare_0073",
+        "finalScore": 0.931,
+        "pillarScores": {
+          "impact": 0.96,
+          "alignment": 0.94,
+          "feasibility": 0.89
+        },
+        "rationaleEs": "Esta acción encabeza el ranking porque coincide con el sector prioritario declarado por la ciudad, y aporta co-beneficios buscados por la ciudad (calidad del aire y vivienda). Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action tops the ranking because it matches the sector the city declared as a priority, and delivers co-benefits the city is asking for. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 2,
+        "actionId": "ipcc_0134",
+        "finalScore": 0.892,
+        "pillarScores": {
+          "impact": 0.91,
+          "alignment": 0.91,
+          "feasibility": 0.85
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y se ajusta al plazo de implementación que la ciudad prefiere. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and fits the implementation timeframe the city prefers. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 3,
+        "actionId": "c40_0028",
+        "finalScore": 0.843,
+        "pillarScores": {
+          "impact": 0.92,
+          "alignment": 0.84,
+          "feasibility": 0.77
+        },
+        "rationaleEs": "Esta acción aparece entre las prioritarias porque coincide con el sector prioritario declarado por la ciudad, y aporta co-beneficios buscados por la ciudad (calidad del aire y vivienda). Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action is among the priority three because it matches the sector the city declared as a priority, and delivers co-benefits the city is asking for. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 4,
+        "actionId": "icare_0061",
+        "finalScore": 0.793,
+        "pillarScores": {
+          "impact": 0.76,
+          "alignment": 0.81,
+          "feasibility": 0.81
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque coincide con el sector prioritario declarado por la ciudad, y aporta co-beneficios buscados por la ciudad (calidad del aire). Su principal limitación: queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it matches the sector the city declared as a priority, and delivers co-benefits the city is asking for. Its main limitation: it falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 5,
+        "actionId": "icare_0102",
+        "finalScore": 0.752,
+        "pillarScores": {
+          "impact": 0.78,
+          "alignment": 0.75,
+          "feasibility": 0.73
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque presenta un balance favorable entre los tres pilares del modelo. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it shows a favorable balance across the three model pillars. Its main limitation: it does not match the city's stated sector priority."
+      },
+      {
+        "rank": 6,
+        "actionId": "icare_0012",
+        "finalScore": 0.711,
+        "pillarScores": {
+          "impact": 0.73,
+          "alignment": 0.71,
+          "feasibility": 0.7
+        },
+        "rationaleEs": "Esta acción se mantiene en la franja media porque aporta co-beneficios buscados por la ciudad (calidad del aire). Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action sits in the middle of the pack because it delivers co-benefits the city is asking for. Its main limitation: it does not match the city's stated sector priority; falls outside the timeframes the city prefers."
+      },
+      {
+        "rank": 7,
+        "actionId": "icare_0025",
+        "finalScore": 0.672,
+        "pillarScores": {
+          "impact": 0.65,
+          "alignment": 0.69,
+          "feasibility": 0.68
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. No se identifican limitaciones significativas frente a los pilares evaluados.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. No significant limitations were identified against the evaluated pillars."
+      },
+      {
+        "rank": 8,
+        "actionId": "ipcc_0156",
+        "finalScore": 0.633,
+        "pillarScores": {
+          "impact": 0.58,
+          "alignment": 0.65,
+          "feasibility": 0.67
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque coincide con el sector prioritario declarado por la ciudad. Su principal limitación: su impacto directo en emisiones es limitado; no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it matches the sector the city declared as a priority. Its main limitation: it its direct emissions impact is limited; does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 9,
+        "actionId": "icare_0044",
+        "finalScore": 0.591,
+        "pillarScores": {
+          "impact": 0.56,
+          "alignment": 0.61,
+          "feasibility": 0.6
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque se ajusta al plazo de implementación que la ciudad prefiere. Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; no atiende explícitamente los co-beneficios priorizados por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it fits the implementation timeframe the city prefers. Its main limitation: it does not match the city's stated sector priority; does not explicitly address the city's preferred co-benefits."
+      },
+      {
+        "rank": 10,
+        "actionId": "ipcc_0149",
+        "finalScore": 0.552,
+        "pillarScores": {
+          "impact": 0.51,
+          "alignment": 0.59,
+          "feasibility": 0.56
+        },
+        "rationaleEs": "Esta acción queda en los últimos puestos del top 10 porque aporta co-beneficios buscados por la ciudad (calidad del aire). Su principal limitación: no coincide con el sector prioritario declarado por la ciudad; queda fuera de los plazos preferidos por la ciudad.",
+        "rationaleEn": "This action ranks in the lower half of the top 10 because it delivers co-benefits the city is asking for. Its main limitation: it does not match the city's stated sector priority; falls outside the timeframes the city prefers."
+      }
+    ],
+    "discardedLegal": [
+      {
+        "actionId": "c40_0028",
+        "reasonEs": "Reglamentación específica aún pendiente; revisión legal en curso por SSG.",
+        "reasonEn": "Specific regulation still pending; legal review under way at SSG."
+      },
+      {
+        "actionId": "icare_0089",
+        "reasonEs": "Requiere autorización presupuestaria sectorial que excede el alcance comunal.",
+        "reasonEn": "Requires sector-level budget authorization beyond the comunal scope."
+      },
+      {
+        "actionId": "icare_0094",
+        "reasonEs": "Jurisdicción compartida con el Estado central; municipio no puede actuar de forma autónoma.",
+        "reasonEn": "Shared jurisdiction with the central government; the municipality cannot act autonomously."
+      }
+    ],
+    "discardedExcluded": []
   }
 }

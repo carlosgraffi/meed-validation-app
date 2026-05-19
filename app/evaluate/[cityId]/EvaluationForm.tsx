@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { PillarDisclosure } from "@/components/PillarDisclosure";
 import { cn } from "@/lib/utils";
 import { useT } from "@/app/LangProvider";
-import type { City } from "@/lib/fixtures";
+import type { Action, City, DiscardedAction } from "@/lib/fixtures";
 import { SectionA } from "./SectionA";
 import { SectionC } from "./SectionC";
 import { SectionE } from "./SectionE";
@@ -15,6 +15,8 @@ import { StageRating, type RatingMap } from "./StageRating";
 import { Stage3Reorder } from "./Stage3Reorder";
 import { StageSection } from "./StageSection";
 import { StageStepper } from "./StageStepper";
+import { CityContextBanner } from "./CityContextBanner";
+import { LegallyBlockedFootnote } from "./LegallyBlockedFootnote";
 import type { RankedAction, Stage } from "./page";
 
 export type Initial = {
@@ -60,14 +62,19 @@ export function EvaluationForm({
   rankedActions,
   stage1Order,
   stage2Order,
+  discardedLegal,
+  allActions,
   initial,
 }: {
   city: City;
   rankedActions: RankedAction[];
   stage1Order: RankedAction[];
   stage2Order: RankedAction[];
+  discardedLegal: DiscardedAction[];
+  allActions: Action[];
   initial: Initial;
 }) {
+  const actionMap = new Map(allActions.map((a) => [a.actionId, a]));
   const t = useT();
   const router = useRouter();
   const [currentStage, setCurrentStage] = useState<Stage>(initial.currentStage);
@@ -250,6 +257,8 @@ export function EvaluationForm({
         </div>
       </header>
 
+      <CityContextBanner city={city} />
+
       <PillarDisclosure variant="compact" />
 
       <SectionA city={city} onContinue={() => {}} />
@@ -281,6 +290,13 @@ export function EvaluationForm({
         />
       </StageSection>
       </SlideInOnMount>
+
+      {/* Footnote: actions blocked by Chilean legal assessment for this city.
+          Surfaced after Stage 1 so experts learn early about the legal filter
+          and can mentally account for missing actions. */}
+      {STAGE_RANK[currentStage] >= 2 && discardedLegal.length > 0 && (
+        <LegallyBlockedFootnote discarded={discardedLegal} actionMap={actionMap} />
+      )}
 
       {/* Stage 2 — top-10 set membership (visible only once Stage 1 advanced) */}
       {STAGE_RANK[currentStage] >= 2 && (
