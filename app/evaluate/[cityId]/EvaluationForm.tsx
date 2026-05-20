@@ -16,6 +16,7 @@ import { Stage3Reorder } from "./Stage3Reorder";
 import { StageSection } from "./StageSection";
 import { StageStepper } from "./StageStepper";
 import { CityContextBanner } from "./CityContextBanner";
+import { CityContextSidebar } from "./CityContextSidebar";
 import { LegallyBlockedFootnote } from "./LegallyBlockedFootnote";
 import type { RankedAction, Stage } from "./page";
 
@@ -246,25 +247,42 @@ export function EvaluationForm({
   const missingFilled = missing.filter((s) => s.trim().length > 0).length;
 
   return (
-    <main className="min-h-screen p-6 max-w-4xl mx-auto space-y-6 pb-32">
-      <header className="flex items-center justify-between gap-3 flex-wrap">
-        <Button variant="ghost" size="sm" onClick={() => router.push("/dashboard")}>
-          ← {t("common.back")}
-        </Button>
-        <div className="flex items-center gap-3 flex-1 justify-end">
-          <StageStepper current={topLevelStageIndex(currentStage) as 1 | 2 | 3} />
-          <AutosaveBadge state={autosaveState} />
+    <main className="min-h-screen pb-32">
+      <div className="max-w-6xl mx-auto px-6 pt-6">
+        <header className="flex items-center justify-between gap-3 flex-wrap">
+          <Button variant="ghost" size="sm" onClick={() => router.push("/dashboard")}>
+            ← {t("common.back")}
+          </Button>
+          <div className="flex items-center gap-3 flex-1 justify-end">
+            <StageStepper current={topLevelStageIndex(currentStage) as 1 | 2 | 3} />
+            <AutosaveBadge state={autosaveState} />
+          </div>
+        </header>
+
+        {/* Mobile-only sticky banner. Desktop replaces this with the sticky sidebar below. */}
+        <div className="lg:hidden mt-4">
+          <CityContextBanner city={city} />
         </div>
-      </header>
 
-      <CityContextBanner city={city} />
+        <div className="mt-4 lg:grid lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] lg:gap-8">
+          {/* Desktop-only sticky sidebar with full city context. */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto pr-1">
+              <CityContextSidebar city={city} />
+            </div>
+          </aside>
 
-      <PillarDisclosure variant="compact" />
+          {/* Right (and mobile-only-bottom) column: pillars + stages. */}
+          <div className="space-y-6">
+            <PillarDisclosure variant="compact" />
 
-      <SectionA city={city} onContinue={() => {}} />
+            {/* Section A is mobile-only — desktop sidebar carries the same info. */}
+            <div className="lg:hidden">
+              <SectionA city={city} onContinue={() => {}} />
+            </div>
 
-      {/* Stage 1 — top-3 set membership */}
-      <SlideInOnMount stageKey="stage1">
+            {/* Stage 1 — top-3 set membership */}
+            <SlideInOnMount stageKey="stage1">
       <StageSection
         stageKey="stage1"
         state={stageState("stage1")}
@@ -410,9 +428,12 @@ export function EvaluationForm({
         </StageSection>
         </SlideInOnMount>
       )}
+          </div>
+        </div>
+      </div>
 
       <footer className="fixed bottom-0 left-0 right-0 border-t bg-background/95 backdrop-blur p-4">
-        <div className="max-w-4xl mx-auto flex flex-col gap-2">
+        <div className="max-w-6xl mx-auto flex flex-col gap-2">
           {stageError && <p className="text-sm text-destructive">{stageError}</p>}
           <div className="flex items-center justify-between gap-3">
             <p className="text-xs text-muted-foreground">
