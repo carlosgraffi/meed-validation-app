@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { requireAdmin } from "../_guard";
 import { prisma } from "@/lib/db";
 
-const DEMO_CITIES = ["city_03", "city_05", "city_10"];
+const DEMO_CITIES = ["city_03", "city_05", "city_07", "city_10"];
 
 /**
  * Reset the demo expert to a clean slate. Wipes evaluations, ratings,

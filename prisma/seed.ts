@@ -97,7 +97,9 @@ async function main() {
     },
     update: {}, // preserve state across reseeds
   });
-  const demoCities = ["city_03", "city_05", "city_10"];
+  // 4 cities to match the standard per-expert load (consistent with real expert flow).
+  // Mix of profiles: metropolitan transport, agro/AFOLU, coastal/industrial, cold-climate.
+  const demoCities = ["city_03", "city_05", "city_07", "city_10"];
   for (const cityId of demoCities) {
     await prisma.assignment.upsert({
       where: { expertId_cityId: { expertId: "demo", cityId } },

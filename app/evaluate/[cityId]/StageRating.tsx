@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
@@ -13,56 +13,105 @@ import type { RankedAction } from "./page";
 /**
  * Shared component for Stages 1 and 2.
  *
- * Same card design as the old SectionB, with two important differences:
- *   - The rank badge and the "main recommendation" tag are NEVER shown here.
- *     Ranks are revealed only in Stage 3 (reorder).
- *   - The Likert prompt is the question-specific one (top3 or top10), not the
- *     old positional prompt.
+ * Layout per stage:
+ *   - Focus section: the actions the expert RATES (top 3 for Stage 1, top 10
+ *     for Stage 2). Full Likert + "not sure" controls.
+ *   - Context section: the next "almost made it" actions, shown read-only as
+ *     reference. The expert doesn't rate them — they're there so the expert
+ *     can see what's just outside the cut. Carlos's call: this gives experts
+ *     a sense of how cleanly the focus set separates from runners-up.
+ *
+ * Ranks are NEVER shown in either group here. Stage 3 (reorder) is the only
+ * place the model's ordering is revealed.
  */
 export type RatingMap = Record<string, { likert: number; notSure: boolean }>;
 
 export function StageRating({
   question,
-  actions,
+  focusActions,
+  contextActions,
   ratings,
   onRatingChange,
   onNotSureChange,
   readOnly,
 }: {
   question: "top3" | "top10";
-  actions: RankedAction[];
+  focusActions: RankedAction[];
+  contextActions: Action[];
   ratings: RatingMap;
   onRatingChange: (actionId: string, modelRank: number, likert: number) => void;
   onNotSureChange: (actionId: string, modelRank: number, notSure: boolean) => void;
   readOnly?: boolean;
 }) {
   const t = useT();
-  const titleKey = question === "top3" ? "evaluate.stage1Title" : "evaluate.stage2Title";
-  const introKey = question === "top3" ? "evaluate.stage1Intro" : "evaluate.stage2Intro";
   const promptKey =
     question === "top3" ? "evaluate.likertPromptTop3" : "evaluate.likertPromptTop10";
+  const focusHintKey =
+    question === "top3" ? "evaluate.focusActionsHintTop3" : "evaluate.focusActionsHintTop10";
+  const contextHintKey =
+    question === "top3" ? "evaluate.contextActionsHintTop3" : "evaluate.contextActionsHintTop10";
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>{t(titleKey as never)}</CardTitle>
-        <CardDescription className="leading-relaxed">{t(introKey as never)}</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <ol className="space-y-4">
-          {actions.map((r) => (
-            <li key={r.action.actionId}>
-              <ActionCard
-                action={r.action}
-                rating={ratings[r.action.actionId]}
-                promptKey={promptKey}
-                onChange={(l) => onRatingChange(r.action.actionId, r.rank, l)}
-                onNotSureChange={(b) => onNotSureChange(r.action.actionId, r.rank, b)}
-                disabled={readOnly}
-              />
-            </li>
-          ))}
-        </ol>
+      <CardContent className="space-y-8 pt-6">
+        {/* Focus group */}
+        <section className="space-y-4">
+          <header className="space-y-1">
+            <h3 className="text-base font-semibold">{t("evaluate.focusActionsHeader")}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {t(focusHintKey as never)}
+            </p>
+          </header>
+          <ol className="space-y-4">
+            {focusActions.map((r) => (
+              <li key={r.action.actionId}>
+                <ActionCard
+                  action={r.action}
+                  rating={ratings[r.action.actionId]}
+                  promptKey={promptKey}
+                  onChange={(l) => onRatingChange(r.action.actionId, r.rank, l)}
+                  onNotSureChange={(b) => onNotSureChange(r.action.actionId, r.rank, b)}
+                  disabled={readOnly}
+                  context={false}
+                />
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* Context group — read-only, no Likert */}
+        {contextActions.length > 0 && (
+          <section className="space-y-4">
+            <header className="space-y-1 pt-2 border-t">
+              <div className="flex items-center gap-2 pt-4">
+                <h3 className="text-base font-semibold text-muted-foreground">
+                  {t("evaluate.contextActionsHeader")}
+                </h3>
+                <Badge variant="muted" className="text-[10px] uppercase tracking-wide">
+                  {t("evaluate.contextActionBadge")}
+                </Badge>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {t(contextHintKey as never)}
+              </p>
+            </header>
+            <ol className="space-y-3">
+              {contextActions.map((action) => (
+                <li key={action.actionId}>
+                  <ActionCard
+                    action={action}
+                    rating={undefined}
+                    promptKey={promptKey}
+                    onChange={() => {}}
+                    onNotSureChange={() => {}}
+                    disabled
+                    context
+                  />
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
       </CardContent>
     </Card>
   );
@@ -75,6 +124,7 @@ function ActionCard({
   onChange,
   onNotSureChange,
   disabled,
+  context,
 }: {
   action: Action;
   rating?: { likert: number; notSure: boolean };
@@ -82,12 +132,26 @@ function ActionCard({
   onChange: (likert: number) => void;
   onNotSureChange: (b: boolean) => void;
   disabled?: boolean;
+  /** When true, the card is rendered as read-only context (no Likert). */
+  context: boolean;
 }) {
   const t = useT();
   return (
-    <div className="rounded-lg border border-input bg-card p-5">
+    <div
+      className={cn(
+        "rounded-lg border p-5",
+        context ? "bg-muted/20 border-dashed" : "bg-card border-input"
+      )}
+    >
       <div className="space-y-3">
-        <h3 className="text-base font-semibold leading-tight">{action.nameEs}</h3>
+        <h3
+          className={cn(
+            "text-base font-semibold leading-tight",
+            context && "text-foreground/85"
+          )}
+        >
+          {action.nameEs}
+        </h3>
         <p className="text-sm text-muted-foreground leading-relaxed">{action.descriptionEs}</p>
 
         <div className="flex flex-wrap items-center gap-2 text-xs">
@@ -126,38 +190,40 @@ function ActionCard({
         )}
       </div>
 
-      <fieldset className="mt-4 pt-4 border-t" disabled={disabled}>
-        <legend className="text-sm font-medium mb-3">{t(promptKey as never)}</legend>
-        <RadioGroup
-          value={rating?.likert?.toString() ?? ""}
-          onValueChange={(v) => onChange(parseInt(v, 10))}
-          className="grid sm:grid-cols-5 gap-2"
-        >
-          {[1, 2, 3, 4, 5].map((n) => (
-            <div key={n} className="flex items-center gap-2">
-              <RadioGroupItem
-                value={n.toString()}
-                id={`r-${action.actionId}-${promptKey}-${n}`}
-                disabled={disabled}
-              />
-              <Label
-                htmlFor={`r-${action.actionId}-${promptKey}-${n}`}
-                className="text-xs cursor-pointer"
-              >
-                {n}. {t(`evaluate.likert${n}` as never)}
-              </Label>
-            </div>
-          ))}
-        </RadioGroup>
-        <label className="flex items-center gap-2 mt-4 text-xs cursor-pointer">
-          <Checkbox
-            checked={rating?.notSure ?? false}
-            onCheckedChange={(v) => onNotSureChange(!!v)}
-            disabled={disabled || !rating}
-          />
-          <span className={cn(!rating && "text-muted-foreground")}>{t("evaluate.notSureLabel")}</span>
-        </label>
-      </fieldset>
+      {!context && (
+        <fieldset className="mt-4 pt-4 border-t" disabled={disabled}>
+          <legend className="text-sm font-medium mb-3">{t(promptKey as never)}</legend>
+          <RadioGroup
+            value={rating?.likert?.toString() ?? ""}
+            onValueChange={(v) => onChange(parseInt(v, 10))}
+            className="grid sm:grid-cols-5 gap-2"
+          >
+            {[1, 2, 3, 4, 5].map((n) => (
+              <div key={n} className="flex items-center gap-2">
+                <RadioGroupItem
+                  value={n.toString()}
+                  id={`r-${action.actionId}-${promptKey}-${n}`}
+                  disabled={disabled}
+                />
+                <Label
+                  htmlFor={`r-${action.actionId}-${promptKey}-${n}`}
+                  className="text-xs cursor-pointer"
+                >
+                  {n}. {t(`evaluate.likert${n}` as never)}
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
+          <label className="flex items-center gap-2 mt-4 text-xs cursor-pointer">
+            <Checkbox
+              checked={rating?.notSure ?? false}
+              onCheckedChange={(v) => onNotSureChange(!!v)}
+              disabled={disabled || !rating}
+            />
+            <span className={cn(!rating && "text-muted-foreground")}>{t("evaluate.notSureLabel")}</span>
+          </label>
+        </fieldset>
+      )}
     </div>
   );
 }

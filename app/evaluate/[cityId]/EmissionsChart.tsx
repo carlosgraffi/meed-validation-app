@@ -27,12 +27,12 @@ export function EmissionsChart({
 
   return (
     <div className="space-y-3">
-      <div style={{ width: "100%", height: 60 + data.length * 28 }}>
+      <div style={{ width: "100%", height: 60 + data.length * 34 }}>
         <ResponsiveContainer>
           <BarChart layout="vertical" data={data} margin={{ left: 8, right: 24 }}>
             <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="hsl(var(--border))" />
             <XAxis type="number" tickFormatter={(v) => `${v.toFixed(0)}%`} fontSize={11} stroke="hsl(var(--muted-foreground))" />
-            <YAxis type="category" dataKey="name" width={140} fontSize={12} stroke="hsl(var(--foreground))" />
+            <YAxis type="category" dataKey="name" width={120} fontSize={12} stroke="hsl(var(--foreground))" interval={0} />
             <Tooltip
               cursor={{ fill: "hsl(var(--muted))" }}
               formatter={(_v, _n, item) => {

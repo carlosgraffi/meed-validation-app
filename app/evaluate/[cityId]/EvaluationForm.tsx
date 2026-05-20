@@ -63,6 +63,8 @@ export function EvaluationForm({
   rankedActions,
   stage1Order,
   stage2Order,
+  stage1ContextActions,
+  stage2ContextActions,
   discardedLegal,
   allActions,
   initial,
@@ -71,6 +73,8 @@ export function EvaluationForm({
   rankedActions: RankedAction[];
   stage1Order: RankedAction[];
   stage2Order: RankedAction[];
+  stage1ContextActions: Action[];
+  stage2ContextActions: Action[];
   discardedLegal: DiscardedAction[];
   allActions: Action[];
   initial: Initial;
@@ -264,7 +268,7 @@ export function EvaluationForm({
           <CityContextBanner city={city} />
         </div>
 
-        <div className="mt-4 lg:grid lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] lg:gap-8">
+        <div className="mt-4 lg:grid lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] xl:grid-cols-[minmax(0,400px)_minmax(0,1fr)] lg:gap-8">
           {/* Desktop-only sticky sidebar with full city context. */}
           <aside className="hidden lg:block">
             <div className="sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto pr-1">
@@ -300,7 +304,8 @@ export function EvaluationForm({
       >
         <StageRating
           question="top3"
-          actions={stage1Order}
+          focusActions={stage1Order}
+          contextActions={stage1ContextActions}
           ratings={top3Ratings}
           onRatingChange={ratingChangeFor("top3", setTop3Ratings)}
           onNotSureChange={notSureChangeFor("top3", setTop3Ratings, top3Ratings)}
@@ -336,7 +341,8 @@ export function EvaluationForm({
         >
           <StageRating
             question="top10"
-            actions={stage2Order}
+            focusActions={stage2Order}
+            contextActions={stage2ContextActions}
             ratings={top10Ratings}
             onRatingChange={ratingChangeFor("top10", setTop10Ratings)}
             onNotSureChange={notSureChangeFor("top10", setTop10Ratings, top10Ratings)}

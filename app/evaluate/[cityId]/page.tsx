@@ -99,12 +99,34 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
     `${evaluation.id}::${cityId}::stage2`
   );
 
+  // "Next" actions shown as read-only context inside each stage:
+  //   - Stage 1: next 3 = the model's ranks 4..6 (drawn from topActions, no extra fetch)
+  //   - Stage 2: next 5 = the model's ranks 11..15 (from cityOutput.nextActions)
+  // Both groups are randomized deterministically.
+  const stage1ContextActions: Action[] = seededShuffle(
+    rankedActions.slice(3, 6).map((r) => r.action),
+    `${evaluation.id}::${cityId}::stage1ctx`
+  );
+  const stage2ContextActions: Action[] = seededShuffle(
+    (cityOutput.nextActions ?? [])
+      .slice()
+      .sort((a, b) => a.rank - b.rank)
+      .map((n) => {
+        const a = actionMap.get(n.actionId);
+        if (!a) throw new Error(`nextActions references unknown actionId ${n.actionId}`);
+        return a;
+      }),
+    `${evaluation.id}::${cityId}::stage2ctx`
+  );
+
   return (
     <EvaluationForm
       city={city}
       rankedActions={rankedActions}
       stage1Order={top3RandomOrder}
       stage2Order={top10RandomOrder}
+      stage1ContextActions={stage1ContextActions}
+      stage2ContextActions={stage2ContextActions}
       discardedLegal={cityOutput.discardedLegal ?? []}
       allActions={actions}
       initial={{

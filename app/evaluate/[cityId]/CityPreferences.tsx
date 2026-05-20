@@ -10,8 +10,8 @@ import type { CityRequest } from "@/lib/fixtures";
  * for recommendations. Sectors / Timeframes / Co-benefits / Excluded actions.
  *
  * Two layouts:
- *  - `variant="block"`: full card with labeled rows (used in Section A)
- *  - `variant="inline"`: compact chips row (used in the sticky banner)
+ *  - `variant="block"`: full card with labeled rows (used in Section A + sidebar)
+ *  - `variant="inline"`: compact chips row (used in the mobile sticky banner)
  */
 export function CityPreferences({
   request,
@@ -34,17 +34,17 @@ export function CityPreferences({
       <div className={cn("flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs", className)}>
         <span className="text-muted-foreground">{t("evaluate.cityRequestTitle")}:</span>
         {request.preferredSectors.map((s) => (
-          <Badge key={`s-${s}`} variant="default" className="text-[10px]">
+          <Badge key={`s-${s}`} variant="default" className="text-[11px]">
             {t(`sectors.${s}` as never)}
           </Badge>
         ))}
         {request.preferredTimeframes.map((tf) => (
-          <Badge key={`t-${tf}`} variant="muted" className="text-[10px]">
+          <Badge key={`t-${tf}`} variant="muted" className="text-[11px]">
             {timeframeLabel(t, tf)}
           </Badge>
         ))}
         {request.preferredCoBenefits.map((cb) => (
-          <Badge key={`c-${cb}`} variant="accent" className="text-[10px]">
+          <Badge key={`c-${cb}`} variant="accent" className="text-[11px]">
             {t(`cobenefits.${cb}` as never)}
           </Badge>
         ))}
@@ -54,27 +54,24 @@ export function CityPreferences({
 
   return (
     <section
-      className={cn(
-        "rounded-lg border bg-card px-4 py-3 space-y-2",
-        className
-      )}
+      className={cn("rounded-lg border bg-muted/30 px-4 py-4 space-y-3", className)}
       aria-label={t("evaluate.cityRequestTitle")}
     >
       <div>
-        <h3 className="text-sm font-semibold">{t("evaluate.cityRequestTitle")}</h3>
-        <p className="text-xs text-muted-foreground mt-0.5">
+        <h3 className="text-base font-semibold">{t("evaluate.cityRequestTitle")}</h3>
+        <p className="text-sm text-muted-foreground mt-1 leading-snug">
           {t("evaluate.cityRequestSubtitle")}
         </p>
       </div>
       {empty ? (
-        <p className="text-xs text-muted-foreground">{t("evaluate.cityRequestNone")}</p>
+        <p className="text-sm text-muted-foreground">{t("evaluate.cityRequestNone")}</p>
       ) : (
-        <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-3 pt-1">
+        <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-4 pt-1">
           <Row label={t("evaluate.cityRequestSectorsLabel")}>
             {request.preferredSectors.length === 0
               ? muted(t("evaluate.cityRequestNone"))
               : request.preferredSectors.map((s) => (
-                  <Badge key={s} variant="default" className="text-xs">
+                  <Badge key={s} variant="default">
                     {t(`sectors.${s}` as never)}
                   </Badge>
                 ))}
@@ -83,7 +80,7 @@ export function CityPreferences({
             {request.preferredTimeframes.length === 0
               ? muted(t("evaluate.cityRequestNone"))
               : request.preferredTimeframes.map((tf) => (
-                  <Badge key={tf} variant="muted" className="text-xs">
+                  <Badge key={tf} variant="muted">
                     {timeframeLabel(t, tf)}
                   </Badge>
                 ))}
@@ -92,7 +89,7 @@ export function CityPreferences({
             {request.preferredCoBenefits.length === 0
               ? muted(t("evaluate.cityRequestNone"))
               : request.preferredCoBenefits.map((cb) => (
-                  <Badge key={cb} variant="accent" className="text-xs">
+                  <Badge key={cb} variant="accent">
                     {t(`cobenefits.${cb}` as never)}
                   </Badge>
                 ))}
@@ -101,7 +98,7 @@ export function CityPreferences({
             {request.excludedActionIds.length === 0 ? (
               muted("—")
             ) : (
-              <span className="text-xs text-muted-foreground">
+              <span className="text-sm text-muted-foreground">
                 {request.excludedActionIds.length}
               </span>
             )}
@@ -115,7 +112,7 @@ export function CityPreferences({
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">
+      <dt className="text-xs uppercase tracking-wide text-muted-foreground font-medium mb-1.5">
         {label}
       </dt>
       <dd className="flex flex-wrap gap-1.5">{children}</dd>
@@ -124,7 +121,7 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 }
 
 function muted(s: string) {
-  return <span className="text-xs text-muted-foreground">{s}</span>;
+  return <span className="text-sm text-muted-foreground">{s}</span>;
 }
 
 function timeframeLabel(t: ReturnType<typeof useT>, tf: string): string {

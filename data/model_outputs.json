@@ -139,7 +139,29 @@
         "reasonEn": "Shared jurisdiction with the central government; the municipality cannot act autonomously."
       }
     ],
-    "discardedExcluded": []
+    "discardedExcluded": [],
+    "nextActions": [
+      {
+        "rank": 11,
+        "actionId": "c40_0028"
+      },
+      {
+        "rank": 12,
+        "actionId": "c40_0033"
+      },
+      {
+        "rank": 13,
+        "actionId": "c40_0041"
+      },
+      {
+        "rank": 14,
+        "actionId": "c40_0049"
+      },
+      {
+        "rank": 15,
+        "actionId": "icare_0073"
+      }
+    ]
   },
   "city_02": {
     "topActions": [
@@ -276,7 +298,29 @@
         "reasonEn": "Specific regulation still pending; legal review under way at SSG."
       }
     ],
-    "discardedExcluded": []
+    "discardedExcluded": [],
+    "nextActions": [
+      {
+        "rank": 11,
+        "actionId": "c40_0011"
+      },
+      {
+        "rank": 12,
+        "actionId": "c40_0017"
+      },
+      {
+        "rank": 13,
+        "actionId": "c40_0028"
+      },
+      {
+        "rank": 14,
+        "actionId": "c40_0041"
+      },
+      {
+        "rank": 15,
+        "actionId": "ipcc_0134"
+      }
+    ]
   },
   "city_03": {
     "topActions": [
@@ -418,7 +462,29 @@
         "reasonEn": "Shared jurisdiction with the central government; the municipality cannot act autonomously."
       }
     ],
-    "discardedExcluded": []
+    "discardedExcluded": [],
+    "nextActions": [
+      {
+        "rank": 11,
+        "actionId": "icare_0089"
+      },
+      {
+        "rank": 12,
+        "actionId": "icare_0128"
+      },
+      {
+        "rank": 13,
+        "actionId": "ipcc_0127"
+      },
+      {
+        "rank": 14,
+        "actionId": "ipcc_0211"
+      },
+      {
+        "rank": 15,
+        "actionId": "c40_0011"
+      }
+    ]
   },
   "city_04": {
     "topActions": [
@@ -555,7 +621,29 @@
         "reasonEn": "Shared jurisdiction with the central government; the municipality cannot act autonomously."
       }
     ],
-    "discardedExcluded": []
+    "discardedExcluded": [],
+    "nextActions": [
+      {
+        "rank": 11,
+        "actionId": "c40_0028"
+      },
+      {
+        "rank": 12,
+        "actionId": "c40_0033"
+      },
+      {
+        "rank": 13,
+        "actionId": "c40_0041"
+      },
+      {
+        "rank": 14,
+        "actionId": "c40_0049"
+      },
+      {
+        "rank": 15,
+        "actionId": "icare_0025"
+      }
+    ]
   },
   "city_05": {
     "topActions": [
@@ -697,7 +785,29 @@
         "reasonEn": "Specific regulation still pending; legal review under way at SSG."
       }
     ],
-    "discardedExcluded": []
+    "discardedExcluded": [],
+    "nextActions": [
+      {
+        "rank": 11,
+        "actionId": "icare_0052"
+      },
+      {
+        "rank": 12,
+        "actionId": "icare_0141"
+      },
+      {
+        "rank": 13,
+        "actionId": "ipcc_0103"
+      },
+      {
+        "rank": 14,
+        "actionId": "ipcc_0203"
+      },
+      {
+        "rank": 15,
+        "actionId": "c40_0011"
+      }
+    ]
   },
   "city_06": {
     "topActions": [
@@ -834,7 +944,29 @@
         "reasonEn": "Shared jurisdiction with the central government; the municipality cannot act autonomously."
       }
     ],
-    "discardedExcluded": []
+    "discardedExcluded": [],
+    "nextActions": [
+      {
+        "rank": 11,
+        "actionId": "c40_0011"
+      },
+      {
+        "rank": 12,
+        "actionId": "c40_0017"
+      },
+      {
+        "rank": 13,
+        "actionId": "c40_0028"
+      },
+      {
+        "rank": 14,
+        "actionId": "c40_0041"
+      },
+      {
+        "rank": 15,
+        "actionId": "icare_0073"
+      }
+    ]
   },
   "city_07": {
     "topActions": [
@@ -971,7 +1103,29 @@
         "reasonEn": "Requires sector-level budget authorization beyond the comunal scope."
       }
     ],
-    "discardedExcluded": []
+    "discardedExcluded": [],
+    "nextActions": [
+      {
+        "rank": 11,
+        "actionId": "c40_0017"
+      },
+      {
+        "rank": 12,
+        "actionId": "c40_0033"
+      },
+      {
+        "rank": 13,
+        "actionId": "c40_0041"
+      },
+      {
+        "rank": 14,
+        "actionId": "c40_0049"
+      },
+      {
+        "rank": 15,
+        "actionId": "icare_0025"
+      }
+    ]
   },
   "city_08": {
     "topActions": [
@@ -1108,7 +1262,29 @@
         "reasonEn": "Shared jurisdiction with the central government; the municipality cannot act autonomously."
       }
     ],
-    "discardedExcluded": []
+    "discardedExcluded": [],
+    "nextActions": [
+      {
+        "rank": 11,
+        "actionId": "c40_0011"
+      },
+      {
+        "rank": 12,
+        "actionId": "c40_0017"
+      },
+      {
+        "rank": 13,
+        "actionId": "c40_0041"
+      },
+      {
+        "rank": 14,
+        "actionId": "icare_0025"
+      },
+      {
+        "rank": 15,
+        "actionId": "ipcc_0156"
+      }
+    ]
   },
   "city_09": {
     "topActions": [
@@ -1245,7 +1421,29 @@
         "reasonEn": "Outside municipal powers per the Constitutional Organic Law on Municipalities (Law 18.695)."
       }
     ],
-    "discardedExcluded": []
+    "discardedExcluded": [],
+    "nextActions": [
+      {
+        "rank": 11,
+        "actionId": "c40_0011"
+      },
+      {
+        "rank": 12,
+        "actionId": "c40_0017"
+      },
+      {
+        "rank": 13,
+        "actionId": "c40_0041"
+      },
+      {
+        "rank": 14,
+        "actionId": "icare_0025"
+      },
+      {
+        "rank": 15,
+        "actionId": "ipcc_0156"
+      }
+    ]
   },
   "city_10": {
     "topActions": [
@@ -1387,6 +1585,28 @@
         "reasonEn": "Shared jurisdiction with the central government; the municipality cannot act autonomously."
       }
     ],
-    "discardedExcluded": []
+    "discardedExcluded": [],
+    "nextActions": [
+      {
+        "rank": 11,
+        "actionId": "c40_0011"
+      },
+      {
+        "rank": 12,
+        "actionId": "c40_0017"
+      },
+      {
+        "rank": 13,
+        "actionId": "c40_0041"
+      },
+      {
+        "rank": 14,
+        "actionId": "ipcc_0224"
+      },
+      {
+        "rank": 15,
+        "actionId": "c40_0022"
+      }
+    ]
   }
 }

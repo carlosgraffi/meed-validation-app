@@ -335,6 +335,38 @@ function generateRationale(
   return { es, en };
 }
 
+/**
+ * Pick the next 5 actions for a city — those that rank just outside the top 10.
+ * Surfaced as Stage 2 context. Deterministic per city so re-runs match.
+ *
+ * Selection prefers actions whose sector matches the city's preferred sectors,
+ * then falls back to alphabetical actionId order. Excludes anything already in
+ * the city's top 10.
+ */
+function pickNextActions(
+  cityId: string,
+  cityRequest: CityRequest,
+  topActionIds: Set<string>,
+  allActions: Action[]
+): Array<{ rank: number; actionId: string }> {
+  const candidates = allActions.filter((a) => !topActionIds.has(a.actionId));
+  const sectorMatches = (a: Action) => {
+    const key = SECTOR_LABEL_ES[a.sector] ?? a.sector;
+    return cityRequest.preferredSectors.includes(key);
+  };
+  // Sort: sector-match first, then deterministic by actionId.
+  candidates.sort((a, b) => {
+    const sa = sectorMatches(a) ? 0 : 1;
+    const sb = sectorMatches(b) ? 0 : 1;
+    if (sa !== sb) return sa - sb;
+    return a.actionId.localeCompare(b.actionId);
+  });
+  return candidates.slice(0, 5).map((a, i) => ({
+    rank: 11 + i,
+    actionId: a.actionId,
+  }));
+}
+
 function main() {
   const actionsPath = join(DATA_DIR, "actions.json");
   const citiesPath = join(DATA_DIR, "cities.json");
@@ -363,8 +395,9 @@ function main() {
   writeFileSync(citiesPath, JSON.stringify(cities, null, 2) + "\n");
   console.log(`✓ cities.json: cityRequest attached for ${cities.length} cities`);
 
-  // 2. model_outputs.json — attach rationale per ranked action, plus discarded lists.
+  // 2. model_outputs.json — attach rationale per ranked action, plus discarded lists + nextActions.
   let attachedRationales = 0;
+  let totalNext = 0;
   for (const [cityId, output] of Object.entries(outputs)) {
     const req = CITY_REQUESTS[cityId];
     if (!req) continue;
@@ -381,12 +414,17 @@ function main() {
       (ranked as RankedAction & { rationaleEs: string; rationaleEn: string }).rationaleEn = r.en;
       attachedRationales++;
     }
+    const topIds = new Set(output.topActions.map((t) => t.actionId));
+    const next = pickNextActions(cityId, req, topIds, actions);
+    output.nextActions = next;
+    totalNext += next.length;
     output.discardedLegal = DISCARDED_LEGAL_TEMPLATES[cityId] ?? [];
     output.discardedExcluded = []; // empty by default; populate when a city actually excludes anything
   }
   writeFileSync(outputsPath, JSON.stringify(outputs, null, 2) + "\n");
   console.log(
     `✓ model_outputs.json: ${attachedRationales} rationales attached, ` +
+      `${totalNext} nextActions across cities, ` +
       `${Object.values(DISCARDED_LEGAL_TEMPLATES).reduce((s, l) => s + l.length, 0)} legal blocks across cities`
   );
 }

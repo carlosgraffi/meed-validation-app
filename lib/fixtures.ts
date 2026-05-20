@@ -89,6 +89,21 @@ export const ModelOutputsSchema = z.record(
       )
       .length(10),
     /**
+     * Actions that ranked just outside the top 10 (ranks 11–15). Surfaced
+     * to experts as read-only context during Stage 2 so they can see what
+     * the model considered next, without expanding the set they rate.
+     * Carlos's call: experts should know what's "just below the cut".
+     */
+    nextActions: z
+      .array(
+        z.object({
+          rank: z.number().int().min(11).max(20),
+          actionId: z.string(),
+        })
+      )
+      .min(0)
+      .max(10),
+    /**
      * Actions that would have been candidates but were blocked by Chilean
      * legal assessment for this city. Surfaced to experts as a footnote so
      * they understand why expected actions are missing. Required in the

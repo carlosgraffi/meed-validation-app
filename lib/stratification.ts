@@ -9,13 +9,14 @@ export type Assignment = { expertId: string; cityId: string };
  * Inputs:
  *   - experts: 13 expert records (with optional preferredCityIds as comma-separated string)
  *   - cities: 10 city records
- *   - cityCountPerExpert: 4 (target average; range 3–5)
+ *   - citiesPerExpert: 4 (strict — every expert gets exactly this many cities)
  *
  * Guarantees:
- *   - Every expert gets between 3 and 5 cities (target 4).
+ *   - Every expert gets EXACTLY citiesPerExpert (default 4) cities. No 3, no 5 — the
+ *     spec previously allowed 3–5, but in practice Carlos wants strict equality so
+ *     every expert tests the same workload.
  *   - Every city gets between 5 and 6 experts.
- *   - Total assignments = 13 × 4 = 52, distributed as either 8 cities × 5 + 2 cities × 6
- *     OR 6 cities × 5 + 4 cities × 6 (we use 8×5 + 2×6 = 52 — the spec wants 5–6 per city).
+ *   - Total assignments = 13 × 4 = 52, distributed as 8 cities × 5 + 2 cities × 6.
  *   - If an expert has preferredCityIds, at least one preference is honored when possible.
  *   - Re-running with the same inputs produces identical assignments (seeded RNG).
  *
@@ -142,8 +143,9 @@ function tryAssign(
   }
   const perExpert: Record<string, number> = {};
   for (const a of assignments) perExpert[a.expertId] = (perExpert[a.expertId] ?? 0) + 1;
+  // Strict: every expert must have EXACTLY citiesPerExpert cities.
   for (const v of Object.values(perExpert)) {
-    if (v < 3 || v > 5) return null;
+    if (v !== citiesPerExpert) return null;
   }
 
   return assignments;

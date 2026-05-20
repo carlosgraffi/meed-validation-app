@@ -28,34 +28,36 @@ export function CityContextSidebar({ city }: { city: City }) {
 
   return (
     <aside className="rounded-lg border bg-card text-card-foreground shadow-sm">
-      <div className="p-5 space-y-5 text-sm">
+      <div className="p-5 space-y-5">
         <header className="space-y-1 pb-3 border-b">
           <div className="flex items-center gap-2">
-            <Building2 className="h-3.5 w-3.5 text-muted-foreground" aria-hidden />
-            <span className="text-[10px] text-muted-foreground uppercase tracking-wide">
+            <Building2 className="h-4 w-4 text-muted-foreground" aria-hidden />
+            <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium">
               {t("evaluate.cityContextBannerLabel")}
             </span>
           </div>
-          <h2 className="text-base font-semibold leading-tight">{city.displayName}</h2>
-          <p className="text-xs text-muted-foreground">{city.region}</p>
+          <h2 className="text-xl font-semibold leading-tight">{city.displayName}</h2>
+          <p className="text-sm text-muted-foreground">{city.region}</p>
         </header>
 
         <div className="grid grid-cols-2 gap-x-4 gap-y-3">
-          <Stat label={t("evaluate.populationLabel")}>
-            {formatNumber(city.population)} {t("units.people")}
+          <Stat label={t("evaluate.populationLabelShort")}>
+            {formatNumber(city.population)}
+            <Unit>{t("units.people")}</Unit>
           </Stat>
-          <Stat label={t("evaluate.populationDensityLabel")}>
-            {formatNumber(city.populationDensity, { maximumFractionDigits: 0 })}{" "}
-            {t("units.peoplePerKm2")}
+          <Stat label={t("evaluate.populationDensityLabelShort")}>
+            {formatNumber(city.populationDensity, { maximumFractionDigits: 0 })}
+            <Unit>{t("units.peoplePerKm2")}</Unit>
           </Stat>
-          <Stat label={t("evaluate.biomeLabel")}>{city.biome}</Stat>
-          <Stat label={t("evaluate.elevationLabel")}>
-            {formatNumber(city.elevationM)} {t("units.meters")}
+          <Stat label={t("evaluate.biomeLabelShort")}>{city.biome}</Stat>
+          <Stat label={t("evaluate.elevationLabelShort")}>
+            {formatNumber(city.elevationM)}
+            <Unit>m</Unit>
           </Stat>
         </div>
 
         <section>
-          <h3 className="text-[10px] uppercase tracking-wide text-muted-foreground mb-2">
+          <h3 className="text-xs uppercase tracking-wide text-muted-foreground font-medium mb-3">
             {t("evaluate.emissionsTitle")}
           </h3>
           <EmissionsChart
@@ -65,7 +67,7 @@ export function CityContextSidebar({ city }: { city: City }) {
               value: s.value,
             }))}
           />
-          <p className="text-[11px] mt-2 text-muted-foreground">
+          <p className="text-xs mt-2 text-muted-foreground">
             {t("common.totalEmissionsLine", {
               emissions: formatEmissions(city.totalEmissions),
             })}
@@ -81,8 +83,16 @@ export function CityContextSidebar({ city }: { city: City }) {
 function Stat({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="text-[10px] uppercase tracking-wide text-muted-foreground">{label}</div>
-      <div className="text-sm font-medium mt-0.5 leading-tight">{children}</div>
+      <div className="text-xs uppercase tracking-wide text-muted-foreground font-medium">
+        {label}
+      </div>
+      <div className="text-base font-semibold mt-0.5 leading-tight">{children}</div>
     </div>
+  );
+}
+
+function Unit({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="ml-1 text-xs font-normal text-muted-foreground">{children}</span>
   );
 }

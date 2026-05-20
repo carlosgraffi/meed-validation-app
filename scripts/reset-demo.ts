@@ -15,7 +15,7 @@
 import { PrismaClient } from "@prisma/client";
 import { loadCities } from "../lib/fixtures";
 
-const DEMO_CITIES = ["city_03", "city_05", "city_10"];
+const DEMO_CITIES = ["city_03", "city_05", "city_07", "city_10"];
 
 const prisma = new PrismaClient();
 

@@ -33,14 +33,12 @@ export async function POST(req: Request) {
     },
   });
 
-  // If this expert has no assignments yet, run stratification across the whole panel.
-  // This is idempotent (deterministic) so re-running yields the same result, but we
-  // only insert assignments for experts that don't already have them and whose
-  // current evaluations haven't been started.
-  const existing = await prisma.assignment.findFirst({ where: { expertId: session.user.id } });
-  if (!existing) {
-    await runStratificationRespectingStartedEvals();
-  }
+  // Always re-run stratification after onboarding so the newly-set preferences
+  // are actually honored. Stratify is deterministic and idempotent for the same
+  // inputs; it preserves assignments for any expert whose evaluations have
+  // already started. Previously this only ran on first-time onboarding, which
+  // meant preferences set on second visits were silently ignored.
+  await runStratificationRespectingStartedEvals();
 
   return NextResponse.json({ ok: true });
 }
