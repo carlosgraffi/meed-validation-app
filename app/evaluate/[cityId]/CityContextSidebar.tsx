@@ -3,7 +3,7 @@
 import { Building2 } from "lucide-react";
 import { CityPreferences } from "./CityPreferences";
 import { EmissionsChart } from "./EmissionsChart";
-import { useT, useLang } from "@/app/LangProvider";
+import { useT, useCityText } from "@/app/LangProvider";
 import { formatNumber, formatEmissions } from "@/lib/utils";
 import type { City } from "@/lib/fixtures";
 
@@ -18,8 +18,7 @@ import type { City } from "@/lib/fixtures";
  */
 export function CityContextSidebar({ city }: { city: City }) {
   const t = useT();
-  const [lang] = useLang();
-  const biome = lang === "en" ? city.biomeEn : city.biome;
+  const ct = useCityText();
   const sectors = [
     { key: "stationaryEnergy", value: city.sectorEmissions.stationaryEnergy },
     { key: "transportation", value: city.sectorEmissions.transportation },
@@ -38,8 +37,8 @@ export function CityContextSidebar({ city }: { city: City }) {
               {t("evaluate.cityContextBannerLabel")}
             </span>
           </div>
-          <h2 className="text-xl font-semibold leading-tight">{city.displayName}</h2>
-          <p className="text-sm text-muted-foreground">{city.region}</p>
+          <h2 className="text-xl font-semibold leading-tight">{ct.displayName(city)}</h2>
+          <p className="text-sm text-muted-foreground">{ct.region(city)}</p>
         </header>
 
         <div className="grid grid-cols-2 gap-x-4 gap-y-3">
@@ -51,7 +50,7 @@ export function CityContextSidebar({ city }: { city: City }) {
             {formatNumber(city.populationDensity, { maximumFractionDigits: 0 })}
             <Unit>{t("units.peoplePerKm2")}</Unit>
           </Stat>
-          <Stat label={t("evaluate.biomeLabelShort")}>{biome}</Stat>
+          <Stat label={t("evaluate.biomeLabelShort")}>{ct.biome(city)}</Stat>
           <Stat label={t("evaluate.elevationLabelShort")}>
             {formatNumber(city.elevationM)}
             <Unit>m</Unit>

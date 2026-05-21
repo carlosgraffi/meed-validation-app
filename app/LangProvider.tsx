@@ -65,6 +65,26 @@ export function useLang() {
 }
 
 /**
+ * Helper hook for components that render city fields whose value comes from
+ * the fixture (display name, region, biome). Returns the right variant for
+ * the current language. See also `useActionText` for action fields.
+ */
+export function useCityText() {
+  const [lang] = useLang();
+  return {
+    displayName(c: { displayName: string; displayNameEn: string }): string {
+      return lang === "en" ? c.displayNameEn : c.displayName;
+    },
+    region(c: { region: string; regionEn: string }): string {
+      return lang === "en" ? c.regionEn : c.region;
+    },
+    biome(c: { biome: string; biomeEn: string }): string {
+      return lang === "en" ? c.biomeEn : c.biome;
+    },
+  };
+}
+
+/**
  * Helper hook for components that render action fields. Returns name,
  * description, sector, and subsector localized to the current language.
  * Centralizing the lang switch here means components stay simple and we

@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { PillarDisclosure } from "@/components/PillarDisclosure";
 import { LangToggle } from "@/components/LangToggle";
 import { cn } from "@/lib/utils";
-import { useT } from "@/app/LangProvider";
+import { useT, useCityText } from "@/app/LangProvider";
 
 const SECTORS = ["energia", "transporte", "residuos", "ippu", "afolu", "transversal", "otro"] as const;
 
@@ -25,12 +25,15 @@ type Expert = {
 type CityRow = {
   cityId: string;
   displayName: string;
+  displayNameEn: string;
   region: string;
+  regionEn: string;
   dominantSector: string;
 };
 
 export function OnboardingForm({ expert, cities }: { expert: Expert; cities: CityRow[] }) {
   const t = useT();
+  const ct = useCityText();
   const router = useRouter();
   const [consent, setConsent] = useState(false);
   const [name, setName] = useState(expert.fullName);
@@ -161,8 +164,8 @@ export function OnboardingForm({ expert, cities }: { expert: Expert; cities: Cit
                       disabled && !selected && "opacity-50 cursor-not-allowed"
                     )}
                   >
-                    <div className="font-medium text-sm">{c.displayName}</div>
-                    <div className="text-xs text-muted-foreground mt-1">{c.region}</div>
+                    <div className="font-medium text-sm">{ct.displayName(c)}</div>
+                    <div className="text-xs text-muted-foreground mt-1">{ct.region(c)}</div>
                     <Badge variant="muted" className="mt-2">
                       {t(`sectors.${c.dominantSector}` as never)}
                     </Badge>

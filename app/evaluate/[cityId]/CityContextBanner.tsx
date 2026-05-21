@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CityPreferences } from "./CityPreferences";
 import { EmissionsChart } from "./EmissionsChart";
-import { useT, useLang } from "@/app/LangProvider";
+import { useT, useCityText } from "@/app/LangProvider";
 import { cn, formatNumber, formatEmissions } from "@/lib/utils";
 import type { City } from "@/lib/fixtures";
 
@@ -23,9 +23,8 @@ import type { City } from "@/lib/fixtures";
  */
 export function CityContextBanner({ city }: { city: City }) {
   const t = useT();
-  const [lang] = useLang();
+  const ct = useCityText();
   const [open, setOpen] = useState(false);
-  const biome = lang === "en" ? city.biomeEn : city.biome;
   const sectors = [
     { key: "stationaryEnergy", value: city.sectorEmissions.stationaryEnergy },
     { key: "transportation", value: city.sectorEmissions.transportation },
@@ -42,9 +41,9 @@ export function CityContextBanner({ city }: { city: City }) {
           <Building2 className="h-4 w-4 text-muted-foreground shrink-0" aria-hidden />
           <div className="min-w-0">
             <div className="flex items-baseline gap-2 flex-wrap">
-              <h2 className="text-sm font-semibold truncate">{city.displayName}</h2>
+              <h2 className="text-sm font-semibold truncate">{ct.displayName(city)}</h2>
               <span className="text-xs text-muted-foreground">·</span>
-              <span className="text-xs text-muted-foreground truncate">{city.region}</span>
+              <span className="text-xs text-muted-foreground truncate">{ct.region(city)}</span>
               <span className="text-xs text-muted-foreground">·</span>
               <span className="text-xs text-muted-foreground">
                 {t("common.totalEmissionsLine", { emissions: formatEmissions(city.totalEmissions) })}
@@ -90,7 +89,7 @@ export function CityContextBanner({ city }: { city: City }) {
                   <FactRow label={t("evaluate.populationLabel")}>
                     {formatNumber(city.population)} {t("units.people")}
                   </FactRow>
-                  <FactRow label={t("evaluate.biomeLabel")}>{biome}</FactRow>
+                  <FactRow label={t("evaluate.biomeLabel")}>{ct.biome(city)}</FactRow>
                   <FactRow label={t("evaluate.populationDensityLabel")}>
                     {formatNumber(city.populationDensity, { maximumFractionDigits: 0 })}{" "}
                     {t("units.peoplePerKm2")}

@@ -19,7 +19,9 @@ export default async function OnboardingPage() {
   const cities = loadCities().map((c) => ({
     cityId: c.cityId,
     displayName: c.displayName,
+    displayNameEn: c.displayNameEn,
     region: c.region,
+    regionEn: c.regionEn,
     dominantSector: dominantSectorOf(c.sectorEmissions),
   }));
 

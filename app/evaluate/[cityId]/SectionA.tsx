@@ -4,13 +4,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatNumber, formatEmissions } from "@/lib/utils";
-import { useT } from "@/app/LangProvider";
+import { useT, useCityText } from "@/app/LangProvider";
 import type { City } from "@/lib/fixtures";
 import { EmissionsChart } from "./EmissionsChart";
 import { CityPreferences } from "./CityPreferences";
 
 export function SectionA({ city, onContinue }: { city: City; onContinue: () => void }) {
   const t = useT();
+  const ct = useCityText();
   const total = city.totalEmissions;
   const sectors = [
     { key: "stationaryEnergy", value: city.sectorEmissions.stationaryEnergy },
@@ -24,8 +25,8 @@ export function SectionA({ city, onContinue }: { city: City; onContinue: () => v
     <Card>
       <CardHeader>
         <div className="flex items-baseline justify-between gap-3 flex-wrap">
-          <CardTitle className="text-2xl">{city.displayName}</CardTitle>
-          <Badge variant="muted">{city.region}</Badge>
+          <CardTitle className="text-2xl">{ct.displayName(city)}</CardTitle>
+          <Badge variant="muted">{ct.region(city)}</Badge>
         </div>
         <CardDescription>{t("evaluate.sectionAsubtitle")}</CardDescription>
       </CardHeader>
@@ -38,7 +39,7 @@ export function SectionA({ city, onContinue }: { city: City; onContinue: () => v
             {formatNumber(city.populationDensity, { maximumFractionDigits: 0 })}{" "}
             {t("units.peoplePerKm2")}
           </Stat>
-          <Stat label={t("evaluate.biomeLabel")}>{city.biome}</Stat>
+          <Stat label={t("evaluate.biomeLabel")}>{ct.biome(city)}</Stat>
           <Stat label={t("evaluate.elevationLabel")}>
             {formatNumber(city.elevationM)} {t("units.meters")}
           </Stat>

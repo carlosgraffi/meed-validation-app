@@ -23,9 +23,11 @@ export type CityRequest = z.infer<typeof CityRequestSchema>;
 export const CitySchema = z.object({
   cityId: z.string(),
   displayName: z.string(),
+  displayNameEn: z.string(),
   population: z.number().int().positive(),
   populationDensity: z.number().nonnegative(),
   region: z.string(),
+  regionEn: z.string(),
   biome: z.string(),
   biomeEn: z.string(),
   elevationM: z.number(),

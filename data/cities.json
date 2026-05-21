@@ -31,7 +31,9 @@
       ],
       "excludedActionIds": []
     },
-    "biomeEn": "Coastal desert"
+    "biomeEn": "Coastal desert",
+    "displayNameEn": "Northern Coastal City",
+    "regionEn": "Antofagasta Region"
   },
   {
     "cityId": "city_02",
@@ -64,7 +66,9 @@
       ],
       "excludedActionIds": []
     },
-    "biomeEn": "Inland absolute desert"
+    "biomeEn": "Inland absolute desert",
+    "displayNameEn": "Altiplano Mining City",
+    "regionEn": "Tarapacá Region"
   },
   {
     "cityId": "city_03",
@@ -97,7 +101,9 @@
       ],
       "excludedActionIds": []
     },
-    "biomeEn": "Mediterranean shrubland"
+    "biomeEn": "Mediterranean shrubland",
+    "displayNameEn": "Central Regional Capital",
+    "regionEn": "Metropolitan Region"
   },
   {
     "cityId": "city_04",
@@ -131,7 +137,9 @@
       ],
       "excludedActionIds": []
     },
-    "biomeEn": "Coastal Mediterranean shrubland"
+    "biomeEn": "Coastal Mediterranean shrubland",
+    "displayNameEn": "Central Port City",
+    "regionEn": "Valparaíso Region"
   },
   {
     "cityId": "city_05",
@@ -165,7 +173,9 @@
       ],
       "excludedActionIds": []
     },
-    "biomeEn": "Sclerophyll forest"
+    "biomeEn": "Sclerophyll forest",
+    "displayNameEn": "Agro-Industrial Valley City",
+    "regionEn": "O'Higgins Region"
   },
   {
     "cityId": "city_06",
@@ -198,7 +208,9 @@
       ],
       "excludedActionIds": []
     },
-    "biomeEn": "Sclerophyll forest"
+    "biomeEn": "Sclerophyll forest",
+    "displayNameEn": "Maule Industrial City",
+    "regionEn": "Maule Region"
   },
   {
     "cityId": "city_07",
@@ -232,7 +244,9 @@
       ],
       "excludedActionIds": []
     },
-    "biomeEn": "Temperate coastal forest"
+    "biomeEn": "Temperate coastal forest",
+    "displayNameEn": "Biobío Capital City",
+    "regionEn": "Biobío Region"
   },
   {
     "cityId": "city_08",
@@ -264,7 +278,9 @@
       ],
       "excludedActionIds": []
     },
-    "biomeEn": "Valdivian temperate rainforest"
+    "biomeEn": "Valdivian temperate rainforest",
+    "displayNameEn": "Frontera Border City",
+    "regionEn": "La Araucanía Region"
   },
   {
     "cityId": "city_09",
@@ -297,7 +313,9 @@
       ],
       "excludedActionIds": []
     },
-    "biomeEn": "North-Patagonian evergreen forest"
+    "biomeEn": "North-Patagonian evergreen forest",
+    "displayNameEn": "Southern Lakes City",
+    "regionEn": "Los Lagos Region"
   },
   {
     "cityId": "city_10",
@@ -329,6 +347,8 @@
       ],
       "excludedActionIds": []
     },
-    "biomeEn": "Patagonian steppe"
+    "biomeEn": "Patagonian steppe",
+    "displayNameEn": "Austral City",
+    "regionEn": "Magallanes Region"
   }
 ]

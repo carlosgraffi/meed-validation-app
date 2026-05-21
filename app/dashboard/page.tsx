@@ -5,7 +5,7 @@ import { signOut } from "next-auth/react";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { loadCities } from "@/lib/fixtures";
-import { getServerT } from "@/lib/i18n-server";
+import { getServerLang, getServerT } from "@/lib/i18n-server";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,7 @@ export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
   const t = getServerT();
+  const lang = getServerLang();
   const session = await getServerSession(authOptions);
   if (!session) redirect("/");
   if (session.user.isAdmin) redirect("/admin");
@@ -45,8 +46,8 @@ export default async function DashboardPage() {
         : "not_started";
       return {
         cityId: c.cityId,
-        displayName: c.displayName,
-        region: c.region,
+        displayName: lang === "en" ? c.displayNameEn : c.displayName,
+        region: lang === "en" ? c.regionEn : c.region,
         dominantSector: dominantSectorOf(c.sectorEmissions),
         status,
       };
