@@ -63,3 +63,28 @@ export function useLang() {
   if (!ctx) throw new Error("useLang must be used within <LangProvider>");
   return [ctx.lang, ctx.setLang] as const;
 }
+
+/**
+ * Helper hook for components that render action fields. Returns name,
+ * description, sector, and subsector localized to the current language.
+ * Centralizing the lang switch here means components stay simple and we
+ * don't sprinkle `lang === "en" ? a.nameEn : a.nameEs` ternaries
+ * everywhere.
+ */
+export function useActionText() {
+  const [lang] = useLang();
+  return {
+    name(a: { nameEs: string; nameEn: string }): string {
+      return lang === "en" ? a.nameEn : a.nameEs;
+    },
+    description(a: { descriptionEs: string; descriptionEn: string }): string {
+      return lang === "en" ? a.descriptionEn : a.descriptionEs;
+    },
+    sector(a: { sector: string; sectorEn: string }): string {
+      return lang === "en" ? a.sectorEn : a.sector;
+    },
+    subsector(a: { subsector: string | null; subsectorEn: string | null }): string | null {
+      return lang === "en" ? a.subsectorEn : a.subsector;
+    },
+  };
+}

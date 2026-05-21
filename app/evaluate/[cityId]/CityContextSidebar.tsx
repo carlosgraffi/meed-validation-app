@@ -3,7 +3,7 @@
 import { Building2 } from "lucide-react";
 import { CityPreferences } from "./CityPreferences";
 import { EmissionsChart } from "./EmissionsChart";
-import { useT } from "@/app/LangProvider";
+import { useT, useLang } from "@/app/LangProvider";
 import { formatNumber, formatEmissions } from "@/lib/utils";
 import type { City } from "@/lib/fixtures";
 
@@ -18,6 +18,8 @@ import type { City } from "@/lib/fixtures";
  */
 export function CityContextSidebar({ city }: { city: City }) {
   const t = useT();
+  const [lang] = useLang();
+  const biome = lang === "en" ? city.biomeEn : city.biome;
   const sectors = [
     { key: "stationaryEnergy", value: city.sectorEmissions.stationaryEnergy },
     { key: "transportation", value: city.sectorEmissions.transportation },
@@ -49,7 +51,7 @@ export function CityContextSidebar({ city }: { city: City }) {
             {formatNumber(city.populationDensity, { maximumFractionDigits: 0 })}
             <Unit>{t("units.peoplePerKm2")}</Unit>
           </Stat>
-          <Stat label={t("evaluate.biomeLabelShort")}>{city.biome}</Stat>
+          <Stat label={t("evaluate.biomeLabelShort")}>{biome}</Stat>
           <Stat label={t("evaluate.elevationLabelShort")}>
             {formatNumber(city.elevationM)}
             <Unit>m</Unit>

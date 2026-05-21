@@ -22,7 +22,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { useT } from "@/app/LangProvider";
+import { useT, useActionText } from "@/app/LangProvider";
 import { ActionRationale } from "./ActionRationale";
 import type { RankedAction } from "./page";
 
@@ -93,7 +93,7 @@ export function Stage3Reorder({
                     id={id}
                     modelRank={ranked.rank}
                     expertRank={idx + 1}
-                    name={ranked.action.nameEs}
+                    action={ranked.action}
                     rationaleEs={ranked.rationaleEs}
                     rationaleEn={ranked.rationaleEn}
                     disabled={readOnly}
@@ -117,7 +117,7 @@ function SortableItem({
   id,
   modelRank,
   expertRank,
-  name,
+  action,
   rationaleEs,
   rationaleEn,
   disabled,
@@ -125,11 +125,12 @@ function SortableItem({
   id: string;
   modelRank: number;
   expertRank: number;
-  name: string;
+  action: import("@/lib/fixtures").Action;
   rationaleEs: string;
   rationaleEn: string;
   disabled?: boolean;
 }) {
+  const at = useActionText();
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id,
     disabled,
@@ -156,7 +157,7 @@ function SortableItem({
         <Badge variant={moved ? "accent" : "default"} className="font-mono w-10 justify-center">
           #{expertRank}
         </Badge>
-        <span className="text-sm">{name}</span>
+        <span className="text-sm">{at.name(action)}</span>
         <button
           type="button"
           className="shrink-0 text-muted-foreground hover:text-foreground cursor-grab active:cursor-grabbing disabled:cursor-not-allowed"

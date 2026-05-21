@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Scale, ChevronDown } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useT, useLang } from "@/app/LangProvider";
+import { useT, useLang, useActionText } from "@/app/LangProvider";
 import type { DiscardedAction, Action } from "@/lib/fixtures";
 
 /**
@@ -25,6 +25,7 @@ export function LegallyBlockedFootnote({
 }) {
   const t = useT();
   const [lang] = useLang();
+  const at = useActionText();
   const [open, setOpen] = useState(false);
 
   if (discarded.length === 0) return null;
@@ -73,7 +74,7 @@ export function LegallyBlockedFootnote({
                   return (
                     <li key={d.actionId} className="text-xs leading-relaxed">
                       <span className="font-medium">
-                        {action?.nameEs ?? d.actionId}
+                        {action ? at.name(action) : d.actionId}
                       </span>
                       <span className="text-muted-foreground">
                         {" — "}

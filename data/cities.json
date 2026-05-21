@@ -30,7 +30,8 @@
         "mobility"
       ],
       "excludedActionIds": []
-    }
+    },
+    "biomeEn": "Coastal desert"
   },
   {
     "cityId": "city_02",
@@ -62,7 +63,8 @@
         "water_quality"
       ],
       "excludedActionIds": []
-    }
+    },
+    "biomeEn": "Inland absolute desert"
   },
   {
     "cityId": "city_03",
@@ -94,7 +96,8 @@
         "mobility"
       ],
       "excludedActionIds": []
-    }
+    },
+    "biomeEn": "Mediterranean shrubland"
   },
   {
     "cityId": "city_04",
@@ -127,7 +130,8 @@
         "mobility"
       ],
       "excludedActionIds": []
-    }
+    },
+    "biomeEn": "Coastal Mediterranean shrubland"
   },
   {
     "cityId": "city_05",
@@ -160,7 +164,8 @@
         "habitat"
       ],
       "excludedActionIds": []
-    }
+    },
+    "biomeEn": "Sclerophyll forest"
   },
   {
     "cityId": "city_06",
@@ -192,7 +197,8 @@
         "cost_of_living"
       ],
       "excludedActionIds": []
-    }
+    },
+    "biomeEn": "Sclerophyll forest"
   },
   {
     "cityId": "city_07",
@@ -225,7 +231,8 @@
         "housing"
       ],
       "excludedActionIds": []
-    }
+    },
+    "biomeEn": "Temperate coastal forest"
   },
   {
     "cityId": "city_08",
@@ -256,7 +263,8 @@
         "housing"
       ],
       "excludedActionIds": []
-    }
+    },
+    "biomeEn": "Valdivian temperate rainforest"
   },
   {
     "cityId": "city_09",
@@ -288,7 +296,8 @@
         "water_quality"
       ],
       "excludedActionIds": []
-    }
+    },
+    "biomeEn": "North-Patagonian evergreen forest"
   },
   {
     "cityId": "city_10",
@@ -319,6 +328,7 @@
         "air_quality"
       ],
       "excludedActionIds": []
-    }
+    },
+    "biomeEn": "Patagonian steppe"
   }
 ]

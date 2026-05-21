@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import { useT } from "@/app/LangProvider";
+import { useT, useActionText } from "@/app/LangProvider";
 import type { Action } from "@/lib/fixtures";
 import type { RankedAction } from "./page";
 
@@ -136,6 +136,8 @@ function ActionCard({
   context: boolean;
 }) {
   const t = useT();
+  const at = useActionText();
+  const subsector = at.subsector(action);
   return (
     <div
       className={cn(
@@ -150,17 +152,17 @@ function ActionCard({
             context && "text-foreground/85"
           )}
         >
-          {action.nameEs}
+          {at.name(action)}
         </h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">{action.descriptionEs}</p>
+        <p className="text-sm text-muted-foreground leading-relaxed">{at.description(action)}</p>
 
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <Badge variant="muted">
-            {t("evaluate.sectorLabel")}: {action.sector}
+            {t("evaluate.sectorLabel")}: {at.sector(action)}
           </Badge>
-          {action.subsector && (
+          {subsector && (
             <Badge variant="muted">
-              {t("evaluate.subsectorLabel")}: {action.subsector}
+              {t("evaluate.subsectorLabel")}: {subsector}
             </Badge>
           )}
           <Badge variant="outline">

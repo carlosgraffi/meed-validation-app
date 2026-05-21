@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CityPreferences } from "./CityPreferences";
 import { EmissionsChart } from "./EmissionsChart";
-import { useT } from "@/app/LangProvider";
+import { useT, useLang } from "@/app/LangProvider";
 import { cn, formatNumber, formatEmissions } from "@/lib/utils";
 import type { City } from "@/lib/fixtures";
 
@@ -23,7 +23,9 @@ import type { City } from "@/lib/fixtures";
  */
 export function CityContextBanner({ city }: { city: City }) {
   const t = useT();
+  const [lang] = useLang();
   const [open, setOpen] = useState(false);
+  const biome = lang === "en" ? city.biomeEn : city.biome;
   const sectors = [
     { key: "stationaryEnergy", value: city.sectorEmissions.stationaryEnergy },
     { key: "transportation", value: city.sectorEmissions.transportation },
@@ -88,7 +90,7 @@ export function CityContextBanner({ city }: { city: City }) {
                   <FactRow label={t("evaluate.populationLabel")}>
                     {formatNumber(city.population)} {t("units.people")}
                   </FactRow>
-                  <FactRow label={t("evaluate.biomeLabel")}>{city.biome}</FactRow>
+                  <FactRow label={t("evaluate.biomeLabel")}>{biome}</FactRow>
                   <FactRow label={t("evaluate.populationDensityLabel")}>
                     {formatNumber(city.populationDensity, { maximumFractionDigits: 0 })}{" "}
                     {t("units.peoplePerKm2")}
