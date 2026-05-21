@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { PillarDisclosure } from "@/components/PillarDisclosure";
+import { LangToggle } from "@/components/LangToggle";
 import { cn } from "@/lib/utils";
 import { useT } from "@/app/LangProvider";
 
@@ -77,8 +78,9 @@ export function OnboardingForm({ expert, cities }: { expert: Expert; cities: Cit
 
   return (
     <main className="min-h-screen p-6 max-w-3xl mx-auto space-y-6">
-      <header>
+      <header className="flex items-center justify-between gap-3">
         <h1 className="text-3xl font-semibold">{t("onboarding.title")}</h1>
+        <LangToggle />
       </header>
 
       <Card>

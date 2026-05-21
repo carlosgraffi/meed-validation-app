@@ -18,6 +18,7 @@ import { StageStepper } from "./StageStepper";
 import { CityContextBanner } from "./CityContextBanner";
 import { CityContextSidebar } from "./CityContextSidebar";
 import { LegallyBlockedFootnote } from "./LegallyBlockedFootnote";
+import { LangToggle } from "@/components/LangToggle";
 import type { RankedAction, Stage } from "./page";
 
 export type Initial = {
@@ -260,6 +261,7 @@ export function EvaluationForm({
           <div className="flex items-center gap-3 flex-1 justify-end">
             <StageStepper current={topLevelStageIndex(currentStage) as 1 | 2 | 3} />
             <AutosaveBadge state={autosaveState} />
+            <LangToggle />
           </div>
         </header>
 
