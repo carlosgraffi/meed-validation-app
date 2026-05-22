@@ -1,42 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { Mail, KeyRound } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { LangToggle } from "@/components/LangToggle";
 import { useT } from "@/app/LangProvider";
 
+/**
+ * Public landing page. SSG distributes magic-link URLs to experts via email
+ * themselves — we never see or send those emails. So this page is purely
+ * informational: tell anyone who lands here without a link what to do (open
+ * the email they got, or contact SSG to be re-sent). No form, no API call.
+ */
 export default function Landing() {
   const t = useT();
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "sent" | "unrecognized" | "invalid">("idle");
-
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const trimmed = email.trim();
-    if (!trimmed.includes("@") || trimmed.length < 5) {
-      setStatus("invalid");
-      return;
-    }
-    setStatus("loading");
-    const res = await fetch("/api/magic-request", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: trimmed }),
-    });
-    if (res.status === 404) {
-      setStatus("unrecognized");
-      return;
-    }
-    if (!res.ok) {
-      setStatus("invalid");
-      return;
-    }
-    setStatus("sent");
-  };
-
   return (
     <main className="min-h-screen flex items-center justify-center p-6">
       <div className="absolute top-4 right-4">
@@ -45,48 +21,31 @@ export default function Landing() {
       <Card className="w-full max-w-xl">
         <CardHeader>
           <CardTitle className="text-2xl">{t("landing.title")}</CardTitle>
-          {/* CardDescription renders as a <p>, so its children must be inline.
-              Use <span className="block"> to avoid nested-<p> hydration errors. */}
-          <CardDescription className="space-y-3 pt-2 text-sm leading-relaxed">
-            <span className="block">{t("landing.intro1")}</span>
-            <span className="block">{t("landing.intro2")}</span>
-            <span className="block">{t("landing.intro3")}</span>
-            <span className="block text-muted-foreground">{t("landing.intro4")}</span>
+          <CardDescription className="pt-2 text-sm leading-relaxed">
+            {t("landing.intro")}
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          {status === "sent" ? (
-            <div className="space-y-3">
-              <h2 className="text-lg font-semibold">{t("landing.checkInboxTitle")}</h2>
-              <p className="text-sm">{t("landing.checkInboxBody")}</p>
-              <p className="text-sm text-muted-foreground">{t("landing.checkInboxNote")}</p>
-            </div>
-          ) : (
-            <form onSubmit={submit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">{t("landing.emailLabel")}</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder={t("landing.emailPlaceholder")}
-                  required
-                  autoFocus
-                  disabled={status === "loading"}
-                />
-                {status === "invalid" && (
-                  <p className="text-xs text-destructive">{t("landing.invalidEmail")}</p>
-                )}
-                {status === "unrecognized" && (
-                  <p className="text-xs text-destructive">{t("landing.unrecognized")}</p>
-                )}
+        <CardContent className="space-y-5">
+          <section className="rounded-lg border bg-muted/30 p-4">
+            <div className="flex items-start gap-3">
+              <KeyRound className="h-5 w-5 text-primary shrink-0 mt-0.5" aria-hidden />
+              <div>
+                <h2 className="text-base font-semibold">{t("landing.useLinkTitle")}</h2>
+                <p className="text-sm leading-relaxed mt-1">{t("landing.useLinkBody")}</p>
+                <p className="text-xs text-muted-foreground mt-2">{t("landing.useLinkExpiry")}</p>
               </div>
-              <Button type="submit" disabled={status === "loading"} className="w-full">
-                {status === "loading" ? t("common.loading") : t("landing.submitButton")}
-              </Button>
-            </form>
-          )}
+            </div>
+          </section>
+
+          <section>
+            <div className="flex items-start gap-3">
+              <Mail className="h-5 w-5 text-muted-foreground shrink-0 mt-0.5" aria-hidden />
+              <div>
+                <h3 className="text-sm font-medium">{t("landing.lostLinkTitle")}</h3>
+                <p className="text-xs text-muted-foreground mt-1">{t("landing.lostLinkBody")}</p>
+              </div>
+            </div>
+          </section>
         </CardContent>
       </Card>
     </main>

@@ -25,18 +25,12 @@
   },
   "landing": {
     "title": "MEED+ — Validación de Expertos",
-    "intro1": "La Open Earth Foundation (OEF) y SSG, en el marco del contrato CORFO, están validando el modelo MEED+ de priorización de acciones climáticas para municipios chilenos.",
-    "intro2": "Como parte de un panel de 13 expertos chilenos en planificación climática, tu evaluación nos permitirá medir el desempeño del modelo frente al criterio experto.",
-    "intro3": "Ingresa el correo registrado para recibir tu enlace de acceso. No se requiere contraseña.",
-    "intro4": "El proceso completo toma alrededor de 40 minutos y puedes pausar y retomar en cualquier momento.",
-    "emailLabel": "Correo electrónico",
-    "emailPlaceholder": "tu.correo@ejemplo.cl",
-    "submitButton": "Enviar enlace de acceso",
-    "checkInboxTitle": "Revisa tu correo",
-    "checkInboxBody": "Si tu correo está registrado, recibirás un enlace de acceso en los próximos minutos. El enlace es válido por 7 días.",
-    "checkInboxNote": "Si no lo recibes, contacta al equipo de SSG.",
-    "unrecognized": "Este correo no está registrado. Contacta al equipo de SSG.",
-    "invalidEmail": "Ingresa un correo electrónico válido."
+    "intro": "La Open Earth Foundation (OEF) y SSG, en el marco del contrato CORFO, están validando el modelo MEED+ de priorización de acciones climáticas para municipios chilenos.",
+    "useLinkTitle": "Usa tu enlace de acceso",
+    "useLinkBody": "Para entrar al panel de evaluación, abre el enlace personalizado que recibiste por correo del equipo SSG. El enlace te lleva directamente a tu panel con las ciudades asignadas — no necesitas crear cuenta ni recordar contraseña.",
+    "useLinkExpiry": "El enlace es válido por 7 días.",
+    "lostLinkTitle": "¿Perdiste tu enlace?",
+    "lostLinkBody": "Contacta al equipo de SSG para que te reenvíen uno."
   },
   "onboarding": {
     "title": "Antes de comenzar",

@@ -25,18 +25,12 @@
   },
   "landing": {
     "title": "MEED+ — Expert Validation",
-    "intro1": "The Open Earth Foundation (OEF) and SSG, under the CORFO contract, are validating the MEED+ model for prioritizing climate actions in Chilean municipalities.",
-    "intro2": "As part of a panel of 13 Chilean climate-planning experts, your evaluation will let us measure the model's performance against expert judgment.",
-    "intro3": "Enter your registered email to receive an access link. No password required.",
-    "intro4": "The full process takes about 40 minutes; you can pause and resume any time.",
-    "emailLabel": "Email",
-    "emailPlaceholder": "your.email@example.cl",
-    "submitButton": "Send access link",
-    "checkInboxTitle": "Check your email",
-    "checkInboxBody": "If your email is registered, you'll receive an access link within a few minutes. The link is valid for 7 days.",
-    "checkInboxNote": "If you don't receive it, contact the SSG team.",
-    "unrecognized": "This email isn't registered. Contact the SSG team.",
-    "invalidEmail": "Enter a valid email address."
+    "intro": "The Open Earth Foundation (OEF) and SSG, under the CORFO contract, are validating the MEED+ model for prioritizing climate actions in Chilean municipalities.",
+    "useLinkTitle": "Use your access link",
+    "useLinkBody": "To enter the evaluation panel, open the personalized link the SSG team sent you by email. The link takes you straight to your dashboard with assigned cities — no account or password required.",
+    "useLinkExpiry": "The link is valid for 7 days.",
+    "lostLinkTitle": "Lost your link?",
+    "lostLinkBody": "Contact the SSG team to be sent a new one."
   },
   "onboarding": {
     "title": "Before you begin",
