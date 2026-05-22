@@ -17,11 +17,11 @@
  *
  * Usage:
  *   npx tsx scripts/generate-invitations.ts                  # → http://localhost:3001
- *   npx tsx scripts/generate-invitations.ts https://meed-testing.up.railway.app
+ *   npx tsx scripts/generate-invitations.ts https://meed-validation-app-production.up.railway.app
  *
  * Or against production via Railway CLI:
  *   railway run npx tsx scripts/generate-invitations.ts \
- *     https://meed-testing.up.railway.app
+ *     https://meed-validation-app-production.up.railway.app
  *
  * After running, hand the CSV to SSG to email out.
  */

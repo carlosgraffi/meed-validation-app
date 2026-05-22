@@ -2,7 +2,7 @@
 
 Non-moderated expert-evaluation web app for the **MEED+ HIAP v3** prototype, built for the OEF × SSG CORFO contract. Lets the Chilean climate-planning expert panel evaluate the model's top 10 recommendations for the 3 SSG pilot cities (Valdivia, Paillaco, Lago Ranco) between **May 19–31, 2026**, and produces the headline ≥75% match-rate metric required for the contract.
 
-**Production:** https://meed-testing.up.railway.app
+**Production:** https://meed-validation-app-production.up.railway.app
 **Repo:** https://github.com/carlosgraffi/meed-validation-app
 
 This is **Track A only**. Track B (technical mapping review) shares the same foundation but is not built yet.
@@ -157,13 +157,13 @@ See `data/README.md`. Short version:
 
 ## Deploy: Railway
 
-Live at **https://meed-testing.up.railway.app**. `railway.toml` is configured for Nixpacks builds with a `/data` persisted volume. See the comments in that file for the env vars you need to set in the Railway dashboard. SQLite stays on the volume across deploys.
+Live at **https://meed-validation-app-production.up.railway.app**. `railway.toml` is configured for Nixpacks builds with a `/data` persisted volume. See the comments in that file for the env vars you need to set in the Railway dashboard. SQLite stays on the volume across deploys.
 
 After the first deploy, or after any expert/city/action change:
 ```bash
 railway run npx prisma db push       # apply schema (only if migrations)
 railway run npm run seed -- --stratify
-railway run npx tsx scripts/admin-link.ts https://meed-testing.up.railway.app
+railway run npx tsx scripts/admin-link.ts https://meed-validation-app-production.up.railway.app
 ```
 
 ### Sending invitations to the expert panel
@@ -181,7 +181,7 @@ railway run npm run seed -- --stratify
 
 # 3. Mint fresh per-expert magic links pointed at the production domain
 railway run npx tsx scripts/generate-invitations.ts \
-  https://meed-testing.up.railway.app
+  https://meed-validation-app-production.up.railway.app
 
 # 4. Pull the CSV down and hand it to SSG to email out
 railway run cat data/_invitations.csv > invitations-prod.csv

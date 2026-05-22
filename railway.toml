@@ -1,6 +1,6 @@
 # Railway deployment configuration.
 #
-# Live at:  https://meed-testing.up.railway.app
+# Live at:  https://meed-validation-app-production.up.railway.app
 #
 # Before deploying (one-time):
 #   1. Create a new Railway project, "Deploy from GitHub repo".
@@ -8,7 +8,7 @@
 #   3. Set environment variables in the Railway dashboard:
 #        DATABASE_URL=file:/data/meed.db
 #        NEXTAUTH_SECRET=<run `openssl rand -base64 32`>
-#        NEXTAUTH_URL=https://meed-testing.up.railway.app
+#        NEXTAUTH_URL=https://meed-validation-app-production.up.railway.app
 #        ADMIN_EMAIL=<your admin email>
 #        ADMIN_PASSWORD=<set a strong value>
 #        DEMO_PASSWORD=<set a strong value>
