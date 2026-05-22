@@ -28,7 +28,10 @@ export default async function DashboardPage() {
       evaluations: true,
     },
   });
-  if (!expert) redirect("/");
+  // Stale-JWT defense: same as /evaluate/[cityId]. If the cookie's expertId
+  // is no longer in the DB (reset wiped it), force sign-out instead of just
+  // bouncing to /, where the same broken cookie would loop us back in.
+  if (!expert) redirect("/api/auth/signout?callbackUrl=/");
   if (!expert.consentedAt) redirect("/onboarding");
 
   const allCities = loadCities();

@@ -39,6 +39,16 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
   const expertId = session.user.id;
   const cityId = params.cityId;
 
+  // Defend against stale JWTs: a session cookie minted before a DB reset
+  // will still be cryptographically valid but reference an expertId that
+  // no longer exists. Without this guard, /evaluate/<cityId> looks up an
+  // assignment under that stale id, finds none, and 404s — confusing.
+  // Force a sign-out instead so the user gets a clean session.
+  const expert = await prisma.expert.findUnique({ where: { id: expertId } });
+  if (!expert) {
+    redirect("/api/auth/signout?callbackUrl=/");
+  }
+
   const assignment = await prisma.assignment.findUnique({
     where: { expertId_cityId: { expertId, cityId } },
   });
