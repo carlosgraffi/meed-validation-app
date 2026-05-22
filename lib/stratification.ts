@@ -42,6 +42,9 @@ export function stratify(
   if (experts.length < 1 || cities.length < 1) {
     throw new Error(`stratify needs at least 1 expert and 1 city`);
   }
+  // The old hard 13-expert check is gone — real panel sizes can drift (e.g.,
+  // a few experts on the SSG list don't have emails yet). Stratify still
+  // works for any panel size ≥ 1.
 
   const totalAssignments = experts.length * citiesPerExpert;
   // Even per-city distribution. With 13 experts × 4 cities each = 52 over 10

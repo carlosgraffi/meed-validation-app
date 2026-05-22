@@ -45,11 +45,13 @@ export default function Landing() {
       <Card className="w-full max-w-xl">
         <CardHeader>
           <CardTitle className="text-2xl">{t("landing.title")}</CardTitle>
+          {/* CardDescription renders as a <p>, so its children must be inline.
+              Use <span className="block"> to avoid nested-<p> hydration errors. */}
           <CardDescription className="space-y-3 pt-2 text-sm leading-relaxed">
-            <p>{t("landing.intro1")}</p>
-            <p>{t("landing.intro2")}</p>
-            <p>{t("landing.intro3")}</p>
-            <p className="text-muted-foreground">{t("landing.intro4")}</p>
+            <span className="block">{t("landing.intro1")}</span>
+            <span className="block">{t("landing.intro2")}</span>
+            <span className="block">{t("landing.intro3")}</span>
+            <span className="block text-muted-foreground">{t("landing.intro4")}</span>
           </CardDescription>
         </CardHeader>
         <CardContent>

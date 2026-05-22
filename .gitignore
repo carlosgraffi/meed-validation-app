@@ -10,3 +10,6 @@ prisma/*.db-journal
 .idea
 .vscode
 coverage
+# Live magic links — never commit these.
+data/_invitations.csv
+data/_invitations.json

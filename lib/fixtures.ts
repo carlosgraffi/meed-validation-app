@@ -167,6 +167,8 @@ export const ExpertFixtureSchema = z.object({
   email: z.string().email().or(z.string().regex(/^[^\s@]+@[^\s@]+$/)), // allow placeholder TLDs
   fullName: z.string(),
   sectorSpecialization: z.string().nullable(),
+  /** Optional context — affiliation/employer, used in admin lists. */
+  organization: z.string().optional(),
 });
 export type ExpertFixture = z.infer<typeof ExpertFixtureSchema>;
 
@@ -350,8 +352,8 @@ export function crossValidate(): string[] {
       errors.push(`cities[${c.cityId}] has no model_outputs entry`);
     }
   }
-  if (experts.length !== 13) {
-    errors.push(`experts.json must contain exactly 13 experts (got ${experts.length})`);
+  if (experts.length < 1) {
+    errors.push(`experts.json must contain at least 1 expert (got ${experts.length})`);
   }
   const emails = new Set<string>();
   for (const e of experts) {

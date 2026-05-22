@@ -1,15 +1,100 @@
 [
-  { "expertId": "exp_01", "email": "expert01+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 01", "sectorSpecialization": "Energía" },
-  { "expertId": "exp_02", "email": "expert02+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 02", "sectorSpecialization": "Transporte" },
-  { "expertId": "exp_03", "email": "expert03+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 03", "sectorSpecialization": "Residuos" },
-  { "expertId": "exp_04", "email": "expert04+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 04", "sectorSpecialization": "IPPU" },
-  { "expertId": "exp_05", "email": "expert05+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 05", "sectorSpecialization": "AFOLU" },
-  { "expertId": "exp_06", "email": "expert06+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 06", "sectorSpecialization": "Transversal" },
-  { "expertId": "exp_07", "email": "expert07+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 07", "sectorSpecialization": "Energía" },
-  { "expertId": "exp_08", "email": "expert08+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 08", "sectorSpecialization": "Transporte" },
-  { "expertId": "exp_09", "email": "expert09+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 09", "sectorSpecialization": "Transversal" },
-  { "expertId": "exp_10", "email": "expert10+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 10", "sectorSpecialization": "Energía" },
-  { "expertId": "exp_11", "email": "expert11+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 11", "sectorSpecialization": "Residuos" },
-  { "expertId": "exp_12", "email": "expert12+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 12", "sectorSpecialization": "Transporte" },
-  { "expertId": "exp_13", "email": "expert13+meed@ssg.placeholder", "fullName": "Experto/a Placeholder 13", "sectorSpecialization": "Transversal" }
+  {
+    "expertId": "jmvaldes",
+    "email": "jmvaldes@uc.cl",
+    "fullName": "José Miguel Valdés",
+    "sectorSpecialization": "Transversal",
+    "organization": "Independent"
+  },
+  {
+    "expertId": "jharris",
+    "email": "jharris@mma.gob.cl",
+    "fullName": "Jordan Harris",
+    "sectorSpecialization": null,
+    "organization": "MMA - Departamento de Financiamiento Climático"
+  },
+  {
+    "expertId": "sbriceno",
+    "email": "sbriceno@mma.gob.cl",
+    "fullName": "Sandra Briceño",
+    "sectorSpecialization": null,
+    "organization": "MMA - Departamento de Financiamiento Climático"
+  },
+  {
+    "expertId": "vfigueroac",
+    "email": "vfigueroac@mma.gob.cl",
+    "fullName": "Vladimir Figueroa",
+    "sectorSpecialization": null,
+    "organization": "MMA - Departamento de Financiamiento Climático"
+  },
+  {
+    "expertId": "idonoso",
+    "email": "idonoso@mma.gob.cl",
+    "fullName": "Ilenia Donoso",
+    "sectorSpecialization": null,
+    "organization": "MMA - Departamento de Financiamiento Climático"
+  },
+  {
+    "expertId": "aespinosa",
+    "email": "aespinosa@mma.gob.cl",
+    "fullName": "Arturo Espinoza",
+    "sectorSpecialization": null,
+    "organization": "MMA - Departamento de Financiamiento Climático"
+  },
+  {
+    "expertId": "ajara",
+    "email": "ajara@goredelosrios.cl",
+    "fullName": "Ana Jara",
+    "sectorSpecialization": null,
+    "organization": "SEREMI MMA - Los Rios"
+  },
+  {
+    "expertId": "jayala",
+    "email": "jayala@mma.gob.cl",
+    "fullName": "Juan Pablo Ayala Santander",
+    "sectorSpecialization": "Transversal",
+    "organization": "SEREMI MMA - Antofagasta"
+  },
+  {
+    "expertId": "bcampos",
+    "email": "bcampos@mma.gob.cl",
+    "fullName": "Bruno Campos",
+    "sectorSpecialization": null,
+    "organization": "Depto Mitigación - MMA"
+  },
+  {
+    "expertId": "hroa",
+    "email": "hroa@mma.gob.cl",
+    "fullName": "Herty Roa",
+    "sectorSpecialization": null,
+    "organization": "MMA - Departamento de Financiamiento Climático"
+  },
+  {
+    "expertId": "jlecourt",
+    "email": "jlecourt@mma.gob.cl",
+    "fullName": "Javiera Lecourt",
+    "sectorSpecialization": null,
+    "organization": "MMA - Departamento de Financiamiento Climático"
+  },
+  {
+    "expertId": "ramon_riveros",
+    "email": "ramon.riveros@subdere.gov.cl",
+    "fullName": "Ramón Riveros",
+    "sectorSpecialization": null,
+    "organization": "SUBDERE"
+  },
+  {
+    "expertId": "nsmith",
+    "email": "nsmith@mma.gob.cl",
+    "fullName": "Nicolas Smith",
+    "sectorSpecialization": null,
+    "organization": "SEREMI MMA Aysén"
+  },
+  {
+    "expertId": "camilo_bastias",
+    "email": "camilo.bastias@gmail.com",
+    "fullName": "Camilo Bastías Benzi",
+    "sectorSpecialization": null,
+    "organization": "BID"
+  }
 ]
