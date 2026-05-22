@@ -1,6 +1,9 @@
 # MEED+ — Track A Validation App
 
-Non-moderated expert-evaluation web app for the **MEED+ HIAP v3** prototype, built for the OEF × SSG CORFO contract. Lets 13 Chilean climate-planning experts evaluate the model's top 10 recommendations for 10 anonymized cities between **May 19–31, 2026**, and produces the headline ≥75% match-rate metric required for the contract.
+Non-moderated expert-evaluation web app for the **MEED+ HIAP v3** prototype, built for the OEF × SSG CORFO contract. Lets the Chilean climate-planning expert panel evaluate the model's top 10 recommendations for the 3 SSG pilot cities (Valdivia, Paillaco, Lago Ranco) between **May 19–31, 2026**, and produces the headline ≥75% match-rate metric required for the contract.
+
+**Production:** https://meed-testing.up.railway.app
+**Repo:** https://github.com/carlosgraffi/meed-validation-app
 
 This is **Track A only**. Track B (technical mapping review) shares the same foundation but is not built yet.
 
@@ -154,14 +157,37 @@ See `data/README.md`. Short version:
 
 ## Deploy: Railway
 
-`railway.toml` is configured for Nixpacks builds with a `/data` persisted volume. See the comments in that file for the env vars you need to set in the Railway dashboard. SQLite stays on the volume across deploys.
+Live at **https://meed-testing.up.railway.app**. `railway.toml` is configured for Nixpacks builds with a `/data` persisted volume. See the comments in that file for the env vars you need to set in the Railway dashboard. SQLite stays on the volume across deploys.
 
-After the first deploy:
+After the first deploy, or after any expert/city/action change:
 ```bash
-railway run npx prisma db push       # apply schema
+railway run npx prisma db push       # apply schema (only if migrations)
 railway run npm run seed -- --stratify
-railway run npx tsx scripts/admin-link.ts https://<your-service>.up.railway.app
+railway run npx tsx scripts/admin-link.ts https://meed-testing.up.railway.app
 ```
+
+### Sending invitations to the expert panel
+
+SSG distributes the magic links — we just mint them. The flow:
+
+```bash
+# 1. Re-import the expert list (only when the SSG xlsx changes)
+npx tsx scripts/import-experts.ts "/path/to/Expert list - CORFO MEED+.xlsx"
+git add data/experts.json && git commit -m "chore: refresh expert panel"
+git push
+
+# 2. Seed Railway's DB with the latest expert rows
+railway run npm run seed -- --stratify
+
+# 3. Mint fresh per-expert magic links pointed at the production domain
+railway run npx tsx scripts/generate-invitations.ts \
+  https://meed-testing.up.railway.app
+
+# 4. Pull the CSV down and hand it to SSG to email out
+railway run cat data/_invitations.csv > invitations-prod.csv
+```
+
+Each expert's link is single-active (running step 3 again invalidates the previous batch) and has a 7-day TTL (`MAGIC_LINK_TTL_MIN`). The experts click their link → land directly on `/auth/magic/<token>` → signed in → forwarded to `/onboarding` (first visit) or `/dashboard`. No email-entry form, no password.
 
 ## Locale + accessibility checks
 

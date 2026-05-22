@@ -1,19 +1,23 @@
 # Railway deployment configuration.
 #
-# Before deploying:
+# Live at:  https://meed-testing.up.railway.app
+#
+# Before deploying (one-time):
 #   1. Create a new Railway project, "Deploy from GitHub repo".
 #   2. Add a Volume to the service, mount path: /data
 #   3. Set environment variables in the Railway dashboard:
 #        DATABASE_URL=file:/data/meed.db
 #        NEXTAUTH_SECRET=<run `openssl rand -base64 32`>
-#        NEXTAUTH_URL=https://<your-service>.up.railway.app
+#        NEXTAUTH_URL=https://meed-testing.up.railway.app
 #        ADMIN_EMAIL=<your admin email>
+#        ADMIN_PASSWORD=<set a strong value>
+#        DEMO_PASSWORD=<set a strong value>
 #        MAGIC_LINK_TTL_MIN=10080
 #   4. The first deploy creates the empty DB at /data/meed.db. After it boots,
 #      run `npx prisma db push` and `npm run seed` against the prod URL —
 #      simplest is via `railway run`:
 #        railway run npx prisma db push
-#        railway run npm run seed
+#        railway run npm run seed -- --stratify
 #
 # Backups: SQLite file is on the persisted volume; snapshot the volume on a
 # cadence via Railway dashboard before the validation window opens.
