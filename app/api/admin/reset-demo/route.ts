@@ -22,6 +22,12 @@ export async function POST() {
   await prisma.evaluation.deleteMany({ where: { expertId: "demo" } });
   await prisma.magicToken.deleteMany({ where: { expertId: "demo" } });
 
+  // CRITICAL: wipe ALL old assignments before re-adding the canonical demo
+  // cities. Earlier seeds may have created assignments for cities that no
+  // longer exist in cities.json (e.g. the legacy city_01..city_10 set);
+  // leaving those rows in place causes /evaluate/<stale-id> to 404.
+  await prisma.assignment.deleteMany({ where: { expertId: "demo" } });
+
   await prisma.expert.update({
     where: { id: "demo" },
     data: {
@@ -34,12 +40,14 @@ export async function POST() {
   });
 
   for (const cityId of DEMO_CITIES) {
-    await prisma.assignment.upsert({
-      where: { expertId_cityId: { expertId: "demo", cityId } },
-      create: { expertId: "demo", cityId },
-      update: {},
+    await prisma.assignment.create({
+      data: { expertId: "demo", cityId },
     });
   }
 
-  return NextResponse.json({ ok: true, wipedEvaluations: evalCount });
+  return NextResponse.json({
+    ok: true,
+    wipedEvaluations: evalCount,
+    assignedCities: DEMO_CITIES,
+  });
 }

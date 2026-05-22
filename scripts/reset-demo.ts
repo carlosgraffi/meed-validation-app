@@ -64,20 +64,28 @@ async function main() {
   });
   console.log(`  ✓ cleared consent, completion, and preferences`);
 
-  // Re-ensure the demo cities are assigned (in case someone manipulated them).
+  // Wipe ALL old assignments first — earlier seeds may have created
+  // assignments for cities that no longer exist in cities.json (legacy
+  // city_01..city_10), and those stale rows cause /evaluate/<id> to 404.
+  const oldAssignments = await prisma.assignment.deleteMany({
+    where: { expertId: "demo" },
+  });
+  if (oldAssignments.count > 0) {
+    console.log(`  ✓ removed ${oldAssignments.count} old/stale assignments`);
+  }
+
+  // Re-assign exactly the canonical demo cities.
   const cityIds = new Set(loadCities().map((c) => c.cityId));
   for (const cityId of DEMO_CITIES) {
     if (!cityIds.has(cityId)) {
       console.warn(`  ! demo city ${cityId} not in cities.json — skipping`);
       continue;
     }
-    await prisma.assignment.upsert({
-      where: { expertId_cityId: { expertId: "demo", cityId } },
-      create: { expertId: "demo", cityId },
-      update: {},
+    await prisma.assignment.create({
+      data: { expertId: "demo", cityId },
     });
   }
-  console.log(`  ✓ ensured demo expert is assigned to ${DEMO_CITIES.join(", ")}`);
+  console.log(`  ✓ demo expert assigned to ${DEMO_CITIES.join(", ")}`);
 
   console.log("✓ Done. Demo expert is reset to a clean slate.");
 }
