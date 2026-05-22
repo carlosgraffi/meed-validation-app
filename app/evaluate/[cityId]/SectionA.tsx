@@ -40,9 +40,6 @@ export function SectionA({ city, onContinue }: { city: City; onContinue: () => v
             {t("units.peoplePerKm2")}
           </Stat>
           <Stat label={t("evaluate.biomeLabel")}>{ct.biome(city)}</Stat>
-          <Stat label={t("evaluate.elevationLabel")}>
-            {formatNumber(city.elevationM)} {t("units.meters")}
-          </Stat>
         </div>
 
         <div>

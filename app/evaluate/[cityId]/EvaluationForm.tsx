@@ -7,7 +7,14 @@ import { Button } from "@/components/ui/button";
 import { PillarDisclosure } from "@/components/PillarDisclosure";
 import { cn } from "@/lib/utils";
 import { useT } from "@/app/LangProvider";
-import type { Action, City, DiscardedAction } from "@/lib/fixtures";
+import type {
+  Action,
+  City,
+  DiscardedAction,
+  PolicyScore,
+  FeasibilityScore,
+  LegalAssessment,
+} from "@/lib/fixtures";
 import { SectionA } from "./SectionA";
 import { SectionC } from "./SectionC";
 import { SectionE } from "./SectionE";
@@ -68,6 +75,9 @@ export function EvaluationForm({
   stage2ContextActions,
   discardedLegal,
   allActions,
+  cityPolicy,
+  cityFeasibility,
+  legalAssessments,
   initial,
 }: {
   city: City;
@@ -78,6 +88,9 @@ export function EvaluationForm({
   stage2ContextActions: Action[];
   discardedLegal: DiscardedAction[];
   allActions: Action[];
+  cityPolicy: Record<string, PolicyScore>;
+  cityFeasibility: Record<string, FeasibilityScore>;
+  legalAssessments: Record<string, LegalAssessment>;
   initial: Initial;
 }) {
   const actionMap = new Map(allActions.map((a) => [a.actionId, a]));
@@ -403,6 +416,9 @@ export function EvaluationForm({
             onChange={onReorder}
             onReset={onReorderReset}
             readOnly={stageState("stage3") === "complete"}
+            cityPolicy={cityPolicy}
+            cityFeasibility={cityFeasibility}
+            legalAssessments={legalAssessments}
           />
         </StageSection>
         </SlideInOnMount>

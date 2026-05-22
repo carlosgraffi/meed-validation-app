@@ -2,9 +2,22 @@ import { notFound, redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { loadActions, loadCities, loadModelOutputs } from "@/lib/fixtures";
+import {
+  loadActions,
+  loadCities,
+  loadModelOutputs,
+  loadPolicyScores,
+  loadFeasibilityScores,
+  loadLegalAssessments,
+} from "@/lib/fixtures";
 import { seededShuffle } from "@/lib/randomize";
-import type { Action, DiscardedAction } from "@/lib/fixtures";
+import type {
+  Action,
+  DiscardedAction,
+  PolicyScore,
+  FeasibilityScore,
+  LegalAssessment,
+} from "@/lib/fixtures";
 import { EvaluationForm } from "./EvaluationForm";
 
 export const dynamic = "force-dynamic";
@@ -54,14 +67,30 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
       };
     });
 
-  // Legally-blocked actions for this city — hydrated with the action record
-  // so we can show the action's name in the footnote.
-  const discardedLegal: Array<DiscardedAction & { actionName: string }> = (
-    cityOutput.discardedLegal ?? []
-  ).map((d) => ({
-    ...d,
-    actionName: actionMap.get(d.actionId)?.nameEs ?? d.actionId,
-  }));
+  // Per-action ranking context: policy + feasibility (per city) + legal (country).
+  // These come from the global-API and are loaded lazily here so the eval flow
+  // can render the rich Stage-3 context sheet.
+  const policyScores = loadPolicyScores();
+  const feasibilityScores = loadFeasibilityScores();
+  const legalAssessments = loadLegalAssessments();
+  const cityPolicy = policyScores[cityId] ?? {};
+  const cityFeasibility = feasibilityScores[cityId] ?? {};
+
+  // Derive legally-blocked actions from the real legal API (verdict=blocked).
+  // The country-wide legal verdict acts as a hard filter in the real pipeline.
+  // The fixture's `discardedLegal` field is kept as a manual override; if
+  // present it wins, otherwise we compute from the legal data.
+  const fixtureDiscarded = cityOutput.discardedLegal ?? [];
+  const discardedLegal: DiscardedAction[] =
+    fixtureDiscarded.length > 0
+      ? fixtureDiscarded
+      : Object.values(legalAssessments)
+          .filter((l) => l.verdictCategory === "blocked")
+          .map((l) => ({
+            actionId: l.srcActionId,
+            reasonEs: `${l.ownershipDescriptionI18n.es} ${l.restrictionsDescriptionI18n.es}`.trim(),
+            reasonEn: `${l.ownershipDescriptionI18n.en} ${l.restrictionsDescriptionI18n.en}`.trim(),
+          }));
 
   // Find or create evaluation row (startedAt is set on first load).
   const evaluation = await prisma.evaluation.upsert({
@@ -127,8 +156,11 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
       stage2Order={top10RandomOrder}
       stage1ContextActions={stage1ContextActions}
       stage2ContextActions={stage2ContextActions}
-      discardedLegal={cityOutput.discardedLegal ?? []}
+      discardedLegal={discardedLegal}
       allActions={actions}
+      cityPolicy={cityPolicy}
+      cityFeasibility={cityFeasibility}
+      legalAssessments={legalAssessments}
       initial={{
         evaluationId: evaluation.id,
         currentStage: (evaluation.currentStage as Stage) ?? "stage1",

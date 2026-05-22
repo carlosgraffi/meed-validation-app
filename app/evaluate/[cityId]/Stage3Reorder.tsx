@@ -21,10 +21,14 @@ import { GripVertical } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
+import { Info } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useT, useActionText } from "@/app/LangProvider";
+import { useT, useActionText, useLang } from "@/app/LangProvider";
 import { ActionRationale } from "./ActionRationale";
+import { ActionContextSheet } from "./ActionContextSheet";
 import type { RankedAction } from "./page";
+import type { PolicyScore, FeasibilityScore, LegalAssessment } from "@/lib/fixtures";
 
 /**
  * Stage 3 — reveal model ranks for the top 5 actions, allow the expert to drag-reorder.
@@ -39,12 +43,18 @@ export function Stage3Reorder({
   onChange,
   onReset,
   readOnly,
+  cityPolicy,
+  cityFeasibility,
+  legalAssessments,
 }: {
   modelTop5: RankedAction[];
   customOrder: string[] | null;
   onChange: (next: string[]) => void;
   onReset: () => void;
   readOnly?: boolean;
+  cityPolicy: Record<string, PolicyScore>;
+  cityFeasibility: Record<string, FeasibilityScore>;
+  legalAssessments: Record<string, LegalAssessment>;
 }) {
   const t = useT();
   const orderIds: string[] = (() => {
@@ -96,6 +106,9 @@ export function Stage3Reorder({
                     action={ranked.action}
                     rationaleEs={ranked.rationaleEs}
                     rationaleEn={ranked.rationaleEn}
+                    policy={cityPolicy[ranked.action.actionId]}
+                    feasibility={cityFeasibility[ranked.action.actionId]}
+                    legal={legalAssessments[ranked.action.actionId]}
                     disabled={readOnly}
                   />
                 );
@@ -120,6 +133,9 @@ function SortableItem({
   action,
   rationaleEs,
   rationaleEn,
+  policy,
+  feasibility,
+  legal,
   disabled,
 }: {
   id: string;
@@ -128,9 +144,14 @@ function SortableItem({
   action: import("@/lib/fixtures").Action;
   rationaleEs: string;
   rationaleEn: string;
+  policy: PolicyScore | undefined;
+  feasibility: FeasibilityScore | undefined;
+  legal: LegalAssessment | undefined;
   disabled?: boolean;
 }) {
   const at = useActionText();
+  const [lang] = useLang();
+  const [sheetOpen, setSheetOpen] = useState(false);
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id,
     disabled,
@@ -141,6 +162,7 @@ function SortableItem({
   };
   const moved = modelRank !== expertRank;
   return (
+    <>
     <li
       ref={setNodeRef}
       style={style}
@@ -150,7 +172,7 @@ function SortableItem({
         disabled && "opacity-60"
       )}
     >
-      <div className="grid grid-cols-[auto_auto_1fr_auto] items-center gap-3">
+      <div className="grid grid-cols-[auto_auto_1fr_auto_auto] items-center gap-3">
         <Badge variant="muted" className="font-mono w-10 justify-center">
           #{modelRank}
         </Badge>
@@ -158,6 +180,17 @@ function SortableItem({
           #{expertRank}
         </Badge>
         <span className="text-sm">{at.name(action)}</span>
+        <button
+          type="button"
+          onClick={() => setSheetOpen(true)}
+          className="shrink-0 inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground border rounded-md px-2 py-1 transition-colors"
+          aria-label={lang === "en" ? "View ranking context" : "Ver contexto del ranking"}
+        >
+          <Info className="h-3.5 w-3.5" aria-hidden />
+          <span className="hidden sm:inline">
+            {lang === "en" ? "Context" : "Contexto"}
+          </span>
+        </button>
         <button
           type="button"
           className="shrink-0 text-muted-foreground hover:text-foreground cursor-grab active:cursor-grabbing disabled:cursor-not-allowed"
@@ -171,5 +204,17 @@ function SortableItem({
       </div>
       <ActionRationale rationaleEs={rationaleEs} rationaleEn={rationaleEn} />
     </li>
+    <ActionContextSheet
+      open={sheetOpen}
+      onOpenChange={setSheetOpen}
+      action={action}
+      rationaleEs={rationaleEs}
+      rationaleEn={rationaleEn}
+      modelRank={modelRank}
+      policy={policy}
+      feasibility={feasibility}
+      legal={legal}
+    />
+    </>
   );
 }

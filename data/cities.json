@@ -1,354 +1,932 @@
 [
   {
-    "cityId": "city_01",
-    "displayName": "Ciudad Costera del Norte",
-    "population": 245000,
-    "populationDensity": 580,
-    "region": "Región de Antofagasta",
-    "biome": "Desierto costero",
-    "elevationM": 25,
+    "cityId": "CL ZAL",
+    "displayName": "Valdivia",
+    "displayNameEn": "Valdivia",
+    "region": "Región de Los Ríos",
+    "regionEn": "Los Ríos Region",
+    "population": 166958,
+    "populationDensity": 103,
+    "area_km2": 1614,
     "sectorEmissions": {
-      "stationaryEnergy": 1240000,
-      "transportation": 890000,
-      "waste": 210000,
-      "ippu": null,
-      "afolu": null
+      "stationaryEnergy": 152285.9441,
+      "transportation": 166794.0165,
+      "waste": 80191.84675,
+      "ippu": 72648.1951,
+      "afolu": 54365.30028
     },
-    "totalEmissions": 2340000,
-    "statedSectorPriority": "stationaryEnergy",
-    "cityRequest": {
-      "preferredSectors": [
-        "stationaryEnergy",
-        "transportation"
-      ],
-      "preferredTimeframes": [
-        "short",
-        "medium"
-      ],
-      "preferredCoBenefits": [
-        "air_quality",
-        "mobility"
-      ],
-      "excludedActionIds": []
+    "subsectorEmissions": {
+      "I.1": 75588.87069,
+      "I.2": 51450.02281,
+      "I.3": 24980.88112,
+      "I.4": 17.09543461,
+      "I.6": 0,
+      "II.1": 160328.1507,
+      "II.2": 123.1149773,
+      "II.3": 1435.764632,
+      "II.4": 4781.053704,
+      "II.5": 125.9324794,
+      "III.1": 63884.01238,
+      "III.2": 5359.428425,
+      "III.3": 741.0413936,
+      "III.4": 10207.36455,
+      "IV.1": 5384.352357,
+      "IV.2": 67263.84274,
+      "V.1": 29824.09812,
+      "V.2": -5959.048053,
+      "V.3": 30500.25022
     },
-    "biomeEn": "Coastal desert",
-    "displayNameEn": "Northern Coastal City",
-    "regionEn": "Antofagasta Region"
-  },
-  {
-    "cityId": "city_02",
-    "displayName": "Ciudad Minera del Altiplano",
-    "population": 95000,
-    "populationDensity": 120,
-    "region": "Región de Tarapacá",
-    "biome": "Desierto absoluto interior",
-    "elevationM": 1820,
-    "sectorEmissions": {
-      "stationaryEnergy": 980000,
-      "transportation": 410000,
-      "waste": 65000,
-      "ippu": 720000,
-      "afolu": null
-    },
-    "totalEmissions": 2175000,
-    "statedSectorPriority": "ippu",
-    "cityRequest": {
-      "preferredSectors": [
-        "ippu",
-        "stationaryEnergy"
-      ],
-      "preferredTimeframes": [
-        "medium"
-      ],
-      "preferredCoBenefits": [
-        "air_quality",
-        "water_quality"
-      ],
-      "excludedActionIds": []
-    },
-    "biomeEn": "Inland absolute desert",
-    "displayNameEn": "Altiplano Mining City",
-    "regionEn": "Tarapacá Region"
-  },
-  {
-    "cityId": "city_03",
-    "displayName": "Ciudad Capital Regional Central",
-    "population": 1180000,
-    "populationDensity": 4200,
-    "region": "Región Metropolitana",
-    "biome": "Matorral mediterráneo",
-    "elevationM": 540,
-    "sectorEmissions": {
-      "stationaryEnergy": 3850000,
-      "transportation": 4120000,
-      "waste": 680000,
-      "ippu": 215000,
-      "afolu": null
-    },
-    "totalEmissions": 8865000,
-    "statedSectorPriority": "transportation",
-    "cityRequest": {
-      "preferredSectors": [
-        "transportation"
-      ],
-      "preferredTimeframes": [
-        "short",
-        "medium"
-      ],
-      "preferredCoBenefits": [
-        "air_quality",
-        "mobility"
-      ],
-      "excludedActionIds": []
-    },
-    "biomeEn": "Mediterranean shrubland",
-    "displayNameEn": "Central Regional Capital",
-    "regionEn": "Metropolitan Region"
-  },
-  {
-    "cityId": "city_04",
-    "displayName": "Ciudad Portuaria del Centro",
-    "population": 320000,
-    "populationDensity": 2100,
-    "region": "Región de Valparaíso",
-    "biome": "Matorral mediterráneo costero",
-    "elevationM": 45,
-    "sectorEmissions": {
-      "stationaryEnergy": 1080000,
-      "transportation": 1340000,
-      "waste": 240000,
-      "ippu": 95000,
-      "afolu": null
-    },
-    "totalEmissions": 2755000,
-    "statedSectorPriority": "transportation",
-    "cityRequest": {
-      "preferredSectors": [
-        "transportation",
-        "stationaryEnergy"
-      ],
-      "preferredTimeframes": [
-        "short",
-        "medium"
-      ],
-      "preferredCoBenefits": [
-        "air_quality",
-        "mobility"
-      ],
-      "excludedActionIds": []
-    },
-    "biomeEn": "Coastal Mediterranean shrubland",
-    "displayNameEn": "Central Port City",
-    "regionEn": "Valparaíso Region"
-  },
-  {
-    "cityId": "city_05",
-    "displayName": "Ciudad Agroindustrial del Valle",
-    "population": 165000,
-    "populationDensity": 380,
-    "region": "Región de O'Higgins",
-    "biome": "Bosque esclerófilo",
-    "elevationM": 220,
-    "sectorEmissions": {
-      "stationaryEnergy": 540000,
-      "transportation": 470000,
-      "waste": 110000,
-      "ippu": null,
-      "afolu": 890000
-    },
-    "totalEmissions": 2010000,
-    "statedSectorPriority": "afolu",
-    "cityRequest": {
-      "preferredSectors": [
-        "afolu",
-        "waste"
-      ],
-      "preferredTimeframes": [
-        "medium",
-        "long"
-      ],
-      "preferredCoBenefits": [
-        "water_quality",
-        "habitat"
-      ],
-      "excludedActionIds": []
-    },
-    "biomeEn": "Sclerophyll forest",
-    "displayNameEn": "Agro-Industrial Valley City",
-    "regionEn": "O'Higgins Region"
-  },
-  {
-    "cityId": "city_06",
-    "displayName": "Ciudad Industrial del Maule",
-    "population": 230000,
-    "populationDensity": 950,
-    "region": "Región del Maule",
-    "biome": "Bosque esclerófilo",
-    "elevationM": 105,
-    "sectorEmissions": {
-      "stationaryEnergy": 920000,
-      "transportation": 760000,
-      "waste": 180000,
-      "ippu": 410000,
-      "afolu": null
-    },
-    "totalEmissions": 2270000,
-    "statedSectorPriority": "ippu",
-    "cityRequest": {
-      "preferredSectors": [
-        "ippu",
-        "stationaryEnergy"
-      ],
-      "preferredTimeframes": [
-        "medium"
-      ],
-      "preferredCoBenefits": [
-        "air_quality",
-        "cost_of_living"
-      ],
-      "excludedActionIds": []
-    },
-    "biomeEn": "Sclerophyll forest",
-    "displayNameEn": "Maule Industrial City",
-    "regionEn": "Maule Region"
-  },
-  {
-    "cityId": "city_07",
-    "displayName": "Ciudad Capital del Biobío",
-    "population": 510000,
-    "populationDensity": 1750,
-    "region": "Región del Biobío",
-    "biome": "Bosque templado costero",
-    "elevationM": 12,
-    "sectorEmissions": {
-      "stationaryEnergy": 1620000,
-      "transportation": 1480000,
-      "waste": 305000,
-      "ippu": 270000,
-      "afolu": null
-    },
-    "totalEmissions": 3675000,
-    "statedSectorPriority": "stationaryEnergy",
-    "cityRequest": {
-      "preferredSectors": [
-        "stationaryEnergy",
-        "transportation"
-      ],
-      "preferredTimeframes": [
-        "short",
-        "medium"
-      ],
-      "preferredCoBenefits": [
-        "air_quality",
-        "housing"
-      ],
-      "excludedActionIds": []
-    },
-    "biomeEn": "Temperate coastal forest",
-    "displayNameEn": "Biobío Capital City",
-    "regionEn": "Biobío Region"
-  },
-  {
-    "cityId": "city_08",
-    "displayName": "Ciudad de La Frontera",
-    "population": 290000,
-    "populationDensity": 1180,
-    "region": "Región de La Araucanía",
-    "biome": "Bosque templado lluvioso valdiviano",
-    "elevationM": 115,
-    "sectorEmissions": {
-      "stationaryEnergy": 980000,
-      "transportation": 720000,
-      "waste": 195000,
-      "ippu": null,
-      "afolu": 420000
-    },
-    "totalEmissions": 2315000,
+    "totalEmissions": 526285,
+    "biome": "Silvicultura dominante",
+    "biomeEn": "Silviculture dominant",
     "statedSectorPriority": null,
     "cityRequest": {
-      "preferredSectors": [
-        "stationaryEnergy"
-      ],
-      "preferredTimeframes": [
-        "short"
-      ],
-      "preferredCoBenefits": [
-        "air_quality",
-        "housing"
-      ],
+      "preferredSectors": [],
+      "preferredTimeframes": [],
+      "preferredCoBenefits": [],
       "excludedActionIds": []
     },
-    "biomeEn": "Valdivian temperate rainforest",
-    "displayNameEn": "Frontera Border City",
-    "regionEn": "La Araucanía Region"
+    "cityIndicators": [
+      {
+        "key": "median_household_income",
+        "group": "economy",
+        "labelEs": "Ingreso mediano del hogar",
+        "labelEn": "Median household income",
+        "value": 1088166,
+        "units": "CLP",
+        "category": "very high",
+        "priority": 1
+      },
+      {
+        "key": "poverty_rate",
+        "group": "economy",
+        "labelEs": "Pobreza",
+        "labelEn": "Poverty rate",
+        "value": 15.47,
+        "units": "percent",
+        "category": "very low",
+        "priority": 2
+      },
+      {
+        "key": "unemployment_rate",
+        "group": "economy",
+        "labelEs": "Desempleo",
+        "labelEn": "Unemployment rate",
+        "value": 8.15,
+        "units": "percent",
+        "category": "medium",
+        "priority": 3
+      },
+      {
+        "key": "employment_agriculture_utilities",
+        "group": "economy",
+        "labelEs": "Empleo en agricultura",
+        "labelEn": "Employment in agriculture",
+        "value": 5.05,
+        "units": "percent",
+        "category": "very low",
+        "priority": 4
+      },
+      {
+        "key": "industry_construction_employment",
+        "group": "economy",
+        "labelEs": "Empleo en industria y construcción",
+        "labelEn": "Employment in industry and construction",
+        "value": 16.9,
+        "units": "percent",
+        "category": "low",
+        "priority": 5
+      },
+      {
+        "key": "employment_in_transport_and_logistics",
+        "group": "economy",
+        "labelEs": "Empleo en transporte y logística",
+        "labelEn": "Employment in transport and logistics",
+        "value": 5.47,
+        "units": "percent",
+        "category": "medium",
+        "priority": 6
+      },
+      {
+        "key": "electricity_access_rate",
+        "group": "infrastructure",
+        "labelEs": "Acceso a electricidad",
+        "labelEn": "Electricity access",
+        "value": 99.73,
+        "units": "percent",
+        "category": "high",
+        "priority": 1
+      },
+      {
+        "key": "fixed_internet_household_share",
+        "group": "infrastructure",
+        "labelEs": "Internet fijo en hogares",
+        "labelEn": "Fixed internet households",
+        "value": 71.91,
+        "units": "percent",
+        "category": "very high",
+        "priority": 2
+      },
+      {
+        "key": "public_transport_share",
+        "group": "infrastructure",
+        "labelEs": "Uso de transporte público",
+        "labelEn": "Public transport share",
+        "value": 33.1,
+        "units": "percent",
+        "category": "very high",
+        "priority": 3
+      },
+      {
+        "key": "home_ownership",
+        "group": "infrastructure",
+        "labelEs": "Propiedad de vivienda",
+        "labelEn": "Home ownership",
+        "value": 59.22,
+        "units": "percent",
+        "category": "very low",
+        "priority": 4
+      },
+      {
+        "key": "renter_share",
+        "group": "infrastructure",
+        "labelEs": "Arrendatarios",
+        "labelEn": "Renters",
+        "value": 28.21,
+        "units": "percent",
+        "category": "very high",
+        "priority": 5
+      },
+      {
+        "key": "urban_built_share",
+        "group": "land",
+        "labelEs": "Suelo urbano construido",
+        "labelEn": "Urban built-up land",
+        "value": 2.4,
+        "units": "percent",
+        "category": "medium",
+        "priority": 1
+      },
+      {
+        "key": "primary_forest_share",
+        "group": "land",
+        "labelEs": "Bosque primario",
+        "labelEn": "Primary forest",
+        "value": 25.2,
+        "units": "percent",
+        "category": "medium",
+        "priority": 2
+      },
+      {
+        "key": "secondary_forest_share",
+        "group": "land",
+        "labelEs": "Bosque secundario",
+        "labelEn": "Secondary forest",
+        "value": 16.6,
+        "units": "percent",
+        "category": "medium",
+        "priority": 3
+      },
+      {
+        "key": "pasture_share",
+        "group": "land",
+        "labelEs": "Pastizal manejado",
+        "labelEn": "Pasture",
+        "value": 12.9,
+        "units": "percent",
+        "category": "low",
+        "priority": 4
+      },
+      {
+        "key": "silviculture_share",
+        "group": "land",
+        "labelEs": "Silvicultura",
+        "labelEn": "Silviculture",
+        "value": 34.8,
+        "units": "percent",
+        "category": "high",
+        "priority": 5
+      },
+      {
+        "key": "grassland_share",
+        "group": "land",
+        "labelEs": "Praderas naturales",
+        "labelEn": "Natural grassland",
+        "value": 0,
+        "units": "percent",
+        "category": "very low",
+        "priority": 6
+      },
+      {
+        "key": "shrubland_share",
+        "group": "land",
+        "labelEs": "Matorral",
+        "labelEn": "Shrubland",
+        "value": 4.5,
+        "units": "percent",
+        "category": "low",
+        "priority": 7
+      },
+      {
+        "key": "wetland_share",
+        "group": "land",
+        "labelEs": "Humedales",
+        "labelEn": "Wetlands",
+        "value": 2.5,
+        "units": "percent",
+        "category": "medium",
+        "priority": 8
+      },
+      {
+        "key": "water_share",
+        "group": "land",
+        "labelEs": "Cuerpos de agua",
+        "labelEn": "Water bodies",
+        "value": 0.7,
+        "units": "percent",
+        "category": "very low",
+        "priority": 9
+      },
+      {
+        "key": "beach_dune_share",
+        "group": "land",
+        "labelEs": "Playas y dunas",
+        "labelEn": "Beaches and dunes",
+        "value": 0.3,
+        "units": "percent",
+        "category": "low",
+        "priority": 10
+      },
+      {
+        "key": "population",
+        "group": "people",
+        "labelEs": "Población",
+        "labelEn": "Population",
+        "value": 166958,
+        "units": "persons",
+        "category": "very high",
+        "priority": 1
+      },
+      {
+        "key": "indigenous_identification_rate",
+        "group": "people",
+        "labelEs": "Identificación indígena",
+        "labelEn": "Indigenous identification",
+        "value": 16.34,
+        "units": "percent",
+        "category": "high",
+        "priority": 2
+      },
+      {
+        "key": "mean_years_schooling",
+        "group": "people",
+        "labelEs": "Años de escolaridad",
+        "labelEn": "Mean years of schooling",
+        "value": 11.01,
+        "units": "years",
+        "category": "very high",
+        "priority": 4
+      },
+      {
+        "key": "literacy_rate",
+        "group": "people",
+        "labelEs": "Alfabetización",
+        "labelEn": "Literacy rate",
+        "value": 96.45,
+        "units": "percent",
+        "category": "very high",
+        "priority": 5
+      },
+      {
+        "key": "disability_prevalence",
+        "group": "people",
+        "labelEs": "Prevalencia de discapacidad",
+        "labelEn": "Disability prevalence",
+        "value": 10.84,
+        "units": "percent",
+        "category": "low",
+        "priority": 6
+      }
+    ]
   },
   {
-    "cityId": "city_09",
-    "displayName": "Ciudad Lacustre del Sur",
-    "population": 175000,
-    "populationDensity": 480,
-    "region": "Región de Los Lagos",
-    "biome": "Bosque siempreverde norpatagónico",
-    "elevationM": 60,
+    "cityId": "CL PAO",
+    "displayName": "Paillaco",
+    "displayNameEn": "Paillaco",
+    "region": "Región de Los Ríos",
+    "regionEn": "Los Ríos Region",
+    "population": 19719,
+    "populationDensity": 13,
+    "area_km2": 1541,
     "sectorEmissions": {
-      "stationaryEnergy": 720000,
-      "transportation": 540000,
-      "waste": 130000,
-      "ippu": null,
-      "afolu": 380000
+      "stationaryEnergy": 16306.44818,
+      "transportation": 22603.11471,
+      "waste": 9850.442909,
+      "ippu": 5957.167908,
+      "afolu": -182356.5956
     },
-    "totalEmissions": 1770000,
-    "statedSectorPriority": "stationaryEnergy",
+    "subsectorEmissions": {
+      "I.1": 8241.24854,
+      "I.2": 7252.579551,
+      "I.3": 784.6870462,
+      "I.4": 0.749880419,
+      "I.6": 0,
+      "II.1": 21574.31288,
+      "II.2": 114.5945524,
+      "II.3": 0,
+      "II.4": 599.376078,
+      "II.5": 314.8311985,
+      "III.1": 8008.809597,
+      "III.2": 671.8839379,
+      "III.3": 92.90054278,
+      "III.4": 1076.848831,
+      "IV.1": 376.1384571,
+      "IV.2": 5581.029451,
+      "V.1": 135077.8011,
+      "V.2": -348873.3354,
+      "V.3": 31438.93864
+    },
+    "totalEmissions": -127639,
+    "biome": "Pastizal dominante",
+    "biomeEn": "Pasture dominant",
+    "statedSectorPriority": null,
     "cityRequest": {
-      "preferredSectors": [
-        "stationaryEnergy",
-        "afolu"
-      ],
-      "preferredTimeframes": [
-        "medium"
-      ],
-      "preferredCoBenefits": [
-        "habitat",
-        "water_quality"
-      ],
+      "preferredSectors": [],
+      "preferredTimeframes": [],
+      "preferredCoBenefits": [],
       "excludedActionIds": []
     },
-    "biomeEn": "North-Patagonian evergreen forest",
-    "displayNameEn": "Southern Lakes City",
-    "regionEn": "Los Lagos Region"
+    "cityIndicators": [
+      {
+        "key": "median_household_income",
+        "group": "economy",
+        "labelEs": "Ingreso mediano del hogar",
+        "labelEn": "Median household income",
+        "value": 803695,
+        "units": "CLP",
+        "category": "low",
+        "priority": 1
+      },
+      {
+        "key": "poverty_rate",
+        "group": "economy",
+        "labelEs": "Pobreza",
+        "labelEn": "Poverty rate",
+        "value": 28,
+        "units": "percent",
+        "category": "high",
+        "priority": 2
+      },
+      {
+        "key": "unemployment_rate",
+        "group": "economy",
+        "labelEs": "Desempleo",
+        "labelEn": "Unemployment rate",
+        "value": 10.03,
+        "units": "percent",
+        "category": "high",
+        "priority": 3
+      },
+      {
+        "key": "employment_agriculture_utilities",
+        "group": "economy",
+        "labelEs": "Empleo en agricultura",
+        "labelEn": "Employment in agriculture",
+        "value": 25.53,
+        "units": "percent",
+        "category": "high",
+        "priority": 4
+      },
+      {
+        "key": "industry_construction_employment",
+        "group": "economy",
+        "labelEs": "Empleo en industria y construcción",
+        "labelEn": "Employment in industry and construction",
+        "value": 17.54,
+        "units": "percent",
+        "category": "low",
+        "priority": 5
+      },
+      {
+        "key": "employment_in_transport_and_logistics",
+        "group": "economy",
+        "labelEs": "Empleo en transporte y logística",
+        "labelEn": "Employment in transport and logistics",
+        "value": 6.33,
+        "units": "percent",
+        "category": "high",
+        "priority": 6
+      },
+      {
+        "key": "electricity_access_rate",
+        "group": "infrastructure",
+        "labelEs": "Acceso a electricidad",
+        "labelEn": "Electricity access",
+        "value": 99.35,
+        "units": "percent",
+        "category": "medium",
+        "priority": 1
+      },
+      {
+        "key": "fixed_internet_household_share",
+        "group": "infrastructure",
+        "labelEs": "Internet fijo en hogares",
+        "labelEn": "Fixed internet households",
+        "value": 34.82,
+        "units": "percent",
+        "category": "medium",
+        "priority": 2
+      },
+      {
+        "key": "public_transport_share",
+        "group": "infrastructure",
+        "labelEs": "Uso de transporte público",
+        "labelEn": "Public transport share",
+        "value": 16.53,
+        "units": "percent",
+        "category": "medium",
+        "priority": 3
+      },
+      {
+        "key": "home_ownership",
+        "group": "infrastructure",
+        "labelEs": "Propiedad de vivienda",
+        "labelEn": "Home ownership",
+        "value": 66.34,
+        "units": "percent",
+        "category": "low",
+        "priority": 4
+      },
+      {
+        "key": "renter_share",
+        "group": "infrastructure",
+        "labelEs": "Arrendatarios",
+        "labelEn": "Renters",
+        "value": 14.01,
+        "units": "percent",
+        "category": "medium",
+        "priority": 5
+      },
+      {
+        "key": "urban_built_share",
+        "group": "land",
+        "labelEs": "Suelo urbano construido",
+        "labelEn": "Urban built-up land",
+        "value": 0.6,
+        "units": "percent",
+        "category": "low",
+        "priority": 1
+      },
+      {
+        "key": "primary_forest_share",
+        "group": "land",
+        "labelEs": "Bosque primario",
+        "labelEn": "Primary forest",
+        "value": 9.3,
+        "units": "percent",
+        "category": "low",
+        "priority": 2
+      },
+      {
+        "key": "secondary_forest_share",
+        "group": "land",
+        "labelEs": "Bosque secundario",
+        "labelEn": "Secondary forest",
+        "value": 11.1,
+        "units": "percent",
+        "category": "low",
+        "priority": 3
+      },
+      {
+        "key": "pasture_share",
+        "group": "land",
+        "labelEs": "Pastizal manejado",
+        "labelEn": "Pasture",
+        "value": 52.2,
+        "units": "percent",
+        "category": "very high",
+        "priority": 4
+      },
+      {
+        "key": "silviculture_share",
+        "group": "land",
+        "labelEs": "Silvicultura",
+        "labelEn": "Silviculture",
+        "value": 24.3,
+        "units": "percent",
+        "category": "medium",
+        "priority": 5
+      },
+      {
+        "key": "grassland_share",
+        "group": "land",
+        "labelEs": "Praderas naturales",
+        "labelEn": "Natural grassland",
+        "value": 0,
+        "units": "percent",
+        "category": "very low",
+        "priority": 6
+      },
+      {
+        "key": "shrubland_share",
+        "group": "land",
+        "labelEs": "Matorral",
+        "labelEn": "Shrubland",
+        "value": 2.2,
+        "units": "percent",
+        "category": "low",
+        "priority": 7
+      },
+      {
+        "key": "wetland_share",
+        "group": "land",
+        "labelEs": "Humedales",
+        "labelEn": "Wetlands",
+        "value": 0.1,
+        "units": "percent",
+        "category": "very low",
+        "priority": 8
+      },
+      {
+        "key": "water_share",
+        "group": "land",
+        "labelEs": "Cuerpos de agua",
+        "labelEn": "Water bodies",
+        "value": 0,
+        "units": "percent",
+        "category": "very low",
+        "priority": 9
+      },
+      {
+        "key": "beach_dune_share",
+        "group": "land",
+        "labelEs": "Playas y dunas",
+        "labelEn": "Beaches and dunes",
+        "value": 0,
+        "units": "percent",
+        "category": "very low",
+        "priority": 10
+      },
+      {
+        "key": "population",
+        "group": "people",
+        "labelEs": "Población",
+        "labelEn": "Population",
+        "value": 19719,
+        "units": "persons",
+        "category": "medium",
+        "priority": 1
+      },
+      {
+        "key": "indigenous_identification_rate",
+        "group": "people",
+        "labelEs": "Identificación indígena",
+        "labelEn": "Indigenous identification",
+        "value": 17.68,
+        "units": "percent",
+        "category": "high",
+        "priority": 2
+      },
+      {
+        "key": "mean_years_schooling",
+        "group": "people",
+        "labelEs": "Años de escolaridad",
+        "labelEn": "Mean years of schooling",
+        "value": 9.03,
+        "units": "years",
+        "category": "low",
+        "priority": 4
+      },
+      {
+        "key": "literacy_rate",
+        "group": "people",
+        "labelEs": "Alfabetización",
+        "labelEn": "Literacy rate",
+        "value": 93.85,
+        "units": "percent",
+        "category": "low",
+        "priority": 5
+      },
+      {
+        "key": "disability_prevalence",
+        "group": "people",
+        "labelEs": "Prevalencia de discapacidad",
+        "labelEn": "Disability prevalence",
+        "value": 11.51,
+        "units": "percent",
+        "category": "low",
+        "priority": 6
+      }
+    ]
   },
   {
-    "cityId": "city_10",
-    "displayName": "Ciudad Austral",
-    "population": 135000,
-    "populationDensity": 320,
-    "region": "Región de Magallanes",
-    "biome": "Estepa patagónica",
-    "elevationM": 35,
+    "cityId": "CL RNC",
+    "displayName": "Lago Ranco",
+    "displayNameEn": "Lago Ranco",
+    "region": "Región de Los Ríos",
+    "regionEn": "Los Ríos Region",
+    "population": 10527,
+    "populationDensity": 3,
+    "area_km2": 3041,
     "sectorEmissions": {
-      "stationaryEnergy": 880000,
-      "transportation": 410000,
-      "waste": 95000,
-      "ippu": null,
-      "afolu": null
+      "stationaryEnergy": 8114.553246,
+      "transportation": 28024.79195,
+      "waste": 5296.583761,
+      "ippu": 7682.635728,
+      "afolu": -268483.2994
     },
-    "totalEmissions": 1385000,
-    "statedSectorPriority": "stationaryEnergy",
+    "subsectorEmissions": {
+      "I.1": 4231.860676,
+      "I.2": 3370.496851,
+      "I.3": 395.0051675,
+      "I.4": 0,
+      "I.6": 0,
+      "II.1": 27624.72284,
+      "II.2": 69.54769242,
+      "II.3": 0,
+      "II.4": 304.2854803,
+      "II.5": 26.23593321,
+      "III.1": 4065.835399,
+      "III.2": 341.095573,
+      "III.3": 47.16285371,
+      "III.4": 842.4899355,
+      "IV.1": 626.8974284,
+      "IV.2": 7055.738299,
+      "V.1": 45738.09233,
+      "V.2": -364228.93,
+      "V.3": 50007.53827
+    },
+    "totalEmissions": -219365,
+    "biome": "Bosque primario dominante",
+    "biomeEn": "Primary forest dominant",
+    "statedSectorPriority": null,
     "cityRequest": {
-      "preferredSectors": [
-        "stationaryEnergy"
-      ],
-      "preferredTimeframes": [
-        "short"
-      ],
-      "preferredCoBenefits": [
-        "housing",
-        "air_quality"
-      ],
+      "preferredSectors": [],
+      "preferredTimeframes": [],
+      "preferredCoBenefits": [],
       "excludedActionIds": []
     },
-    "biomeEn": "Patagonian steppe",
-    "displayNameEn": "Austral City",
-    "regionEn": "Magallanes Region"
+    "cityIndicators": [
+      {
+        "key": "median_household_income",
+        "group": "economy",
+        "labelEs": "Ingreso mediano del hogar",
+        "labelEn": "Median household income",
+        "value": 723556,
+        "units": "CLP",
+        "category": "very low",
+        "priority": 1
+      },
+      {
+        "key": "poverty_rate",
+        "group": "economy",
+        "labelEs": "Pobreza",
+        "labelEn": "Poverty rate",
+        "value": 30.58,
+        "units": "percent",
+        "category": "high",
+        "priority": 2
+      },
+      {
+        "key": "unemployment_rate",
+        "group": "economy",
+        "labelEs": "Desempleo",
+        "labelEn": "Unemployment rate",
+        "value": 8.57,
+        "units": "percent",
+        "category": "medium",
+        "priority": 3
+      },
+      {
+        "key": "employment_agriculture_utilities",
+        "group": "economy",
+        "labelEs": "Empleo en agricultura",
+        "labelEn": "Employment in agriculture",
+        "value": 19.74,
+        "units": "percent",
+        "category": "medium",
+        "priority": 4
+      },
+      {
+        "key": "industry_construction_employment",
+        "group": "economy",
+        "labelEs": "Empleo en industria y construcción",
+        "labelEn": "Employment in industry and construction",
+        "value": 22.06,
+        "units": "percent",
+        "category": "high",
+        "priority": 5
+      },
+      {
+        "key": "employment_in_transport_and_logistics",
+        "group": "economy",
+        "labelEs": "Empleo en transporte y logística",
+        "labelEn": "Employment in transport and logistics",
+        "value": 3.4,
+        "units": "percent",
+        "category": "very low",
+        "priority": 6
+      },
+      {
+        "key": "electricity_access_rate",
+        "group": "infrastructure",
+        "labelEs": "Acceso a electricidad",
+        "labelEn": "Electricity access",
+        "value": 97.76,
+        "units": "percent",
+        "category": "very low",
+        "priority": 1
+      },
+      {
+        "key": "fixed_internet_household_share",
+        "group": "infrastructure",
+        "labelEs": "Internet fijo en hogares",
+        "labelEn": "Fixed internet households",
+        "value": 16.59,
+        "units": "percent",
+        "category": "very low",
+        "priority": 2
+      },
+      {
+        "key": "public_transport_share",
+        "group": "infrastructure",
+        "labelEs": "Uso de transporte público",
+        "labelEn": "Public transport share",
+        "value": 11.33,
+        "units": "percent",
+        "category": "low",
+        "priority": 3
+      },
+      {
+        "key": "home_ownership",
+        "group": "infrastructure",
+        "labelEs": "Propiedad de vivienda",
+        "labelEn": "Home ownership",
+        "value": 72.67,
+        "units": "percent",
+        "category": "high",
+        "priority": 4
+      },
+      {
+        "key": "renter_share",
+        "group": "infrastructure",
+        "labelEs": "Arrendatarios",
+        "labelEn": "Renters",
+        "value": 9,
+        "units": "percent",
+        "category": "very low",
+        "priority": 5
+      },
+      {
+        "key": "urban_built_share",
+        "group": "land",
+        "labelEs": "Suelo urbano construido",
+        "labelEn": "Urban built-up land",
+        "value": 0.1,
+        "units": "percent",
+        "category": "very low",
+        "priority": 1
+      },
+      {
+        "key": "primary_forest_share",
+        "group": "land",
+        "labelEs": "Bosque primario",
+        "labelEn": "Primary forest",
+        "value": 39.3,
+        "units": "percent",
+        "category": "high",
+        "priority": 2
+      },
+      {
+        "key": "secondary_forest_share",
+        "group": "land",
+        "labelEs": "Bosque secundario",
+        "labelEn": "Secondary forest",
+        "value": 18.8,
+        "units": "percent",
+        "category": "medium",
+        "priority": 3
+      },
+      {
+        "key": "pasture_share",
+        "group": "land",
+        "labelEs": "Pastizal manejado",
+        "labelEn": "Pasture",
+        "value": 11.1,
+        "units": "percent",
+        "category": "low",
+        "priority": 4
+      },
+      {
+        "key": "silviculture_share",
+        "group": "land",
+        "labelEs": "Silvicultura",
+        "labelEn": "Silviculture",
+        "value": 0.6,
+        "units": "percent",
+        "category": "very low",
+        "priority": 5
+      },
+      {
+        "key": "grassland_share",
+        "group": "land",
+        "labelEs": "Praderas naturales",
+        "labelEn": "Natural grassland",
+        "value": 0.7,
+        "units": "percent",
+        "category": "very low",
+        "priority": 6
+      },
+      {
+        "key": "shrubland_share",
+        "group": "land",
+        "labelEs": "Matorral",
+        "labelEn": "Shrubland",
+        "value": 0.9,
+        "units": "percent",
+        "category": "very low",
+        "priority": 7
+      },
+      {
+        "key": "wetland_share",
+        "group": "land",
+        "labelEs": "Humedales",
+        "labelEn": "Wetlands",
+        "value": 0.1,
+        "units": "percent",
+        "category": "very low",
+        "priority": 8
+      },
+      {
+        "key": "water_share",
+        "group": "land",
+        "labelEs": "Cuerpos de agua",
+        "labelEn": "Water bodies",
+        "value": 17.4,
+        "units": "percent",
+        "category": "very high",
+        "priority": 9
+      },
+      {
+        "key": "beach_dune_share",
+        "group": "land",
+        "labelEs": "Playas y dunas",
+        "labelEn": "Beaches and dunes",
+        "value": 0,
+        "units": "percent",
+        "category": "very low",
+        "priority": 10
+      },
+      {
+        "key": "population",
+        "group": "people",
+        "labelEs": "Población",
+        "labelEn": "Population",
+        "value": 10527,
+        "units": "persons",
+        "category": "low",
+        "priority": 1
+      },
+      {
+        "key": "indigenous_identification_rate",
+        "group": "people",
+        "labelEs": "Identificación indígena",
+        "labelEn": "Indigenous identification",
+        "value": 51.82,
+        "units": "percent",
+        "category": "very high",
+        "priority": 2
+      },
+      {
+        "key": "mean_years_schooling",
+        "group": "people",
+        "labelEs": "Años de escolaridad",
+        "labelEn": "Mean years of schooling",
+        "value": 8.52,
+        "units": "years",
+        "category": "very low",
+        "priority": 4
+      },
+      {
+        "key": "literacy_rate",
+        "group": "people",
+        "labelEs": "Alfabetización",
+        "labelEn": "Literacy rate",
+        "value": 93.1,
+        "units": "percent",
+        "category": "low",
+        "priority": 5
+      },
+      {
+        "key": "disability_prevalence",
+        "group": "people",
+        "labelEs": "Prevalencia de discapacidad",
+        "labelEn": "Disability prevalence",
+        "value": 13.14,
+        "units": "percent",
+        "category": "medium",
+        "priority": 6
+      }
+    ]
   }
 ]

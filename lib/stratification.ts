@@ -33,16 +33,20 @@ export function stratify(
   cities: City[],
   options: { citiesPerExpert?: number } = {}
 ): Assignment[] {
-  const citiesPerExpert = options.citiesPerExpert ?? 4;
-  if (experts.length !== 13) {
-    throw new Error(`stratify expects 13 experts, got ${experts.length}`);
-  }
-  if (cities.length !== 10) {
-    throw new Error(`stratify expects 10 cities, got ${cities.length}`);
+  // citiesPerExpert defaults to 4 (the historical contract bar with 10 cities,
+  // 13 experts). With fewer cities than that we can't give each expert 4 — so
+  // we clamp to the available city count (every expert simply gets all cities).
+  // The validation below is parameterized so the algorithm works for both
+  // (3 cities × 13 experts) and the original (10 cities × 13 experts) setup.
+  const citiesPerExpert = Math.min(options.citiesPerExpert ?? 4, cities.length);
+  if (experts.length < 1 || cities.length < 1) {
+    throw new Error(`stratify needs at least 1 expert and 1 city`);
   }
 
   const totalAssignments = experts.length * citiesPerExpert;
-  // 52 = 10*5 + 2 extra → 2 cities get 6 experts, 8 cities get 5.
+  // Even per-city distribution. With 13 experts × 4 cities each = 52 over 10
+  // cities: baseCount=5, extras=2 (two cities get 6 experts). With 3 cities
+  // and 13 experts (3 per expert): baseCount=13, extras=0 (every city gets 13).
   const baseCount = Math.floor(totalAssignments / cities.length);
   const extras = totalAssignments % cities.length;
 
@@ -136,10 +140,12 @@ function tryAssign(
     }
   }
 
-  // Validate constraints
+  // Validate constraints. Per-city counts must hit the targets vector
+  // exactly. The historical (10 city × 13 expert) hard floor of 5 and
+  // ceiling of 6 doesn't apply when the city count drops — we just require
+  // every city to hit its baseCount (+1 if it's an "extras" city).
   for (const cid of cityIds) {
     if (cityFill[cid] !== targets[cid]) return null;
-    if (cityFill[cid] < 5 || cityFill[cid] > 6) return null;
   }
   const perExpert: Record<string, number> = {};
   for (const a of assignments) perExpert[a.expertId] = (perExpert[a.expertId] ?? 0) + 1;

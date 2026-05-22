@@ -99,7 +99,9 @@ async function main() {
   });
   // 4 cities to match the standard per-expert load (consistent with real expert flow).
   // Mix of profiles: metropolitan transport, agro/AFOLU, coastal/industrial, cold-climate.
-  const demoCities = ["city_03", "city_05", "city_07", "city_10"];
+  // Pre-seed the demo expert with all 3 real cities (the dataset only has 3
+  // anyway, so this matches what a real expert would get from stratify).
+  const demoCities = ["CL ZAL", "CL PAO", "CL RNC"];
   for (const cityId of demoCities) {
     await prisma.assignment.upsert({
       where: { expertId_cityId: { expertId: "demo", cityId } },

@@ -20,17 +20,35 @@ export const CityRequestSchema = z.object({
 });
 export type CityRequest = z.infer<typeof CityRequestSchema>;
 
+/**
+ * A single socioeconomic / land-use indicator from the global-API
+ * `/city_attributes/{locode}` endpoint. We pre-bin them into 4 groups
+ * (people / economy / land / infrastructure) at fetch time so the UI can
+ * render grouped sections without re-mapping at every render.
+ */
+export const CityIndicatorSchema = z.object({
+  key: z.string(),
+  group: z.enum(["people", "economy", "land", "infrastructure"]),
+  labelEs: z.string(),
+  labelEn: z.string(),
+  value: z.number(),
+  units: z.string(),
+  category: z.string(), // "very low" / "low" / "medium" / "high" / "very high"
+  priority: z.number().int(),
+});
+export type CityIndicator = z.infer<typeof CityIndicatorSchema>;
+
 export const CitySchema = z.object({
   cityId: z.string(),
   displayName: z.string(),
   displayNameEn: z.string(),
   population: z.number().int().positive(),
   populationDensity: z.number().nonnegative(),
+  area_km2: z.number().nonnegative().optional(),
   region: z.string(),
   regionEn: z.string(),
   biome: z.string(),
   biomeEn: z.string(),
-  elevationM: z.number(),
   sectorEmissions: z.object({
     stationaryEnergy: z.number(),
     transportation: z.number(),
@@ -38,10 +56,29 @@ export const CitySchema = z.object({
     ippu: z.number().nullable(),
     afolu: z.number().nullable(),
   }),
-  totalEmissions: z.number().positive(),
+  /**
+   * Subsector-level emissions keyed by GPC code ("I.1", "II.1", "III.4", etc.).
+   * Optional because the legacy mock fixtures don't carry it. Real cities have it.
+   */
+  subsectorEmissions: z.record(z.string(), z.number()).optional(),
+  /**
+   * Total city emissions in t CO2eq/year. Can be NEGATIVE for cities whose
+   * AFOLU sector is a net sink larger than other sectors' emissions
+   * (Paillaco and Lago Ranco both have strongly negative totals because of
+   * forest sequestration). Surface this prominently to experts — it's the
+   * first signal that the city is rural and sink-dominated, which changes
+   * how the model recommends actions.
+   */
+  totalEmissions: z.number(),
   // MEED+ is mitigation-only — adaptation hazard inputs are intentionally absent.
   statedSectorPriority: z.string().nullable(),
   cityRequest: CityRequestSchema,
+  /**
+   * Full set of socioeconomic + land-use indicators (the new "city_indicators"
+   * terminology Mirco/Ayinawu use for the feasibility scoring). Drives the
+   * sidebar / city context sheet display.
+   */
+  cityIndicators: z.array(CityIndicatorSchema),
 });
 export type City = z.infer<typeof CitySchema>;
 
@@ -171,6 +208,112 @@ export function loadModelOutputs(): ModelOutputs {
 
 export function loadExperts(): ExpertFixture[] {
   return readJson("experts.json", z.array(ExpertFixtureSchema));
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// Per-action context — policy / feasibility / legal — keyed by cityId × actionId
+// (legal is country-wide so keyed by actionId only). All three come straight
+// from the global-API and are loaded lazily so the existing eval flow doesn't
+// pay the parse cost unless we surface them.
+// ──────────────────────────────────────────────────────────────────────────
+
+/** Per-action policy alignment score for one city. Subset of the upstream payload. */
+export const PolicyScoreSchema = z.object({
+  src_action_id: z.string(),
+  policy_support_score: z.number(),
+  policy_support_category: z.string(),
+  best_relevance: z.string().nullable().optional(),
+  n_findings: z.number(),
+  n_docs: z.number(),
+  sum_strength: z.number(),
+  policy_evidence: z.array(
+    z.object({
+      evidence_rank: z.number(),
+      signal_type: z.string(),
+      signal_relation: z.string(),
+      signal_strength: z.string(),
+      document_name: z.string(),
+      document_type: z.string(),
+      doc_relevance: z.string(),
+      explicitness: z.string(),
+      page: z.number().nullable(),
+      evidence_strength: z.number(),
+      evidence_text: z.string(),
+    })
+  ),
+});
+export type PolicyScore = z.infer<typeof PolicyScoreSchema>;
+
+/** Per-action mitigation feasibility, with full city_indicators breakdown. */
+export const FeasibilityScoreSchema = z.object({
+  src_action_id: z.string(),
+  action_score: z.number(),
+  dimension_scores: z.record(z.string(), z.number()),
+  breakdown: z.record(
+    z.string(),
+    z.object({
+      dimension_score: z.number(),
+      global_indicators: z.array(
+        z.object({
+          global_indicator: z.string(),
+          global_verdict: z.string(),
+          global_contribution: z.number(),
+          indicator_score: z.number(),
+          city_indicators: z.array(
+            z.object({
+              city_indicator: z.string(),
+              category: z.string(),
+              direction: z.string(),
+              capacity: z.number(),
+              contribution: z.number(),
+            })
+          ),
+        })
+      ),
+    })
+  ),
+});
+export type FeasibilityScore = z.infer<typeof FeasibilityScoreSchema>;
+
+/** Per-action legal assessment (country-wide). Already bilingual upstream. */
+export const LegalAssessmentSchema = z.object({
+  srcActionId: z.string(),
+  countryCode: z.string(),
+  gpcSector: z.string(),
+  verdictCategory: z.enum(["enabled", "conditional", "blocked"]),
+  verdictScore: z.number(),
+  ownershipCategory: z.string(),
+  ownershipScore: z.number(),
+  ownershipDescriptionI18n: z.object({ en: z.string(), es: z.string() }),
+  restrictionsCategory: z.string(),
+  restrictionsScore: z.number(),
+  restrictionsDescriptionI18n: z.object({ en: z.string(), es: z.string() }),
+  legalJustificationI18n: z.object({ en: z.string(), es: z.string() }),
+  legalReferences: z.array(z.string()),
+  analysisDate: z.string(),
+  generationMethod: z.string(),
+});
+export type LegalAssessment = z.infer<typeof LegalAssessmentSchema>;
+
+export function loadPolicyScores(): Record<string, Record<string, PolicyScore>> {
+  return readJson(
+    "action-policy-scores.json",
+    z.record(z.string(), z.record(z.string(), PolicyScoreSchema))
+  );
+}
+
+export function loadFeasibilityScores(): Record<string, Record<string, FeasibilityScore>> {
+  return readJson(
+    "action-feasibility-scores.json",
+    z.record(z.string(), z.record(z.string(), FeasibilityScoreSchema))
+  );
+}
+
+export function loadLegalAssessments(): Record<string, LegalAssessment> {
+  return readJson(
+    "action-legal-assessments.json",
+    z.record(z.string(), LegalAssessmentSchema)
+  );
 }
 
 /**
