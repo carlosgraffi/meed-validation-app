@@ -2,17 +2,15 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
 import { PillarDisclosure } from "@/components/PillarDisclosure";
 import { LangToggle } from "@/components/LangToggle";
-import { cn } from "@/lib/utils";
-import { useT, useCityText } from "@/app/LangProvider";
+import { useT } from "@/app/LangProvider";
 
 const SECTORS = ["energia", "transporte", "residuos", "ippu", "afolu", "transversal", "otro"] as const;
 
@@ -22,33 +20,15 @@ type Expert = {
   fullName: string;
   sectorSpecialization: string | null;
 };
-type CityRow = {
-  cityId: string;
-  displayName: string;
-  displayNameEn: string;
-  region: string;
-  regionEn: string;
-  dominantSector: string;
-};
 
-export function OnboardingForm({ expert, cities }: { expert: Expert; cities: CityRow[] }) {
+export function OnboardingForm({ expert }: { expert: Expert }) {
   const t = useT();
-  const ct = useCityText();
   const router = useRouter();
   const [consent, setConsent] = useState(false);
   const [name, setName] = useState(expert.fullName);
   const [sector, setSector] = useState<string>(expert.sectorSpecialization ?? "");
-  const [preferred, setPreferred] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const togglePref = (id: string) => {
-    setPreferred((cur) => {
-      if (cur.includes(id)) return cur.filter((x) => x !== id);
-      if (cur.length >= 2) return cur; // max 2
-      return [...cur, id];
-    });
-  };
 
   const submit = async () => {
     setError(null);
@@ -56,18 +36,17 @@ export function OnboardingForm({ expert, cities }: { expert: Expert; cities: Cit
       setError(t("onboarding.errorMustConsent"));
       return;
     }
-    if (preferred.length > 2) {
-      setError(t("onboarding.errorMaxTwoCities"));
-      return;
-    }
     setSubmitting(true);
+    // City preferences were dropped — every expert evaluates all 3 cities, so
+    // there's nothing meaningful to pick. Sending an empty preferredCityIds[]
+    // keeps the API signature stable.
     const res = await fetch("/api/me/onboarding", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         fullName: name.trim(),
         sectorSpecialization: sector || null,
-        preferredCityIds: preferred,
+        preferredCityIds: [],
       }),
     });
     setSubmitting(false);
@@ -136,44 +115,6 @@ export function OnboardingForm({ expert, cities }: { expert: Expert; cities: Cit
         </CardHeader>
         <CardContent>
           <PillarDisclosure variant="full" />
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>{t("onboarding.section3Title")}</CardTitle>
-          <CardDescription>{t("onboarding.preferenceIntro")}</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <p className="text-xs text-muted-foreground">{t("onboarding.preferenceHelp")}</p>
-          <ul className="grid sm:grid-cols-2 gap-2">
-            {cities.map((c) => {
-              const selected = preferred.includes(c.cityId);
-              const disabled = !selected && preferred.length >= 2;
-              return (
-                <li key={c.cityId}>
-                  <button
-                    type="button"
-                    onClick={() => togglePref(c.cityId)}
-                    disabled={disabled}
-                    className={cn(
-                      "w-full text-left rounded-md border p-3 transition-colors",
-                      selected
-                        ? "border-primary bg-primary/5"
-                        : "border-input hover:border-primary/50",
-                      disabled && !selected && "opacity-50 cursor-not-allowed"
-                    )}
-                  >
-                    <div className="font-medium text-sm">{ct.displayName(c)}</div>
-                    <div className="text-xs text-muted-foreground mt-1">{ct.region(c)}</div>
-                    <Badge variant="muted" className="mt-2">
-                      {t(`sectors.${c.dominantSector}` as never)}
-                    </Badge>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
         </CardContent>
       </Card>
 

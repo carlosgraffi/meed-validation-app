@@ -52,12 +52,8 @@
       "otro": "Other"
     },
     "pillarsSectionTitle": "3. How MEED+ prioritizes actions",
-    "section3Title": "4. City preferences (optional)",
-    "preferenceIntro": "Are there cities where you have particular expertise? (Optional, up to 2)",
-    "preferenceHelp": "If you select any, we'll try to assign you at least one. Otherwise, cities are assigned automatically.",
     "submitButton": "Confirm and view my cities",
-    "errorMustConsent": "You must accept the consent statement to continue.",
-    "errorMaxTwoCities": "You can choose at most 2 cities."
+    "errorMustConsent": "You must accept the consent statement to continue."
   },
   "pillars": {
     "fullTitle": "MEED+ model pillars",

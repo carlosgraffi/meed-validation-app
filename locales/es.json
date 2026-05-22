@@ -52,12 +52,8 @@
       "otro": "Otro"
     },
     "pillarsSectionTitle": "3. Cómo prioriza el modelo MEED+",
-    "section3Title": "4. Preferencias de ciudades (opcional)",
-    "preferenceIntro": "¿Hay ciudades donde tengas experiencia particular? (Opcional, máximo 2)",
-    "preferenceHelp": "Si seleccionas alguna, intentaremos asignarte al menos una de ellas. Si no, asignaremos las ciudades de forma automática.",
     "submitButton": "Confirmar y ver mis ciudades",
-    "errorMustConsent": "Debes aceptar el consentimiento para continuar.",
-    "errorMaxTwoCities": "Puedes elegir un máximo de 2 ciudades."
+    "errorMustConsent": "Debes aceptar el consentimiento para continuar."
   },
   "pillars": {
     "fullTitle": "Pilares del modelo MEED+",
