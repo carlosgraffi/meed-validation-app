@@ -17,9 +17,13 @@
  *
  * Usage:
  *   npx tsx scripts/generate-invitations.ts                  # → http://localhost:3001
- *   npx tsx scripts/generate-invitations.ts https://...      # → production URL
+ *   npx tsx scripts/generate-invitations.ts https://meed-testing.up.railway.app
  *
- * After running, hand the CSV to whoever sends the emails (you or SSG).
+ * Or against production via Railway CLI:
+ *   railway run npx tsx scripts/generate-invitations.ts \
+ *     https://meed-testing.up.railway.app
+ *
+ * After running, hand the CSV to SSG to email out.
  */
 import { PrismaClient } from "@prisma/client";
 import { randomBytes } from "node:crypto";
