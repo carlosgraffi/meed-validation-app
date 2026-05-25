@@ -4,7 +4,16 @@ import { z } from "zod";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 
-const Stage = z.enum(["stage1", "stage2", "sectionC", "stage3", "sectionE", "complete"]);
+const Stage = z.enum([
+  "stage1",
+  "reveal1",
+  "stage2",
+  "reveal2",
+  "sectionC",
+  "stage3",
+  "sectionE",
+  "complete",
+]);
 const Question = z.enum(["top3", "top10"]);
 
 const RatingPatch = z.object({
@@ -17,13 +26,26 @@ const RatingPatch = z.object({
 
 const PatchBody = z.object({
   rating: RatingPatch.optional(),
+  // Overall agreement Likert (1–5) submitted from the reveal stages.
+  // `top3Agreement` is written on `reveal1`; `top10Agreement` on `reveal2`.
+  top3Agreement: z.number().int().min(1).max(5).optional(),
+  top10Agreement: z.number().int().min(1).max(5).optional(),
   missingActions: z.array(z.string().max(200)).max(3).optional(),
   reorderTop5: z.array(z.string()).length(5).nullable().optional(),
   cityComment: z.string().max(1000).optional(),
   advanceTo: Stage.optional(),
 });
 
-const STAGE_ORDER = ["stage1", "stage2", "sectionC", "stage3", "sectionE", "complete"] as const;
+const STAGE_ORDER = [
+  "stage1",
+  "reveal1",
+  "stage2",
+  "reveal2",
+  "sectionC",
+  "stage3",
+  "sectionE",
+  "complete",
+] as const;
 
 export async function PATCH(req: Request, { params }: { params: { cityId: string } }) {
   const session = await getServerSession(authOptions);
@@ -78,6 +100,26 @@ export async function PATCH(req: Request, { params }: { params: { cityId: string
       },
       create: { evaluationId: evaluation.id, actionId, question, modelRank, likert, notSure },
       update: { likert, notSure, modelRank },
+    });
+  }
+
+  if (body.top3Agreement !== undefined) {
+    // Writable while currentStage <= reveal1. Locked once user advances to stage2.
+    if (stageRank(evaluation.currentStage) > stageRank("reveal1")) {
+      return NextResponse.json({ error: "stage_locked", stage: "reveal1" }, { status: 409 });
+    }
+    await prisma.evaluation.update({
+      where: { id: evaluation.id },
+      data: { top3Agreement: body.top3Agreement },
+    });
+  }
+  if (body.top10Agreement !== undefined) {
+    if (stageRank(evaluation.currentStage) > stageRank("reveal2")) {
+      return NextResponse.json({ error: "stage_locked", stage: "reveal2" }, { status: 409 });
+    }
+    await prisma.evaluation.update({
+      where: { id: evaluation.id },
+      data: { top10Agreement: body.top10Agreement },
     });
   }
 

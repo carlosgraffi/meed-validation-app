@@ -41,12 +41,26 @@ model Evaluation {
   startedAt      DateTime     @default(now())
   submittedAt    DateTime?
   timeOnTaskSec  Int?
-  // Paginated three-stage flow: stage1 (top-3 set membership) → stage2 (top-10 set
-  // membership) → sectionC (missing actions) → stage3 (reorder top 5) → sectionE
-  // (comments) → complete. Each stage becomes read-only once advanced past.
+  // Paginated flow with two "reveal" sub-stages where the expert sees the
+  // model's actual rank order + LLM rationale and rates overall agreement:
+  //   stage1     — top-3 set membership (blind)
+  //   reveal1    — see ranks 1–3 + explanations, rate ranking agreement
+  //   stage2     — top-10 set membership (blind)
+  //   reveal2    — see ranks 1–10 + explanations, rate ranking agreement
+  //   sectionC   — missing actions
+  //   stage3     — reorder top 5 (explanations suppressed)
+  //   sectionE   — city comment
+  //   complete
+  // Each stage becomes read-only once advanced past.
   currentStage   String       @default("stage1")
   missingActions String?      // JSON array of strings, max 3
   cityComment    String?
+  // Overall agreement Likert (1–5) the expert submits during the reveal
+  // stages, after seeing the model's rank order + explanations for the
+  // top-3 (top3Agreement) and top-10 (top10Agreement) respectively.
+  // Nullable until the corresponding reveal stage has been completed.
+  top3Agreement  Int?
+  top10Agreement Int?
   expert         Expert       @relation(fields: [expertId], references: [id], onDelete: Cascade)
   ratings        Rating[]
   reorderTop5    ReorderTop5?

@@ -3,145 +3,165 @@
     "topActions": [
       {
         "rank": 1,
-        "actionId": "c40_0015",
-        "finalScore": 0.96,
+        "actionId": "c40_0023",
+        "finalScore": 0.483,
         "pillarScores": {
-          "impact": 0.94,
-          "alignment": 0.98,
-          "feasibility": 0.91
+          "impact": 0.295,
+          "alignment": 0.775,
+          "feasibility": 0.651
         },
-        "rationaleEs": "Esta acción aparece en la posición 1 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 1 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas alta y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: low impact, high policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción ocupa el primer lugar porque puede aportar beneficios en emisiones en un plazo muy favorable y cuenta con un apoyo político y una viabilidad de mitigación muy sólidos para la ciudad. Se mantiene cerca de la cima aunque su reducción esperada de emisiones es muy limitada en el inventario actual. No había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral por defecto.",
+        "explanationEn": "This action ranks first because it can deliver emissions benefits on a very favorable timeline and has very strong policy support and mitigation feasibility for the city. It stays near the top even though its expected emissions reduction is very limited in the current inventory. No legal assessment row was available, so the legal part used a neutral fallback."
       },
       {
         "rank": 2,
-        "actionId": "c40_0023",
-        "finalScore": 0.92,
+        "actionId": "ipcc_0105",
+        "finalScore": 0.476,
         "pillarScores": {
-          "impact": 0.9,
-          "alignment": 0.94,
-          "feasibility": 0.87
+          "impact": 0.295,
+          "alignment": 0.649,
+          "feasibility": 0.742
         },
-        "rationaleEs": "Esta acción aparece en la posición 2 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 2 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas moderada y factibilidad de implementación alta.",
+        "rationaleEn": "Model profile: low impact, moderate policy alignment, and high implementation feasibility.",
+        "explanationEs": "Esta acción se sitúa cerca de la cima por las mismas razones que la opción clasificada en primer lugar: puede aportar beneficios en un plazo muy favorable y cuenta con un apoyo político y una viabilidad de mitigación muy sólidos. Queda por debajo de la primera acción porque su reducción esperada de emisiones sigue siendo muy limitada en el inventario actual de la ciudad. No había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral por defecto.",
+        "explanationEn": "This action is placed near the top for the same reasons as the first-ranked option: it can deliver benefits on a very favorable timeline and has very strong policy support and mitigation feasibility. It ranks below the first action because its expected emissions reduction is still very limited in the current city inventory. No legal assessment row was available, so the legal part used a neutral fallback."
       },
       {
         "rank": 3,
-        "actionId": "icare_0012",
-        "finalScore": 0.88,
+        "actionId": "icare_0016",
+        "finalScore": 0.467,
         "pillarScores": {
-          "impact": 0.86,
-          "alignment": 0.9,
-          "feasibility": 0.83
+          "impact": 0.276,
+          "alignment": 0.693,
+          "feasibility": 0.707
         },
-        "rationaleEs": "Esta acción aparece en la posición 3 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 3 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas moderada y factibilidad de implementación alta.",
+        "rationaleEn": "Model profile: low impact, moderate policy alignment, and high implementation feasibility.",
+        "explanationEs": "Esta acción ocupa el tercer lugar porque también ofrece beneficios en emisiones en un plazo muy favorable, con un apoyo político y una viabilidad de mitigación muy sólidos. Queda por debajo de las dos primeras porque su reducción esperada de emisiones es muy limitada en el inventario actual de la ciudad. No había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral por defecto.",
+        "explanationEn": "This action ranks third because it also offers emissions benefits on a very favorable timeline, with very strong policy support and mitigation feasibility. It sits below the first two because its expected emissions reduction is very limited in the current city inventory. No legal assessment row was available, so the legal part used a neutral fallback."
       },
       {
         "rank": 4,
-        "actionId": "c40_0010",
-        "finalScore": 0.84,
+        "actionId": "icare_0121",
+        "finalScore": 0.464,
         "pillarScores": {
-          "impact": 0.82,
-          "alignment": 0.86,
-          "feasibility": 0.79
+          "impact": 0.295,
+          "alignment": 0.593,
+          "feasibility": 0.742
         },
-        "rationaleEs": "Esta acción aparece en la posición 4 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 4 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas moderada y factibilidad de implementación alta.",
+        "rationaleEn": "Model profile: low impact, moderate policy alignment, and high implementation feasibility.",
+        "explanationEs": "Esta acción ocupa el cuarto lugar porque tiene un plazo muy favorable, un apoyo político sólido y una viabilidad de mitigación muy sólida. No ocupa un puesto más alto porque su reducción esperada de emisiones es muy limitada en el inventario actual de la ciudad. No había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral por defecto.",
+        "explanationEn": "This action is ranked fourth because it has a very favorable timeline, strong policy support, and very strong mitigation feasibility. It does not rank higher because its expected emissions reduction is very limited in the current city inventory. No legal assessment row was available, so the legal part used a neutral fallback."
       },
       {
         "rank": 5,
-        "actionId": "c40_0017",
-        "finalScore": 0.8,
+        "actionId": "c40_0029",
+        "finalScore": 0.457,
         "pillarScores": {
-          "impact": 0.78,
-          "alignment": 0.82,
-          "feasibility": 0.75
+          "impact": 0.243,
+          "alignment": 0.788,
+          "feasibility": 0.651
         },
-        "rationaleEs": "Esta acción aparece en la posición 5 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 5 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas alta y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: low impact, high policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción se sitúa en quinto lugar porque tiene un apoyo político muy sólido y una viabilidad de mitigación muy sólida. Se clasifica por debajo del grupo superior porque su reducción esperada de emisiones es muy limitada en el inventario actual de la ciudad, y su plazo es menos favorable que el de las acciones mejor clasificadas. No había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral por defecto.",
+        "explanationEn": "This action is placed fifth because it has very strong policy support and very strong mitigation feasibility. It ranks lower than the top group because its expected emissions reduction is very limited in the current city inventory, and its timeline is less favorable than the highest-ranked actions. No legal assessment row was available, so the legal part used a neutral fallback."
       },
       {
         "rank": 6,
-        "actionId": "icare_0016",
-        "finalScore": 0.76,
+        "actionId": "c40_0035",
+        "finalScore": 0.453,
         "pillarScores": {
-          "impact": 0.74,
-          "alignment": 0.78,
-          "feasibility": 0.71
+          "impact": 0.219,
+          "alignment": 0.768,
+          "feasibility": 0.713
         },
-        "rationaleEs": "Esta acción aparece en la posición 6 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 6 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas alta y factibilidad de implementación alta.",
+        "rationaleEn": "Model profile: low impact, high policy alignment, and high implementation feasibility.",
+        "explanationEs": "Esta acción ocupa el sexto lugar porque sigue teniendo un plazo muy favorable, un apoyo político muy sólido y una viabilidad de mitigación muy sólida. Permanece por debajo de las acciones que están por encima porque su reducción esperada de emisiones es muy limitada en el inventario actual de la ciudad. No había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral por defecto.",
+        "explanationEn": "This action ranks sixth because it still has a very favorable timeline, very strong policy support, and very strong mitigation feasibility. It remains below the actions above it because its expected emissions reduction is very limited in the current city inventory. No legal assessment row was available, so the legal part used a neutral fallback."
       },
       {
         "rank": 7,
-        "actionId": "c40_0029",
-        "finalScore": 0.72,
+        "actionId": "c40_0015",
+        "finalScore": 0.451,
         "pillarScores": {
-          "impact": 0.7,
-          "alignment": 0.74,
-          "feasibility": 0.67
+          "impact": 0.222,
+          "alignment": 0.753,
+          "feasibility": 0.707
         },
-        "rationaleEs": "Esta acción aparece en la posición 7 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 7 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas alta y factibilidad de implementación alta.",
+        "rationaleEn": "Model profile: low impact, high policy alignment, and high implementation feasibility.",
+        "explanationEs": "Esta acción ocupa el séptimo lugar por las mismas razones generales: un plazo muy favorable, un apoyo político muy sólido y una viabilidad de mitigación muy sólida. No sube más porque su reducción esperada de emisiones es muy limitada en el inventario actual de la ciudad. No había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral por defecto.",
+        "explanationEn": "This action is ranked seventh for the same broad reasons: a very favorable timeline, very strong policy support, and very strong mitigation feasibility. It does not move higher because its expected emissions reduction is very limited in the current city inventory. No legal assessment row was available, so the legal part used a neutral fallback."
       },
       {
         "rank": 8,
-        "actionId": "icare_0064",
-        "finalScore": 0.68,
+        "actionId": "icare_0117",
+        "finalScore": 0.45,
         "pillarScores": {
-          "impact": 0.66,
-          "alignment": 0.7,
-          "feasibility": 0.63
+          "impact": 0.195,
+          "alignment": 0.798,
+          "feasibility": 0.724
         },
-        "rationaleEs": "Esta acción aparece en la posición 8 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 8 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas alta y factibilidad de implementación alta.",
+        "rationaleEn": "Model profile: low impact, high policy alignment, and high implementation feasibility.",
+        "explanationEs": "Esta acción ocupa el octavo lugar porque tiene un apoyo político muy sólido y una viabilidad de mitigación muy sólida. Se sitúa por debajo de las acciones que están por encima porque su reducción esperada de emisiones es muy limitada en el inventario actual de la ciudad, y su plazo es menos favorable que el del grupo superior. No había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral por defecto.",
+        "explanationEn": "This action ranks eighth because it has very strong policy support and very strong mitigation feasibility. It sits below the actions above it because its expected emissions reduction is very limited in the current city inventory, and its timeline is less favorable than the top group. No legal assessment row was available, so the legal part used a neutral fallback."
       },
       {
         "rank": 9,
         "actionId": "c40_0037",
-        "finalScore": 0.64,
+        "finalScore": 0.447,
         "pillarScores": {
-          "impact": 0.62,
-          "alignment": 0.66,
-          "feasibility": 0.59
+          "impact": 0.219,
+          "alignment": 0.699,
+          "feasibility": 0.75
         },
-        "rationaleEs": "Esta acción aparece en la posición 9 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 9 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas moderada y factibilidad de implementación alta.",
+        "rationaleEn": "Model profile: low impact, moderate policy alignment, and high implementation feasibility.",
+        "explanationEs": "Esta acción ocupa el noveno lugar porque combina un plazo muy favorable con un apoyo político muy sólido y una viabilidad de mitigación muy sólida. Se mantiene por debajo de las acciones mejor clasificadas porque su reducción esperada de emisiones es muy limitada en el inventario actual de la ciudad. No había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral por defecto.",
+        "explanationEn": "This action is ranked ninth because it combines a very favorable timeline with very strong policy support and very strong mitigation feasibility. It stays below higher-ranked actions because its expected emissions reduction is very limited in the current city inventory. No legal assessment row was available, so the legal part used a neutral fallback."
       },
       {
         "rank": 10,
-        "actionId": "icare_0010",
-        "finalScore": 0.6,
+        "actionId": "c40_0010",
+        "finalScore": 0.444,
         "pillarScores": {
-          "impact": 0.58,
-          "alignment": 0.62,
-          "feasibility": 0.55
+          "impact": 0.222,
+          "alignment": 0.735,
+          "feasibility": 0.698
         },
-        "rationaleEs": "Esta acción aparece en la posición 10 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 10 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas alta y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: low impact, high policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción ocupa el décimo lugar porque tiene un plazo muy favorable, un apoyo político muy sólido y una viabilidad de mitigación muy sólida. No ocupa un puesto más alto porque su reducción esperada de emisiones es muy limitada en el inventario actual de la ciudad. No había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral por defecto.",
+        "explanationEn": "This action ranks tenth because it has a very favorable timeline, very strong policy support, and very strong mitigation feasibility. It does not rank higher because its expected emissions reduction is very limited in the current city inventory. No legal assessment row was available, so the legal part used a neutral fallback."
       }
     ],
     "nextActions": [
       {
         "rank": 11,
-        "actionId": "c40_0012"
+        "actionId": "icare_0139"
       },
       {
         "rank": 12,
-        "actionId": "c40_0016"
+        "actionId": "icare_0025"
       },
       {
         "rank": 13,
-        "actionId": "icare_0110"
+        "actionId": "icare_0028"
       },
       {
         "rank": 14,
-        "actionId": "icare_0072"
+        "actionId": "icare_0045"
       },
       {
         "rank": 15,
-        "actionId": "ipcc_0067"
+        "actionId": "icare_0053"
       }
     ],
     "discardedLegal": [],
@@ -151,145 +171,165 @@
     "topActions": [
       {
         "rank": 1,
-        "actionId": "ipcc_0067",
-        "finalScore": 0.96,
+        "actionId": "ipcc_0053",
+        "finalScore": 0.574,
         "pillarScores": {
-          "impact": 0.94,
-          "alignment": 0.98,
-          "feasibility": 0.91
+          "impact": 0.492,
+          "alignment": 0.758,
+          "feasibility": 0.594
         },
-        "rationaleEs": "Esta acción aparece en la posición 1 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 1 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto moderado, alineación con políticas alta y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: moderate impact, high policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción ocupa el primer lugar porque cuenta con un apoyo político muy fuerte y una viabilidad de mitigación fuerte para la ciudad. Su principal desventaja es que la reducción esperada de emisiones es limitada en el inventario actual de la ciudad, y no había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral de respaldo.",
+        "explanationEn": "This action ranks first because it has very strong policy support and strong mitigation feasibility for the city. Its main drawback is that the expected emissions reduction is limited in the current city inventory, and there was no legal assessment row available, so the legal part used a neutral fallback."
       },
       {
         "rank": 2,
-        "actionId": "ipcc_0064",
-        "finalScore": 0.92,
+        "actionId": "ipcc_0052",
+        "finalScore": 0.566,
         "pillarScores": {
-          "impact": 0.9,
-          "alignment": 0.94,
-          "feasibility": 0.87
+          "impact": 0.492,
+          "alignment": 0.723,
+          "feasibility": 0.594
         },
-        "rationaleEs": "Esta acción aparece en la posición 2 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 2 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto moderado, alineación con políticas alta y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: moderate impact, high policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción está cerca de la primera por las mismas razones que la opción mejor clasificada: un apoyo político muy fuerte y una viabilidad de mitigación fuerte. Se mantiene por debajo del primer puesto porque su reducción esperada de emisiones es limitada en el inventario actual de la ciudad, y no había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral de respaldo.",
+        "explanationEn": "This action is near the top for the same reasons as the first-ranked option: very strong policy support and strong mitigation feasibility. It stays below the top spot because its expected emissions reduction is limited in the current city inventory, and there was no legal assessment row available, so the legal part used a neutral fallback."
       },
       {
         "rank": 3,
-        "actionId": "ipcc_0056",
-        "finalScore": 0.88,
+        "actionId": "ipcc_0067",
+        "finalScore": 0.537,
         "pillarScores": {
-          "impact": 0.86,
-          "alignment": 0.9,
-          "feasibility": 0.83
+          "impact": 0.372,
+          "alignment": 0.784,
+          "feasibility": 0.698
         },
-        "rationaleEs": "Esta acción aparece en la posición 3 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 3 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas alta y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: low impact, high policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción se clasifica bien porque combina un apoyo político muy fuerte con una viabilidad de mitigación muy fuerte. Se ve frenada por una reducción esperada de emisiones limitada en el inventario actual de la ciudad, y no había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral de respaldo.",
+        "explanationEn": "This action ranks well because it combines very strong policy support with very strong mitigation feasibility. It is held back by limited expected emissions reduction in the current city inventory, and there was no legal assessment row available, so the legal part used a neutral fallback."
       },
       {
         "rank": 4,
-        "actionId": "icare_0050",
-        "finalScore": 0.84,
+        "actionId": "icare_0099",
+        "finalScore": 0.525,
         "pillarScores": {
-          "impact": 0.82,
-          "alignment": 0.86,
-          "feasibility": 0.79
+          "impact": 0.472,
+          "alignment": 0.476,
+          "feasibility": 0.698
         },
-        "rationaleEs": "Esta acción aparece en la posición 4 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 4 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto moderado, alineación con políticas moderada y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: moderate impact, moderate policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción ocupa el cuarto lugar porque puede aportar beneficios de emisiones en un plazo muy favorable y además cuenta con un apoyo político fuerte y una viabilidad de mitigación muy fuerte. No se clasifica más arriba porque su reducción esperada de emisiones es limitada en el inventario actual de la ciudad, y no había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral de respaldo.",
+        "explanationEn": "This action places fourth because it can deliver emissions benefits on a very favorable timeline and also has strong policy support and very strong mitigation feasibility. It does not rank higher because its expected emissions reduction is limited in the current city inventory, and there was no legal assessment row available, so the legal part used a neutral fallback."
       },
       {
         "rank": 5,
         "actionId": "icare_0045",
-        "finalScore": 0.8,
+        "finalScore": 0.52,
         "pillarScores": {
-          "impact": 0.78,
-          "alignment": 0.82,
-          "feasibility": 0.75
+          "impact": 0.396,
+          "alignment": 0.674,
+          "feasibility": 0.671
         },
-        "rationaleEs": "Esta acción aparece en la posición 5 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 5 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas moderada y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: low impact, moderate policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción está respaldada por un plazo muy favorable, un apoyo político muy fuerte y una viabilidad de mitigación muy fuerte. Queda por debajo del grupo superior porque su reducción esperada de emisiones es muy limitada en el inventario actual de la ciudad, y no había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral de respaldo.",
+        "explanationEn": "This action is supported by a very favorable timeline, very strong policy support, and very strong mitigation feasibility. It ranks below the top group because its expected emissions reduction is very limited in the current city inventory, and there was no legal assessment row available, so the legal part used a neutral fallback."
       },
       {
         "rank": 6,
-        "actionId": "icare_0064",
-        "finalScore": 0.76,
+        "actionId": "icare_0122",
+        "finalScore": 0.499,
         "pillarScores": {
-          "impact": 0.74,
-          "alignment": 0.78,
-          "feasibility": 0.71
+          "impact": 0.396,
+          "alignment": 0.545,
+          "feasibility": 0.703
         },
-        "rationaleEs": "Esta acción aparece en la posición 6 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 6 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas moderada y factibilidad de implementación alta.",
+        "rationaleEn": "Model profile: low impact, moderate policy alignment, and high implementation feasibility.",
+        "explanationEs": "Esta acción sigue beneficiándose de un plazo muy favorable, un apoyo político fuerte y una viabilidad de mitigación muy fuerte. Queda más abajo porque su reducción esperada de emisiones es muy limitada en el inventario actual de la ciudad, y no había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral de respaldo.",
+        "explanationEn": "This action still benefits from a very favorable timeline, strong policy support, and very strong mitigation feasibility. It sits lower because its expected emissions reduction is very limited in the current city inventory, and there was no legal assessment row available, so the legal part used a neutral fallback."
       },
       {
         "rank": 7,
-        "actionId": "ipcc_0055",
-        "finalScore": 0.72,
+        "actionId": "icare_0132",
+        "finalScore": 0.496,
         "pillarScores": {
-          "impact": 0.7,
-          "alignment": 0.74,
-          "feasibility": 0.67
+          "impact": 0.396,
+          "alignment": 0.538,
+          "feasibility": 0.698
         },
-        "rationaleEs": "Esta acción aparece en la posición 7 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 7 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas moderada y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: low impact, moderate policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción se sitúa por debajo de las opciones anteriores por las mismas razones principales: un plazo muy favorable, un apoyo político fuerte y una viabilidad de mitigación muy fuerte. Su reducción esperada de emisiones es muy limitada en el inventario actual de la ciudad, y no había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral de respaldo.",
+        "explanationEn": "This action ranks below the earlier options for the same main reasons: a very favorable timeline, strong policy support, and very strong mitigation feasibility. Its expected emissions reduction is very limited in the current city inventory, and there was no legal assessment row available, so the legal part used a neutral fallback."
       },
       {
         "rank": 8,
-        "actionId": "icare_0099",
-        "finalScore": 0.68,
+        "actionId": "icare_0069",
+        "finalScore": 0.492,
         "pillarScores": {
-          "impact": 0.66,
-          "alignment": 0.7,
-          "feasibility": 0.63
+          "impact": 0.396,
+          "alignment": 0.538,
+          "feasibility": 0.677
         },
-        "rationaleEs": "Esta acción aparece en la posición 8 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 8 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas moderada y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: low impact, moderate policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción tiene un plazo muy favorable, un apoyo político fuerte y una viabilidad de mitigación muy fuerte. Permanece más abajo en la clasificación porque su reducción esperada de emisiones es muy limitada en el inventario actual de la ciudad, y no había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral de respaldo.",
+        "explanationEn": "This action has a very favorable timeline, strong policy support, and very strong mitigation feasibility. It remains lower in the ranking because its expected emissions reduction is very limited in the current city inventory, and there was no legal assessment row available, so the legal part used a neutral fallback."
       },
       {
         "rank": 9,
-        "actionId": "ipcc_0053",
-        "finalScore": 0.64,
+        "actionId": "ipcc_0054",
+        "finalScore": 0.49,
         "pillarScores": {
-          "impact": 0.62,
-          "alignment": 0.66,
-          "feasibility": 0.59
+          "impact": 0.394,
+          "alignment": 0.621,
+          "feasibility": 0.594
         },
-        "rationaleEs": "Esta acción aparece en la posición 9 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 9 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas moderada y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: low impact, moderate policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción se mantiene en la mitad inferior porque, aunque cuenta con un apoyo político muy fuerte y una viabilidad de mitigación fuerte, su reducción esperada de emisiones es limitada en el inventario actual de la ciudad. No había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral de respaldo.",
+        "explanationEn": "This action is kept in the lower half because, although it has very strong policy support and strong mitigation feasibility, its expected emissions reduction is limited in the current city inventory. There was no legal assessment row available, so the legal part used a neutral fallback."
       },
       {
         "rank": 10,
-        "actionId": "icare_0131",
-        "finalScore": 0.6,
+        "actionId": "icare_0050",
+        "finalScore": 0.489,
         "pillarScores": {
-          "impact": 0.58,
-          "alignment": 0.62,
-          "feasibility": 0.55
+          "impact": 0.394,
+          "alignment": 0.538,
+          "feasibility": 0.671
         },
-        "rationaleEs": "Esta acción aparece en la posición 10 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 10 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas moderada y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: low impact, moderate policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción cuenta con un apoyo político fuerte y una viabilidad de mitigación muy fuerte, lo que ayuda a que se mantenga en la clasificación. No sube más porque su reducción esperada de emisiones es limitada en el inventario actual de la ciudad, y no había ninguna fila de evaluación legal disponible, por lo que la parte legal usó un valor neutral de respaldo.",
+        "explanationEn": "This action has strong policy support and very strong mitigation feasibility, which helps it stay in the ranking. It does not rise higher because its expected emissions reduction is limited in the current city inventory, and there was no legal assessment row available, so the legal part used a neutral fallback."
       }
     ],
     "nextActions": [
       {
         "rank": 11,
-        "actionId": "icare_0006"
+        "actionId": "ipcc_0071"
       },
       {
         "rank": 12,
-        "actionId": "icare_0101"
+        "actionId": "ipcc_0028"
       },
       {
         "rank": 13,
-        "actionId": "icare_0127"
+        "actionId": "ipcc_0057"
       },
       {
         "rank": 14,
-        "actionId": "c40_0036"
+        "actionId": "c40_0042"
       },
       {
         "rank": 15,
-        "actionId": "icare_0132"
+        "actionId": "ipcc_0034"
       }
     ],
     "discardedLegal": [],
@@ -300,144 +340,164 @@
       {
         "rank": 1,
         "actionId": "ipcc_0053",
-        "finalScore": 0.96,
+        "finalScore": 0.612,
         "pillarScores": {
-          "impact": 0.94,
-          "alignment": 0.98,
-          "feasibility": 0.91
+          "impact": 0.558,
+          "alignment": 0.758,
+          "feasibility": 0.601
         },
-        "rationaleEs": "Esta acción aparece en la posición 1 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 1 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto moderado, alineación con políticas alta y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: moderate impact, high policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción ocupa el primer lugar porque se espera que reduzca fuertemente las emisiones, cuenta con un contexto de políticas muy favorable y parece viable para que la ciudad la lleve a cabo. La única limitación señalada es que no había una fila de evaluación legal disponible, así que la parte legal usó un valor neutro de respaldo.",
+        "explanationEn": "This action ranks first because it is expected to cut emissions strongly, has very strong supportive policy context, and looks feasible for the city to carry out. The only limitation noted is that no legal assessment row was available, so the legal part used a neutral fallback."
       },
       {
         "rank": 2,
-        "actionId": "icare_0050",
-        "finalScore": 0.92,
+        "actionId": "ipcc_0052",
+        "finalScore": 0.604,
         "pillarScores": {
-          "impact": 0.9,
-          "alignment": 0.94,
-          "feasibility": 0.87
+          "impact": 0.558,
+          "alignment": 0.723,
+          "feasibility": 0.601
         },
-        "rationaleEs": "Esta acción aparece en la posición 2 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 2 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto moderado, alineación con políticas alta y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: moderate impact, high policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción se sitúa cerca de la parte superior por las mismas razones principales: una fuerte reducción esperada de emisiones, un apoyo de políticas muy sólido y una viabilidad de mitigación sólida. Queda justo por debajo de la acción clasificada en primer lugar porque la evidencia no añade nada más fuerte que ese perfil general.",
+        "explanationEn": "This action is placed near the top for the same main reasons: strong expected emissions reduction, very strong policy support, and strong mitigation feasibility. It stays just below the first-ranked action because the evidence does not add anything stronger than that overall profile."
       },
       {
         "rank": 3,
-        "actionId": "ipcc_0052",
-        "finalScore": 0.88,
+        "actionId": "icare_0045",
+        "finalScore": 0.543,
         "pillarScores": {
-          "impact": 0.86,
-          "alignment": 0.9,
-          "feasibility": 0.83
+          "impact": 0.429,
+          "alignment": 0.674,
+          "feasibility": 0.69
         },
-        "rationaleEs": "Esta acción aparece en la posición 3 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 3 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto moderado, alineación con políticas moderada y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: moderate impact, moderate policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción obtiene una buena clasificación porque puede aportar beneficios en emisiones en un plazo muy favorable y además cuenta con un apoyo de políticas muy sólido y una fuerte viabilidad de mitigación. No sube más porque su reducción esperada de emisiones es limitada en el inventario actual de la ciudad.",
+        "explanationEn": "This action ranks well because it can deliver emissions benefits on a very favorable timeline and also has very strong policy support and mitigation feasibility. It does not rank higher because its expected emissions reduction is limited in the current city inventory."
       },
       {
         "rank": 4,
-        "actionId": "ipcc_0054",
-        "finalScore": 0.84,
+        "actionId": "ipcc_0067",
+        "finalScore": 0.527,
         "pillarScores": {
-          "impact": 0.82,
-          "alignment": 0.86,
-          "feasibility": 0.79
+          "impact": 0.358,
+          "alignment": 0.784,
+          "feasibility": 0.686
         },
-        "rationaleEs": "Esta acción aparece en la posición 4 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 4 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto bajo, alineación con políticas alta y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: low impact, high policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción se mantiene en el grupo superior porque cuenta con un apoyo de políticas muy sólido y una viabilidad de mitigación muy sólida. Se clasifica por debajo de las acciones principales porque su reducción esperada de emisiones es limitada en el inventario actual de la ciudad.",
+        "explanationEn": "This action is kept in the upper group because it has very strong policy support and very strong mitigation feasibility. It ranks below the top actions because its expected emissions reduction is limited in the current city inventory."
       },
       {
         "rank": 5,
-        "actionId": "icare_0045",
-        "finalScore": 0.8,
+        "actionId": "icare_0050",
+        "finalScore": 0.521,
         "pillarScores": {
-          "impact": 0.78,
-          "alignment": 0.82,
-          "feasibility": 0.75
+          "impact": 0.443,
+          "alignment": 0.538,
+          "feasibility": 0.69
         },
-        "rationaleEs": "Esta acción aparece en la posición 5 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 5 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto moderado, alineación con políticas moderada y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: moderate impact, moderate policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción se mantiene en la mitad de la lista porque cuenta con un fuerte apoyo de políticas y una viabilidad de mitigación muy sólida. Su posición se ve limitada porque su reducción esperada de emisiones es limitada en el inventario actual de la ciudad.",
+        "explanationEn": "This action stays in the middle of the list because it has strong policy support and very strong mitigation feasibility. Its rank is held back because its expected emissions reduction is limited in the current city inventory."
       },
       {
         "rank": 6,
-        "actionId": "icare_0006",
-        "finalScore": 0.76,
+        "actionId": "ipcc_0054",
+        "finalScore": 0.519,
         "pillarScores": {
-          "impact": 0.74,
-          "alignment": 0.78,
-          "feasibility": 0.71
+          "impact": 0.443,
+          "alignment": 0.621,
+          "feasibility": 0.601
         },
-        "rationaleEs": "Esta acción aparece en la posición 6 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 6 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto moderado, alineación con políticas moderada y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: moderate impact, moderate policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción se clasifica aquí porque cuenta con un apoyo de políticas muy sólido y una viabilidad de mitigación sólida. No sube más porque su reducción esperada de emisiones es limitada en el inventario actual de la ciudad.",
+        "explanationEn": "This action ranks here because it has very strong policy support and strong mitigation feasibility. It does not move higher because its expected emissions reduction is limited in the current city inventory."
       },
       {
         "rank": 7,
-        "actionId": "icare_0099",
-        "finalScore": 0.72,
+        "actionId": "icare_0122",
+        "finalScore": 0.516,
         "pillarScores": {
-          "impact": 0.7,
-          "alignment": 0.74,
-          "feasibility": 0.67
+          "impact": 0.429,
+          "alignment": 0.545,
+          "feasibility": 0.696
         },
-        "rationaleEs": "Esta acción aparece en la posición 7 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 7 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto moderado, alineación con políticas moderada y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: moderate impact, moderate policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción está respaldada por un plazo muy favorable, un contexto de políticas sólido y una viabilidad de mitigación muy sólida. Permanece por debajo del nivel superior porque su reducción esperada de emisiones es limitada en el inventario actual de la ciudad.",
+        "explanationEn": "This action is supported by a very favorable timeline, strong policy context, and very strong mitigation feasibility. It remains below the top tier because its expected emissions reduction is limited in the current city inventory."
       },
       {
         "rank": 8,
-        "actionId": "icare_0128",
-        "finalScore": 0.68,
+        "actionId": "icare_0099",
+        "finalScore": 0.514,
         "pillarScores": {
-          "impact": 0.66,
-          "alignment": 0.7,
-          "feasibility": 0.63
+          "impact": 0.458,
+          "alignment": 0.476,
+          "feasibility": 0.686
         },
-        "rationaleEs": "Esta acción aparece en la posición 8 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 8 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto moderado, alineación con políticas moderada y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: moderate impact, moderate policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción tiene la ventaja de un plazo muy favorable, un fuerte apoyo de políticas y una viabilidad de mitigación muy sólida. Se clasifica más abajo porque su reducción esperada de emisiones es limitada en el inventario actual de la ciudad.",
+        "explanationEn": "This action has the advantage of a very favorable timeline, strong policy support, and very strong mitigation feasibility. It ranks lower because its expected emissions reduction is limited in the current city inventory."
       },
       {
         "rank": 9,
         "actionId": "icare_0132",
-        "finalScore": 0.64,
+        "finalScore": 0.512,
         "pillarScores": {
-          "impact": 0.62,
-          "alignment": 0.66,
-          "feasibility": 0.59
+          "impact": 0.429,
+          "alignment": 0.538,
+          "feasibility": 0.686
         },
-        "rationaleEs": "Esta acción aparece en la posición 9 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 9 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto moderado, alineación con políticas moderada y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: moderate impact, moderate policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción se sitúa aquí porque puede aportar beneficios en emisiones en un plazo muy favorable y cuenta con un fuerte apoyo de políticas y una viabilidad de mitigación muy sólida. Su menor rango refleja la limitada reducción esperada de emisiones en el inventario actual de la ciudad.",
+        "explanationEn": "This action is placed here because it can deliver emissions benefits on a very favorable timeline and has strong policy support and very strong mitigation feasibility. Its lower rank reflects the limited expected emissions reduction in the current city inventory."
       },
       {
         "rank": 10,
-        "actionId": "ipcc_0056",
-        "finalScore": 0.6,
+        "actionId": "icare_0069",
+        "finalScore": 0.509,
         "pillarScores": {
-          "impact": 0.58,
-          "alignment": 0.62,
-          "feasibility": 0.55
+          "impact": 0.429,
+          "alignment": 0.538,
+          "feasibility": 0.672
         },
-        "rationaleEs": "Esta acción aparece en la posición 10 del modelo. La justificación real se incorporará cuando Mirco ejecute el modelo (lunes).",
-        "rationaleEn": "This action sits at rank 10 in the model. The actual rationale will be loaded once Mirco runs the model (Monday)."
+        "rationaleEs": "Perfil agregado del modelo: impacto moderado, alineación con políticas moderada y factibilidad de implementación moderada.",
+        "rationaleEn": "Model profile: moderate impact, moderate policy alignment, and moderate implementation feasibility.",
+        "explanationEs": "Esta acción tiene un plazo muy favorable, un fuerte apoyo de políticas y una viabilidad de mitigación muy sólida. Queda por debajo de las acciones mejor clasificadas porque su reducción esperada de emisiones es limitada en el inventario actual de la ciudad.",
+        "explanationEn": "This action has a very favorable timeline, strong policy support, and very strong mitigation feasibility. It stays below higher-ranked actions because its expected emissions reduction is limited in the current city inventory."
       }
     ],
     "nextActions": [
       {
         "rank": 11,
-        "actionId": "icare_0069"
+        "actionId": "ipcc_0071"
       },
       {
         "rank": 12,
-        "actionId": "icare_0127"
+        "actionId": "ipcc_0057"
       },
       {
         "rank": 13,
-        "actionId": "ipcc_0055"
+        "actionId": "ipcc_0028"
       },
       {
         "rank": 14,
-        "actionId": "icare_0131"
+        "actionId": "c40_0042"
       },
       {
         "rank": 15,
-        "actionId": "icare_0064"
+        "actionId": "ipcc_0034"
       }
     ],
     "discardedLegal": [],

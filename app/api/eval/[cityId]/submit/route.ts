@@ -53,6 +53,22 @@ export async function POST(_req: Request, { params }: { params: { cityId: string
     );
   }
 
+  // Reveal-stage completeness: both overall-agreement Likerts must be set.
+  // Without these the post-rationale-agreement metric is incomplete and the
+  // evaluation row can't be analyzed in the CORFO write-up.
+  if (evaluation.top3Agreement == null) {
+    return NextResponse.json(
+      { error: "Falta evaluar el ranking de las 3 acciones principales." },
+      { status: 400 }
+    );
+  }
+  if (evaluation.top10Agreement == null) {
+    return NextResponse.json(
+      { error: "Falta evaluar el ranking de las 10 acciones principales." },
+      { status: 400 }
+    );
+  }
+
   const now = new Date();
   const totalSec = Math.max(
     0,

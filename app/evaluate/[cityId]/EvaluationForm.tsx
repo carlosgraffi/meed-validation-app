@@ -22,6 +22,7 @@ import { StageRating, type RatingMap } from "./StageRating";
 import { Stage3Reorder } from "./Stage3Reorder";
 import { StageSection } from "./StageSection";
 import { StageStepper } from "./StageStepper";
+import { RevealStage } from "./RevealStage";
 import { CityContextBanner } from "./CityContextBanner";
 import { CityContextSidebar } from "./CityContextSidebar";
 import { LegallyBlockedFootnote } from "./LegallyBlockedFootnote";
@@ -34,36 +35,57 @@ export type Initial = {
   submitted: boolean;
   top3Ratings: RatingMap;
   top10Ratings: RatingMap;
+  // Overall-agreement Likert (1–5) the expert submits on the reveal stages.
+  // `null` until that reveal has been completed.
+  top3Agreement: number | null;
+  top10Agreement: number | null;
   missingActions: string[];
   reorderTop5: string[] | null;
   cityComment: string;
 };
 
 // Linear ordering of the stage pipeline. Used to compute stage state ("active"
-// vs "complete") for the StageSection wrapper.
+// vs "complete") for the StageSection wrapper. The two `reveal*` stages sit
+// between the blind set-membership round and the next blind round, so the
+// expert always rates set membership FIRST and only then sees the model's
+// ordering + rationale.
 const STAGE_RANK: Record<Stage, number> = {
   stage1: 1,
-  stage2: 2,
-  sectionC: 3,
-  stage3: 4,
-  sectionE: 5,
-  complete: 6,
+  reveal1: 2,
+  stage2: 3,
+  reveal2: 4,
+  sectionC: 5,
+  stage3: 6,
+  sectionE: 7,
+  complete: 8,
 };
 
 const NEXT_STAGE: Record<Stage, Stage> = {
-  stage1: "stage2",
-  stage2: "sectionC",
+  stage1: "reveal1",
+  reveal1: "stage2",
+  stage2: "reveal2",
+  reveal2: "sectionC",
   sectionC: "stage3",
   stage3: "sectionE",
   sectionE: "complete",
   complete: "complete",
 };
 
-// Top-of-page progress indicator. 3 dots for Stage 1/2/3; Sections C/E
-// are minor side-tasks that don't get their own dot, but they do count
-// toward the overall progress when displayed in the badge.
+// Top-of-page progress indicator. 3 dots for the user-facing chunks. Each
+// reveal stays grouped with its parent blind round (reveal1 → step 1 alongside
+// stage1; reveal2 → step 2 alongside stage2 + sectionC); stage3 + sectionE
+// share step 3.
 function topLevelStageIndex(s: Stage): number {
-  return { stage1: 1, stage2: 2, sectionC: 2, stage3: 3, sectionE: 3, complete: 3 }[s];
+  return {
+    stage1: 1,
+    reveal1: 1,
+    stage2: 2,
+    reveal2: 2,
+    sectionC: 2,
+    stage3: 3,
+    sectionE: 3,
+    complete: 3,
+  }[s];
 }
 
 export function EvaluationForm({
@@ -99,6 +121,8 @@ export function EvaluationForm({
   const [currentStage, setCurrentStage] = useState<Stage>(initial.currentStage);
   const [top3Ratings, setTop3Ratings] = useState<RatingMap>(initial.top3Ratings);
   const [top10Ratings, setTop10Ratings] = useState<RatingMap>(initial.top10Ratings);
+  const [top3Agreement, setTop3Agreement] = useState<number | null>(initial.top3Agreement);
+  const [top10Agreement, setTop10Agreement] = useState<number | null>(initial.top10Agreement);
   const [missing, setMissing] = useState<string[]>(
     [...initial.missingActions, "", "", ""].slice(0, 3)
   );
@@ -190,6 +214,14 @@ export function EvaluationForm({
     setComment(next);
     sendPatch({ cityComment: next.slice(0, 1000) });
   };
+  const onTop3AgreementChange = (likert: number) => {
+    setTop3Agreement(likert);
+    sendPatch({ top3Agreement: likert });
+  };
+  const onTop10AgreementChange = (likert: number) => {
+    setTop10Agreement(likert);
+    sendPatch({ top10Agreement: likert });
+  };
 
   const validateCurrent = (): string | null => {
     if (currentStage === "stage1") {
@@ -199,11 +231,17 @@ export function EvaluationForm({
       ).length;
       if (missingCount > 0) return t("evaluate.validationMissingStage1");
     }
+    if (currentStage === "reveal1") {
+      if (top3Agreement == null) return t("evaluate.validationMissingReveal1");
+    }
     if (currentStage === "stage2") {
       const missingCount = rankedActions.filter(
         (r) => !top10Ratings[r.action.actionId]?.likert
       ).length;
       if (missingCount > 0) return t("evaluate.validationMissingStage2");
+    }
+    if (currentStage === "reveal2") {
+      if (top10Agreement == null) return t("evaluate.validationMissingReveal2");
     }
     return null;
   };
@@ -335,12 +373,42 @@ export function EvaluationForm({
       {/* Footnote: actions blocked by Chilean legal assessment for this city.
           Surfaced after Stage 1 so experts learn early about the legal filter
           and can mentally account for missing actions. */}
-      {STAGE_RANK[currentStage] >= 2 && discardedLegal.length > 0 && (
+      {STAGE_RANK[currentStage] >= STAGE_RANK.reveal1 && discardedLegal.length > 0 && (
         <LegallyBlockedFootnote discarded={discardedLegal} actionMap={actionMap} />
       )}
 
-      {/* Stage 2 — top-10 set membership (visible only once Stage 1 advanced) */}
-      {STAGE_RANK[currentStage] >= 2 && (
+      {/* Reveal 1 — show the model's top-3 ordered with LLM rationale, ask
+          overall ranking-agreement. Visible only once Stage 1 advanced. */}
+      {STAGE_RANK[currentStage] >= STAGE_RANK.reveal1 && (
+        <SlideInOnMount stageKey="reveal1">
+        <StageSection
+          stageKey="reveal1"
+          state={stageState("reveal1")}
+          title={t("evaluate.reveal1ShortTitle")}
+          subtitle={stageState("reveal1") === "active" ? t("evaluate.reveal1Intro") : undefined}
+          badge={
+            stageState("reveal1") === "active"
+              ? t("evaluate.stageCurrentBadge")
+              : t("evaluate.stageCompletedBadge")
+          }
+          summary={
+            top3Agreement != null
+              ? t("evaluate.stageSummaryAgreement", { likert: top3Agreement })
+              : t("evaluate.stageSummaryAgreementPending")
+          }
+        >
+          <RevealStage
+            actions={rankedActions.slice(0, 3)}
+            agreement={top3Agreement}
+            onChange={onTop3AgreementChange}
+            readOnly={stageState("reveal1") === "complete"}
+          />
+        </StageSection>
+        </SlideInOnMount>
+      )}
+
+      {/* Stage 2 — top-10 set membership (visible only once Reveal 1 advanced) */}
+      {STAGE_RANK[currentStage] >= STAGE_RANK.stage2 && (
         <SlideInOnMount stageKey="stage2">
         <StageSection
           stageKey="stage2"
@@ -370,8 +438,38 @@ export function EvaluationForm({
         </SlideInOnMount>
       )}
 
+      {/* Reveal 2 — show the model's top-10 ordered with LLM rationale, ask
+          overall ranking-agreement. Visible only once Stage 2 advanced. */}
+      {STAGE_RANK[currentStage] >= STAGE_RANK.reveal2 && (
+        <SlideInOnMount stageKey="reveal2">
+        <StageSection
+          stageKey="reveal2"
+          state={stageState("reveal2")}
+          title={t("evaluate.reveal2ShortTitle")}
+          subtitle={stageState("reveal2") === "active" ? t("evaluate.reveal2Intro") : undefined}
+          badge={
+            stageState("reveal2") === "active"
+              ? t("evaluate.stageCurrentBadge")
+              : t("evaluate.stageCompletedBadge")
+          }
+          summary={
+            top10Agreement != null
+              ? t("evaluate.stageSummaryAgreement", { likert: top10Agreement })
+              : t("evaluate.stageSummaryAgreementPending")
+          }
+        >
+          <RevealStage
+            actions={rankedActions}
+            agreement={top10Agreement}
+            onChange={onTop10AgreementChange}
+            readOnly={stageState("reveal2") === "complete"}
+          />
+        </StageSection>
+        </SlideInOnMount>
+      )}
+
       {/* Section C — missing actions */}
-      {STAGE_RANK[currentStage] >= 3 && (
+      {STAGE_RANK[currentStage] >= STAGE_RANK.sectionC && (
         <SlideInOnMount stageKey="sectionC">
         <StageSection
           stageKey="sectionC"
@@ -394,8 +492,10 @@ export function EvaluationForm({
         </SlideInOnMount>
       )}
 
-      {/* Stage 3 — reorder */}
-      {STAGE_RANK[currentStage] >= 4 && (
+      {/* Stage 3 — reorder. Explanations intentionally NOT shown here, even
+          though the expert just saw them on reveal2: keeps Spearman ρ at
+          least as blind as we can after the reveals. */}
+      {STAGE_RANK[currentStage] >= STAGE_RANK.stage3 && (
         <SlideInOnMount stageKey="stage3">
         <StageSection
           stageKey="stage3"
@@ -428,7 +528,7 @@ export function EvaluationForm({
       )}
 
       {/* Section E — comments */}
-      {STAGE_RANK[currentStage] >= 5 && (
+      {STAGE_RANK[currentStage] >= STAGE_RANK.sectionE && (
         <SlideInOnMount stageKey="sectionE">
         <StageSection
           stageKey="sectionE"

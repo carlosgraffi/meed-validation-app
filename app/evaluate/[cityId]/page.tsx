@@ -22,13 +22,28 @@ import { EvaluationForm } from "./EvaluationForm";
 
 export const dynamic = "force-dynamic";
 
-export type Stage = "stage1" | "stage2" | "sectionC" | "stage3" | "sectionE" | "complete";
+export type Stage =
+  | "stage1"
+  | "reveal1"
+  | "stage2"
+  | "reveal2"
+  | "sectionC"
+  | "stage3"
+  | "sectionE"
+  | "complete";
 
 export type RankedAction = {
   rank: number;
   action: Action;
+  // Neutral pillar-band rationale — rendered during the blind Stage 1 / Stage 2
+  // ratings. Carries no rank-positioning prose.
   rationaleEs: string;
   rationaleEn: string;
+  // LLM-authored, rank-positioning explanation — rendered ONLY on the reveal
+  // stages (reveal1 / reveal2) after the expert has committed their blind
+  // set ratings. Suppressed during Stage 3 reorder.
+  explanationEs?: string;
+  explanationEn?: string;
 };
 
 export default async function EvaluatePage({ params }: { params: { cityId: string } }) {
@@ -83,17 +98,39 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
   }
   const actions = loadActions();
   const actionMap = new Map(actions.map((a) => [a.actionId, a]));
+  // currentStage drives which LLM explanations are even SHIPPED to the client
+  // (RSC payload). Without this gate, a curious expert could open devtools
+  // on Stage 1 and read the rank-positioning prose meant for Reveal-1,
+  // defeating the bias controls. So:
+  //   - top-3 explanations are included once currentStage >= reveal1
+  //   - top-10 (ranks 4..10) explanations are included once >= reveal2
+  // Once revealed they stay in the payload (the user has already seen them
+  // and the locked Reveal section can be re-expanded to review them).
+  const stageBefore = (evaluationStage: string, target: string) => {
+    const order = ["stage1", "reveal1", "stage2", "reveal2", "sectionC", "stage3", "sectionE", "complete"];
+    return order.indexOf(evaluationStage) < order.indexOf(target);
+  };
+  const currentStageRaw = (await prisma.evaluation.findUnique({
+    where: { expertId_cityId: { expertId, cityId } },
+    select: { currentStage: true },
+  }))?.currentStage ?? "stage1";
+  const hideTop3Explanation = stageBefore(currentStageRaw, "reveal1");
+  const hideTop10Explanation = stageBefore(currentStageRaw, "reveal2");
   const rankedActions: RankedAction[] = cityOutput.topActions
     .slice()
     .sort((a, b) => a.rank - b.rank)
     .map((t) => {
       const action = actionMap.get(t.actionId);
       if (!action) throw new Error(`actions.json missing actionId ${t.actionId}`);
+      const stripExplanation =
+        t.rank <= 3 ? hideTop3Explanation : hideTop10Explanation;
       return {
         rank: t.rank,
         action,
         rationaleEs: t.rationaleEs,
         rationaleEn: t.rationaleEn,
+        explanationEs: stripExplanation ? undefined : t.explanationEs,
+        explanationEn: stripExplanation ? undefined : t.explanationEn,
       };
     });
 
@@ -197,6 +234,8 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
         submitted: !!evaluation.submittedAt,
         top3Ratings,
         top10Ratings,
+        top3Agreement: evaluation.top3Agreement ?? null,
+        top10Agreement: evaluation.top10Agreement ?? null,
         missingActions,
         reorderTop5,
         cityComment: evaluation.cityComment ?? "",

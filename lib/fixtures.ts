@@ -122,13 +122,25 @@ export const ModelOutputsSchema = z.record(
             feasibility: z.number().min(0).max(1),
           }),
           /**
-           * Short LLM-style rationale describing why the model placed this
-           * action at this rank. Qualitative only — does not reveal numeric
-           * scores. Generated at request time by HIAP-MEED+; placeholder data
-           * lives here until the real per-city outputs ship.
+           * Neutral pillar-band summary (low / moderate / high per pillar).
+           * Templated from the action's scores so it carries no rank-positioning
+           * prose ("ranks first because…"). Safe to render during the blind
+           * Stage 1 / Stage 2 ratings where anchoring matters.
            */
           rationaleEs: z.string(),
           rationaleEn: z.string(),
+          /**
+           * LLM-authored explanation from the model's `explanations` step.
+           * Rank-positioning by design — explicitly references "ranks first",
+           * "near the top", etc. Render ONLY during the reveal stages
+           * (`reveal1` / `reveal2`), AFTER the expert has committed their
+           * blind set ratings. Never during Stage 3 reorder.
+           *
+           * Optional because pre-2026-05-25T18:13 UTC runs either disabled
+           * the explanations step entirely or shipped English only.
+           */
+          explanationEs: z.string().optional(),
+          explanationEn: z.string().optional(),
         })
       )
       .length(10),

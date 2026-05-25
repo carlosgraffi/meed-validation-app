@@ -11,7 +11,9 @@ export type StageState = "active" | "complete";
 
 const STAGE_ACCENT: Record<string, string> = {
   stage1: "border-l-primary",
+  reveal1: "border-l-primary/60",
   stage2: "border-l-sky-500",
+  reveal2: "border-l-sky-500/60",
   sectionC: "border-l-neutral-400",
   stage3: "border-l-accent",
   sectionE: "border-l-neutral-400",
@@ -19,7 +21,9 @@ const STAGE_ACCENT: Record<string, string> = {
 
 const STAGE_DOT: Record<string, string> = {
   stage1: "bg-primary",
+  reveal1: "bg-primary/70",
   stage2: "bg-sky-500",
+  reveal2: "bg-sky-500/70",
   sectionC: "bg-neutral-400",
   stage3: "bg-accent",
   sectionE: "bg-neutral-400",
@@ -34,7 +38,7 @@ export function StageSection({
   summary,
   children,
 }: {
-  stageKey: "stage1" | "stage2" | "sectionC" | "stage3" | "sectionE";
+  stageKey: "stage1" | "reveal1" | "stage2" | "reveal2" | "sectionC" | "stage3" | "sectionE";
   state: StageState;
   title: string;
   subtitle?: string;
@@ -144,8 +148,14 @@ function badgeNumber(stageKey: string): string {
   switch (stageKey) {
     case "stage1":
       return "1";
+    case "reveal1":
+      // Sub-step of step 1 — visually paired with the binary round, marked
+      // with a unicode "1+" to communicate "after step 1".
+      return "1+";
     case "stage2":
       return "2";
+    case "reveal2":
+      return "2+";
     case "stage3":
       return "3";
     default:

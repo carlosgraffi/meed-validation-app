@@ -13,3 +13,5 @@ coverage
 # Live magic links — never commit these.
 data/_invitations.csv
 data/_invitations.json
+# Incremental build cache produced by `tsc --noEmit` / `next build`.
+tsconfig.tsbuildinfo
