@@ -79,17 +79,26 @@ export function StageRating({
           </ol>
         </section>
 
-        {/* Context group — read-only, no Likert */}
+        {/* Context group — read-only, no Likert. The divider needs to be
+            unmistakable so the expert doesn't accidentally treat the
+            reference actions as more actions-to-rate. */}
         {contextActions.length > 0 && (
-          <section className="space-y-4">
-            <header className="space-y-1 pt-2 border-t">
-              <div className="flex items-center gap-2 pt-4">
+          <section className="space-y-4 mt-6">
+            <div
+              className="relative flex items-center gap-3 my-2"
+              aria-hidden="true"
+            >
+              <span className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+              <span className="rounded-full border bg-muted/40 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                {t("evaluate.contextActionBadge")}
+              </span>
+              <span className="h-px flex-1 bg-gradient-to-l from-transparent via-border to-transparent" />
+            </div>
+            <header className="space-y-1">
+              <div className="flex items-center gap-2">
                 <h3 className="text-base font-semibold text-muted-foreground">
                   {t("evaluate.contextActionsHeader")}
                 </h3>
-                <Badge variant="muted" className="text-[10px] uppercase tracking-wide">
-                  {t("evaluate.contextActionBadge")}
-                </Badge>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {t(contextHintKey as never)}

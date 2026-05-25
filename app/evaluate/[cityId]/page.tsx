@@ -237,6 +237,8 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
         top10Ratings,
         top3Agreement: evaluation.top3Agreement ?? null,
         top10Agreement: evaluation.top10Agreement ?? null,
+        top3AgreementComment: evaluation.top3AgreementComment ?? "",
+        top10AgreementComment: evaluation.top10AgreementComment ?? "",
         missingActions,
         reorderTop5,
         cityComment: evaluation.cityComment ?? "",

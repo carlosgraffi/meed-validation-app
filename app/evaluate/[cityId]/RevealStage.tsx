@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Sparkles } from "lucide-react";
 import { useT } from "@/app/LangProvider";
@@ -28,6 +29,8 @@ export function RevealStage({
   actions,
   agreement,
   onChange,
+  comment,
+  onCommentBlur,
   readOnly,
 }: {
   /** Actions in the model's rank order (1, 2, 3, … N). */
@@ -36,6 +39,10 @@ export function RevealStage({
   agreement: number | null;
   /** Persist a new Likert. Called with 1–5. */
   onChange: (likert: number) => void;
+  /** Optional free-text the expert added to qualify their Likert. */
+  comment: string;
+  /** Persist on blur — controlled by EvaluationForm so autosave debounces. */
+  onCommentBlur: (next: string) => void;
   /** When the stage has been advanced past — display, no inputs. */
   readOnly: boolean;
 }) {
@@ -88,7 +95,65 @@ export function RevealStage({
           {t("evaluate.revealAgreementHelp")}
         </p>
         <LikertRow value={agreement} onChange={onChange} disabled={readOnly} />
+
+        <AgreementComment
+          value={comment}
+          onBlur={onCommentBlur}
+          disabled={readOnly}
+        />
       </fieldset>
+    </div>
+  );
+}
+
+/**
+ * Optional free-text the expert can add alongside the Likert. Persisted on
+ * blur (via the parent's debounced autosave) so we don't fire a PATCH per
+ * keystroke; the cap matches `cityComment` (1000 chars).
+ */
+function AgreementComment({
+  value,
+  onBlur,
+  disabled,
+}: {
+  value: string;
+  onBlur: (next: string) => void;
+  disabled: boolean;
+}) {
+  const t = useT();
+  const [local, setLocal] = useState(value);
+  // Re-sync when the prop changes (e.g. router.refresh after server update).
+  useEffect(() => {
+    setLocal(value);
+  }, [value]);
+  const MAX = 1000;
+  return (
+    <div className="space-y-1.5 pt-2 border-t border-dashed">
+      <label
+        htmlFor="agreement-comment"
+        className="text-xs font-medium text-muted-foreground"
+      >
+        {t("evaluate.revealAgreementCommentLabel")}
+      </label>
+      <textarea
+        id="agreement-comment"
+        value={local}
+        onChange={(e) => setLocal(e.target.value.slice(0, MAX))}
+        onBlur={() => {
+          if (local !== value) onBlur(local);
+        }}
+        disabled={disabled}
+        placeholder={t("evaluate.revealAgreementCommentPlaceholder")}
+        rows={3}
+        className={cn(
+          "w-full rounded-md border bg-background px-3 py-2 text-sm leading-relaxed",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          "disabled:cursor-not-allowed disabled:opacity-60"
+        )}
+      />
+      <p className="text-[10px] text-muted-foreground text-right">
+        {t("evaluate.characterCount", { count: local.length, max: MAX })}
+      </p>
     </div>
   );
 }

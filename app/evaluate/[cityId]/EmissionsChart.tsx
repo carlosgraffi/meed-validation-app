@@ -2,9 +2,12 @@
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { formatEmissions } from "@/lib/utils";
-import { useT } from "@/app/LangProvider";
+import { useT, useLang } from "@/app/LangProvider";
 
 const PALETTE = ["#0f766e", "#0e7490", "#65a30d", "#a16207", "#7c3aed"];
+// Distinct hue for sequestration (negative-value) sectors — slightly muted
+// emerald so it reads as "carbon sink" rather than "another emission source".
+const SINK_COLOR = "#10b981";
 
 export function EmissionsChart({
   sectors,
@@ -12,18 +15,28 @@ export function EmissionsChart({
   sectors: { key: string; label: string; value: number | null }[];
 }) {
   const t = useT();
-  const total = sectors.reduce(
-    (acc, s) => acc + (typeof s.value === "number" ? s.value : 0),
+  const [lang] = useLang();
+  // Use the sum of ABSOLUTE values as the denominator so the chart still
+  // renders for net-sink cities (Paillaco, Lago Ranco) where the signed
+  // total is negative or near zero. For balanced positive-only inventories
+  // this collapses to the same value as `sum(sectors)`, so no regression.
+  const absSum = sectors.reduce(
+    (acc, s) => acc + (typeof s.value === "number" ? Math.abs(s.value) : 0),
     0
   );
   const knownSectors = sectors.filter((s) => typeof s.value === "number");
   const nullSectors = sectors.filter((s) => s.value == null);
 
-  const data = knownSectors.map((s) => ({
-    name: s.label,
-    value: s.value as number,
-    pct: total > 0 ? ((s.value as number) / total) * 100 : 0,
-  }));
+  const data = knownSectors.map((s) => {
+    const value = s.value as number;
+    const isSink = value < 0;
+    return {
+      name: isSink ? `${s.label} (${lang === "en" ? "sink" : "sumidero"})` : s.label,
+      value,
+      pct: absSum > 0 ? (Math.abs(value) / absSum) * 100 : 0,
+      isSink,
+    };
+  });
 
   return (
     <div className="space-y-3">
@@ -51,8 +64,8 @@ export function EmissionsChart({
               }}
             />
             <Bar dataKey="pct" radius={[0, 4, 4, 0]}>
-              {data.map((_, i) => (
-                <Cell key={i} fill={PALETTE[i % PALETTE.length]} />
+              {data.map((d, i) => (
+                <Cell key={i} fill={d.isSink ? SINK_COLOR : PALETTE[i % PALETTE.length]} />
               ))}
             </Bar>
           </BarChart>

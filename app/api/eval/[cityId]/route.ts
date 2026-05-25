@@ -30,6 +30,11 @@ const PatchBody = z.object({
   // `top3Agreement` is written on `reveal1`; `top10Agreement` on `reveal2`.
   top3Agreement: z.number().int().min(1).max(5).optional(),
   top10Agreement: z.number().int().min(1).max(5).optional(),
+  // Optional free-text alongside each agreement Likert. Cap at 1000 chars
+  // to match cityComment; the cap is enforced server-side as defense in
+  // depth (the textarea also enforces it client-side).
+  top3AgreementComment: z.string().max(1000).optional(),
+  top10AgreementComment: z.string().max(1000).optional(),
   missingActions: z.array(z.string().max(200)).max(3).optional(),
   reorderTop5: z.array(z.string()).length(5).nullable().optional(),
   cityComment: z.string().max(1000).optional(),
@@ -104,13 +109,22 @@ export async function PATCH(req: Request, { params }: { params: { cityId: string
   }
 
   if (body.top3Agreement !== undefined) {
-    // Writable while currentStage <= reveal1. Locked once user advances to stage2.
+    // Writable while currentStage <= reveal1. Locked once user advances past.
     if (stageRank(evaluation.currentStage) > stageRank("reveal1")) {
       return NextResponse.json({ error: "stage_locked", stage: "reveal1" }, { status: 409 });
     }
     await prisma.evaluation.update({
       where: { id: evaluation.id },
       data: { top3Agreement: body.top3Agreement },
+    });
+  }
+  if (body.top3AgreementComment !== undefined) {
+    if (stageRank(evaluation.currentStage) > stageRank("reveal1")) {
+      return NextResponse.json({ error: "stage_locked", stage: "reveal1" }, { status: 409 });
+    }
+    await prisma.evaluation.update({
+      where: { id: evaluation.id },
+      data: { top3AgreementComment: body.top3AgreementComment.slice(0, 1000) || null },
     });
   }
   if (body.top10Agreement !== undefined) {
@@ -120,6 +134,15 @@ export async function PATCH(req: Request, { params }: { params: { cityId: string
     await prisma.evaluation.update({
       where: { id: evaluation.id },
       data: { top10Agreement: body.top10Agreement },
+    });
+  }
+  if (body.top10AgreementComment !== undefined) {
+    if (stageRank(evaluation.currentStage) > stageRank("reveal2")) {
+      return NextResponse.json({ error: "stage_locked", stage: "reveal2" }, { status: 409 });
+    }
+    await prisma.evaluation.update({
+      where: { id: evaluation.id },
+      data: { top10AgreementComment: body.top10AgreementComment.slice(0, 1000) || null },
     });
   }
 

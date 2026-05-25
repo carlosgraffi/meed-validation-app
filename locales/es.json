@@ -220,6 +220,8 @@
     "revealIntro": "El ranking y las razones de abajo provienen del modelo MEED+. Léelas antes de responder la pregunta de acuerdo al final.",
     "revealAgreementQuestion": "¿Qué tan de acuerdo estás con el ranking del modelo en su conjunto?",
     "revealAgreementHelp": "Una sola respuesta general por el ranking completo. Si tu acuerdo varía mucho entre acciones, elige el punto medio que mejor lo refleje.",
+    "revealAgreementCommentLabel": "Comentarios adicionales (opcional)",
+    "revealAgreementCommentPlaceholder": "Si quieres matizar tu respuesta — por ejemplo, dónde estás de acuerdo y dónde no — añade el detalle aquí.",
     "likertStronglyDisagree": "Muy en desacuerdo",
     "likertDisagree": "En desacuerdo",
     "likertNeutral": "Neutral",

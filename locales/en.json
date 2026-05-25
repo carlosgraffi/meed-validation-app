@@ -220,6 +220,8 @@
     "revealIntro": "The ranking and reasoning below come from the MEED+ model. Read them before answering the agreement question at the bottom.",
     "revealAgreementQuestion": "How much do you agree with the model's ranking as a whole?",
     "revealAgreementHelp": "One overall answer for the full ranking. If your agreement varies a lot across actions, pick the midpoint that best reflects your view.",
+    "revealAgreementCommentLabel": "Additional comments (optional)",
+    "revealAgreementCommentPlaceholder": "If you'd like to qualify your answer — e.g. where you agree, where you don't — add the detail here.",
     "likertStronglyDisagree": "Strongly disagree",
     "likertDisagree": "Disagree",
     "likertNeutral": "Neutral",

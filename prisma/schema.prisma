@@ -63,6 +63,12 @@ model Evaluation {
   // Nullable until the corresponding reveal stage has been completed.
   top3Agreement  Int?
   top10Agreement Int?
+  // Optional free-text the expert can add alongside each agreement Likert
+  // to qualify their rating ("agreed on #1 but #3 should be lower" etc.).
+  // Length-capped client-side; the column itself is untyped TEXT so we
+  // don't have to migrate when the cap changes.
+  top3AgreementComment  String?
+  top10AgreementComment String?
   expert         Expert       @relation(fields: [expertId], references: [id], onDelete: Cascade)
   ratings        Rating[]
   reorderTop5    ReorderTop5?

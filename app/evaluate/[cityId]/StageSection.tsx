@@ -50,8 +50,15 @@ export function StageSection({
   const [expanded, setExpanded] = useState(false);
   const isComplete = state === "complete";
   const showBody = state === "active" || expanded;
-  const accent = STAGE_ACCENT[stageKey] ?? "border-l-muted";
-  const dot = STAGE_DOT[stageKey] ?? "bg-muted-foreground";
+  // Once a stage is completed, every stage uses the same green-success styling
+  // — that's the universal "done" signal Carlos wants across the whole flow.
+  // The per-stage hue (primary / sky / accent) is reserved for the ACTIVE state.
+  const accent = isComplete
+    ? "border-l-emerald-500"
+    : STAGE_ACCENT[stageKey] ?? "border-l-muted";
+  const dot = isComplete
+    ? "bg-emerald-500"
+    : STAGE_DOT[stageKey] ?? "bg-muted-foreground";
 
   return (
     <motion.section
@@ -95,7 +102,10 @@ export function StageSection({
         <div className="flex items-center gap-2 shrink-0">
           {isComplete ? (
             <>
-              <Badge variant="muted" className="gap-1">
+              <Badge
+                variant="muted"
+                className="gap-1 bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900"
+              >
                 <Lock className="h-3 w-3" />
                 {badge}
               </Badge>

@@ -42,6 +42,9 @@ export async function GET() {
     // evaluations interrupted before submit.
     top3Agreement: e.top3Agreement,
     top10Agreement: e.top10Agreement,
+    // Optional free-text qualifying each agreement Likert (null/empty if blank).
+    top3AgreementComment: e.top3AgreementComment ?? null,
+    top10AgreementComment: e.top10AgreementComment ?? null,
     reorderTop5: e.reorderTop5 ? (JSON.parse(e.reorderTop5.orderedActionIds) as string[]) : null,
     missingActions: e.missingActions ? (JSON.parse(e.missingActions) as string[]) : [],
     cityComment: e.cityComment ?? null,

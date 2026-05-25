@@ -158,6 +158,14 @@ function SortableItem({
   const at = useActionText();
   const [lang] = useLang();
   const [sheetOpen, setSheetOpen] = useState(false);
+  // Presence of the LLM explanation is the signal that we're past the
+  // explanation gate (i.e. the user is on Reveal-1 or later). When it's
+  // missing — during the active Stage 3 blind reorder — we hide the
+  // "Contexto" / "Ver explicación del modelo" surfaces so the templated
+  // pillar-band fallback doesn't slip in and bias the expert's reorder.
+  const hasExplanation =
+    (typeof explanationEs === "string" && explanationEs.length > 0) ||
+    (typeof explanationEn === "string" && explanationEn.length > 0);
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id,
     disabled,
@@ -167,6 +175,11 @@ function SortableItem({
     transition,
   };
   const moved = modelRank !== expertRank;
+  // Grid columns: when the Contexto button is hidden, drop a column so the
+  // action name + drag handle stay properly spaced.
+  const gridCols = hasExplanation
+    ? "grid-cols-[auto_auto_1fr_auto_auto]"
+    : "grid-cols-[auto_auto_1fr_auto]";
   return (
     <>
     <li
@@ -178,7 +191,7 @@ function SortableItem({
         disabled && "opacity-60"
       )}
     >
-      <div className="grid grid-cols-[auto_auto_1fr_auto_auto] items-center gap-3">
+      <div className={cn("grid items-center gap-3", gridCols)}>
         <Badge variant="muted" className="font-mono w-10 justify-center">
           #{modelRank}
         </Badge>
@@ -186,17 +199,19 @@ function SortableItem({
           #{expertRank}
         </Badge>
         <span className="text-sm">{at.name(action)}</span>
-        <button
-          type="button"
-          onClick={() => setSheetOpen(true)}
-          className="shrink-0 inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground border rounded-md px-2 py-1 transition-colors"
-          aria-label={lang === "en" ? "View ranking context" : "Ver contexto del ranking"}
-        >
-          <Info className="h-3.5 w-3.5" aria-hidden />
-          <span className="hidden sm:inline">
-            {lang === "en" ? "Context" : "Contexto"}
-          </span>
-        </button>
+        {hasExplanation && (
+          <button
+            type="button"
+            onClick={() => setSheetOpen(true)}
+            className="shrink-0 inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground border rounded-md px-2 py-1 transition-colors"
+            aria-label={lang === "en" ? "View ranking context" : "Ver contexto del ranking"}
+          >
+            <Info className="h-3.5 w-3.5" aria-hidden />
+            <span className="hidden sm:inline">
+              {lang === "en" ? "Context" : "Contexto"}
+            </span>
+          </button>
+        )}
         <button
           type="button"
           className="shrink-0 text-muted-foreground hover:text-foreground cursor-grab active:cursor-grabbing disabled:cursor-not-allowed"
@@ -208,26 +223,36 @@ function SortableItem({
           <GripVertical className="h-5 w-5" />
         </button>
       </div>
-      <ActionRationale
+      {/* Surface the reasoning ONLY when the LLM explanation is in the
+          payload. During an active Stage 3 reorder the explanation is gated
+          out (it would bias the reorder), so the templated band rationale
+          would be the only thing left to display — and that's also somewhat
+          biasing. Hide both surfaces entirely in that case; they'll reappear
+          once the expert advances into Reveal-1 and explanations unlock. */}
+      {hasExplanation && (
+        <ActionRationale
+          rationaleEs={rationaleEs}
+          rationaleEn={rationaleEn}
+          explanationEs={explanationEs}
+          explanationEn={explanationEn}
+        />
+      )}
+    </li>
+    {hasExplanation && (
+      <ActionContextSheet
+        open={sheetOpen}
+        onOpenChange={setSheetOpen}
+        action={action}
         rationaleEs={rationaleEs}
         rationaleEn={rationaleEn}
         explanationEs={explanationEs}
         explanationEn={explanationEn}
+        modelRank={modelRank}
+        policy={policy}
+        feasibility={feasibility}
+        legal={legal}
       />
-    </li>
-    <ActionContextSheet
-      open={sheetOpen}
-      onOpenChange={setSheetOpen}
-      action={action}
-      rationaleEs={rationaleEs}
-      rationaleEn={rationaleEn}
-      explanationEs={explanationEs}
-      explanationEn={explanationEn}
-      modelRank={modelRank}
-      policy={policy}
-      feasibility={feasibility}
-      legal={legal}
-    />
+    )}
     </>
   );
 }

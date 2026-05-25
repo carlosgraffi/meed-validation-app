@@ -39,6 +39,10 @@ export type Initial = {
   // `null` until that reveal has been completed.
   top3Agreement: number | null;
   top10Agreement: number | null;
+  // Optional free-text the expert writes alongside each agreement Likert.
+  // Empty string when blank.
+  top3AgreementComment: string;
+  top10AgreementComment: string;
   missingActions: string[];
   reorderTop5: string[] | null;
   cityComment: string;
@@ -128,6 +132,8 @@ export function EvaluationForm({
   const [top10Ratings, setTop10Ratings] = useState<RatingMap>(initial.top10Ratings);
   const [top3Agreement, setTop3Agreement] = useState<number | null>(initial.top3Agreement);
   const [top10Agreement, setTop10Agreement] = useState<number | null>(initial.top10Agreement);
+  const [top3AgreementComment, setTop3AgreementComment] = useState<string>(initial.top3AgreementComment);
+  const [top10AgreementComment, setTop10AgreementComment] = useState<string>(initial.top10AgreementComment);
   const [missing, setMissing] = useState<string[]>(
     [...initial.missingActions, "", "", ""].slice(0, 3)
   );
@@ -226,6 +232,14 @@ export function EvaluationForm({
   const onTop10AgreementChange = (likert: number) => {
     setTop10Agreement(likert);
     sendPatch({ top10Agreement: likert });
+  };
+  const onTop3AgreementCommentBlur = (next: string) => {
+    setTop3AgreementComment(next);
+    sendPatch({ top3AgreementComment: next.slice(0, 1000) });
+  };
+  const onTop10AgreementCommentBlur = (next: string) => {
+    setTop10AgreementComment(next);
+    sendPatch({ top10AgreementComment: next.slice(0, 1000) });
   };
 
   const validateCurrent = (): string | null => {
@@ -512,6 +526,8 @@ export function EvaluationForm({
             actions={rankedActions.slice(0, 3)}
             agreement={top3Agreement}
             onChange={onTop3AgreementChange}
+            comment={top3AgreementComment}
+            onCommentBlur={onTop3AgreementCommentBlur}
             readOnly={stageState("reveal1") === "complete"}
           />
         </StageSection>
@@ -542,6 +558,8 @@ export function EvaluationForm({
             actions={rankedActions}
             agreement={top10Agreement}
             onChange={onTop10AgreementChange}
+            comment={top10AgreementComment}
+            onCommentBlur={onTop10AgreementCommentBlur}
             readOnly={stageState("reveal2") === "complete"}
           />
         </StageSection>
