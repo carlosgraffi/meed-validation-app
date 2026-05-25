@@ -106,6 +106,8 @@ export function Stage3Reorder({
                     action={ranked.action}
                     rationaleEs={ranked.rationaleEs}
                     rationaleEn={ranked.rationaleEn}
+                    explanationEs={ranked.explanationEs}
+                    explanationEn={ranked.explanationEn}
                     policy={cityPolicy[ranked.action.actionId]}
                     feasibility={cityFeasibility[ranked.action.actionId]}
                     legal={legalAssessments[ranked.action.actionId]}
@@ -133,6 +135,8 @@ function SortableItem({
   action,
   rationaleEs,
   rationaleEn,
+  explanationEs,
+  explanationEn,
   policy,
   feasibility,
   legal,
@@ -144,6 +148,8 @@ function SortableItem({
   action: import("@/lib/fixtures").Action;
   rationaleEs: string;
   rationaleEn: string;
+  explanationEs?: string;
+  explanationEn?: string;
   policy: PolicyScore | undefined;
   feasibility: FeasibilityScore | undefined;
   legal: LegalAssessment | undefined;
@@ -202,7 +208,12 @@ function SortableItem({
           <GripVertical className="h-5 w-5" />
         </button>
       </div>
-      <ActionRationale rationaleEs={rationaleEs} rationaleEn={rationaleEn} />
+      <ActionRationale
+        rationaleEs={rationaleEs}
+        rationaleEn={rationaleEn}
+        explanationEs={explanationEs}
+        explanationEn={explanationEn}
+      />
     </li>
     <ActionContextSheet
       open={sheetOpen}
@@ -210,6 +221,8 @@ function SortableItem({
       action={action}
       rationaleEs={rationaleEs}
       rationaleEn={rationaleEn}
+      explanationEs={explanationEs}
+      explanationEn={explanationEn}
       modelRank={modelRank}
       policy={policy}
       feasibility={feasibility}

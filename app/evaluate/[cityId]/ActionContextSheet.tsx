@@ -30,6 +30,8 @@ export function ActionContextSheet({
   action,
   rationaleEs,
   rationaleEn,
+  explanationEs,
+  explanationEn,
   modelRank,
   policy,
   feasibility,
@@ -40,6 +42,11 @@ export function ActionContextSheet({
   action: Action;
   rationaleEs: string;
   rationaleEn: string;
+  // LLM-authored explanation. Present only once the expert has reached a
+  // reveal stage (the page-level gate decides when to include it in the
+  // payload). When present, it replaces the neutral pillar-band rationale.
+  explanationEs?: string;
+  explanationEn?: string;
   modelRank: number;
   policy: PolicyScore | undefined;
   feasibility: FeasibilityScore | undefined;
@@ -48,6 +55,10 @@ export function ActionContextSheet({
   const t = useT();
   const [lang] = useLang();
   const at = useActionText();
+  const rationaleText =
+    lang === "en"
+      ? explanationEn ?? rationaleEn
+      : explanationEs ?? rationaleEs;
 
   const cityIndicatorDrivers = useMemo(
     () => extractTopCityIndicators(feasibility),
@@ -84,7 +95,7 @@ export function ActionContextSheet({
             {t("evaluate.rationaleLabel")}
           </h4>
           <p className="text-sm leading-relaxed italic rounded-md bg-muted/40 p-3">
-            {lang === "en" ? rationaleEn : rationaleEs}
+            {rationaleText}
           </p>
         </section>
 

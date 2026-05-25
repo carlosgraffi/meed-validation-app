@@ -8,24 +8,38 @@ import { useT } from "@/app/LangProvider";
 import { useLang } from "@/app/LangProvider";
 
 /**
- * Surfaces the LLM-generated rationale that comes back with each ranked
- * action from HIAP-MEED+. Collapsed by default — keeps the action card
- * compact when the expert is in scan mode, but is one click away from
- * the model's own reasoning when they want context.
+ * Surfaces the model's reasoning for a ranked action. Collapsed by default
+ * — keeps the action card compact when the expert is in scan mode, but is
+ * one click away from the model's own logic when they want context.
  *
- * No numeric scores are revealed; the rationale is qualitative-only.
+ * Two text sources, in priority order:
+ *   1. `explanationEs/En` — the LLM-authored rank-positioning prose, only
+ *      present in the payload once the expert has reached a reveal stage.
+ *   2. `rationaleEs/En`   — the templated pillar-band summary, always
+ *      present, neutral re: rank ordering. Acts as the fallback during
+ *      blind stages and as a backstop if the LLM step is disabled.
+ *
+ * No numeric scores are revealed; both sources are qualitative-only.
  */
 export function ActionRationale({
   rationaleEs,
   rationaleEn,
+  explanationEs,
+  explanationEn,
 }: {
   rationaleEs: string;
   rationaleEn: string;
+  explanationEs?: string;
+  explanationEn?: string;
 }) {
   const t = useT();
   const [lang] = useLang();
   const [open, setOpen] = useState(false);
-  const text = lang === "en" ? rationaleEn : rationaleEs;
+  // Prefer the LLM explanation when present; fall back to the neutral rationale.
+  const text =
+    lang === "en"
+      ? explanationEn ?? rationaleEn
+      : explanationEs ?? rationaleEs;
 
   return (
     <div className="border-t border-dashed pt-3 mt-3">

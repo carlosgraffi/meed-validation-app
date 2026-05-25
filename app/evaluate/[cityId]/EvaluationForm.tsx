@@ -273,6 +273,17 @@ export function EvaluationForm({
       setStageError(t("common.error"));
       return;
     }
+    // Reveal stages need the LLM `explanation*` fields to be in the payload,
+    // but those are gated server-side by currentStage (see page.tsx). When
+    // the user crosses into reveal1 / reveal2 client-side, the rankedActions
+    // prop still holds the stripped data from the initial render. Trigger a
+    // server re-fetch so the now-allowed explanations flow into the tree
+    // BEFORE we mount the reveal section — otherwise the user briefly sees
+    // the templated band rationale ("Perfil agregado del modelo…") until
+    // they reload manually.
+    if (next === "reveal1" || next === "reveal2") {
+      router.refresh();
+    }
     setCurrentStage(next);
     // Scroll the newly-active section into view at the top of the viewport.
     // Wait one frame so the new section is in the DOM before we measure it.
