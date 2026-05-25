@@ -37,7 +37,10 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
   if (session.user.isAdmin) redirect("/admin");
 
   const expertId = session.user.id;
-  const cityId = params.cityId;
+  // Next.js 14 does not auto-decode dynamic route segments, so a URL like
+  // /evaluate/CL%20PAO arrives here with params.cityId === "CL%20PAO".
+  // Our cityIds contain literal spaces ("CL PAO"), so decode before any lookup.
+  const cityId = decodeURIComponent(params.cityId);
 
   // Defend against stale JWTs: a session cookie minted before a DB reset
   // will still be cryptographically valid but reference an expertId that
@@ -49,11 +52,8 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
     redirect("/api/auth/signout?callbackUrl=/");
   }
 
-  const assignment = await prisma.assignment.findUnique({
-    where: { expertId_cityId: { expertId, cityId } },
-  });
-  if (!assignment) notFound();
-
+  // Fixture validity comes first — a genuinely bogus cityId (typo, stale
+  // bookmark from a removed city) is the only thing that warrants a hard 404.
   const cities = loadCities();
   const city = cities.find((c) => c.cityId === cityId);
   if (!city) notFound();
@@ -61,6 +61,26 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
   const outputs = loadModelOutputs();
   const cityOutput = outputs[cityId];
   if (!cityOutput) notFound();
+
+  // Assignment lookup. If the row is missing for a real, signed-in expert,
+  // we don't 404 — that strands the user on a dead-end page. Instead we
+  // log and bounce to /dashboard, which already knows how to handle the
+  // expert's actual state (onboarding redirect, complete redirect, or
+  // showing whatever assignments do exist).
+  //
+  // Stale-state causes we want to recover from gracefully:
+  //   - JWT minted before a re-seed wiped/rebuilt assignments
+  //   - Expert added to experts.json after the last `seed --stratify` ran
+  //   - Bookmarked URL for a city no longer on the panel
+  const assignment = await prisma.assignment.findUnique({
+    where: { expertId_cityId: { expertId, cityId } },
+  });
+  if (!assignment) {
+    console.warn(
+      `[evaluate] missing assignment expertId=${expertId} cityId=${cityId} — redirecting to /dashboard`
+    );
+    redirect("/dashboard");
+  }
   const actions = loadActions();
   const actionMap = new Map(actions.map((a) => [a.actionId, a]));
   const rankedActions: RankedAction[] = cityOutput.topActions

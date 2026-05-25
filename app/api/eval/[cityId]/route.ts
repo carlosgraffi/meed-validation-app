@@ -30,7 +30,9 @@ export async function PATCH(req: Request, { params }: { params: { cityId: string
   if (!session || session.user.isAdmin) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
-  const cityId = params.cityId;
+  // Next.js 14 does not auto-decode dynamic route segments; cityIds contain
+  // literal spaces (e.g. "CL PAO"), so decode before any DB/fixture lookup.
+  const cityId = decodeURIComponent(params.cityId);
   const data = await req.json().catch(() => null);
   const parsed = PatchBody.safeParse(data);
   if (!parsed.success) {
