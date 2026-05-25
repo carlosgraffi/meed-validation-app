@@ -286,7 +286,10 @@ export function EvaluationForm({
         <div className="mt-4 lg:grid lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] xl:grid-cols-[minmax(0,400px)_minmax(0,1fr)] lg:gap-8">
           {/* Desktop-only sticky sidebar with full city context. */}
           <aside className="hidden lg:block">
-            <div className="sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto pr-1">
+            {/* max-h subtracts both the 1.5rem top offset and the ~8rem fixed
+                footer (same clearance as the page's pb-32) so the bottom of
+                the scrollable sidebar isn't covered by the action bar. */}
+            <div className="sticky top-6 max-h-[calc(100vh-11rem)] overflow-y-auto pr-1">
               <CityContextSidebar city={city} />
             </div>
           </aside>
