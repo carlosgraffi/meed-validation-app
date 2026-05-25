@@ -98,43 +98,40 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
   }
   const actions = loadActions();
   const actionMap = new Map(actions.map((a) => [a.actionId, a]));
-  // currentStage drives which LLM explanations are even SHIPPED to the client
-  // (RSC payload). Without this gate, a curious expert could open devtools
-  // on Stage 1 and read the rank-positioning prose meant for Reveal-1,
-  // defeating the bias controls. So:
-  //   - top-3 explanations are included once currentStage >= reveal1
-  //   - top-10 (ranks 4..10) explanations are included once >= reveal2
-  // Once revealed they stay in the payload (the user has already seen them
-  // and the locked Reveal section can be re-expanded to review them).
+  // currentStage drives whether the LLM explanations are SHIPPED to the
+  // client at all (RSC payload). Without this gate, a curious expert could
+  // open devtools during a blind stage and read the rank-positioning prose
+  // meant for the reveal screens, defeating the bias controls.
   //
-  // Note the post-2026-05-25 stage order: reveals now sit AFTER stage3 so
-  // P@3, P@10, AND Spearman ρ are all collected before any LLM-rationale
-  // exposure. The reveal gates fire later in the pipeline accordingly.
-  const stageBefore = (evaluationStage: string, target: string) => {
-    const order = ["stage1", "stage2", "sectionC", "stage3", "reveal1", "reveal2", "sectionE", "complete"];
-    return order.indexOf(evaluationStage) < order.indexOf(target);
-  };
+  // Single threshold: explanations come in once the expert reaches Reveal-1
+  // (i.e. has finished Stage 1 / Stage 2 / Section C / Stage 3 — all of
+  // which need to stay blind). After Reveal-1, every surface that can show
+  // a rationale (RevealStage screens, the Stage 3 reorder cards' expandable
+  // rationale, the Stage 3 Contexto sheet) renders the LLM prose. Splitting
+  // the gate by rank (top-3 vs top-10) was a previous design that left
+  // ranks 4–5 stuck on the templated fallback during Reveal-1 even though
+  // the Stage 3 reorder lists 5 actions and the user needs the reasoning
+  // for all of them.
   const currentStageRaw = (await prisma.evaluation.findUnique({
     where: { expertId_cityId: { expertId, cityId } },
     select: { currentStage: true },
   }))?.currentStage ?? "stage1";
-  const hideTop3Explanation = stageBefore(currentStageRaw, "reveal1");
-  const hideTop10Explanation = stageBefore(currentStageRaw, "reveal2");
+  const REVEAL_ORDER = ["stage1", "stage2", "sectionC", "stage3", "reveal1", "reveal2", "sectionE", "complete"];
+  const hideExplanations =
+    REVEAL_ORDER.indexOf(currentStageRaw) < REVEAL_ORDER.indexOf("reveal1");
   const rankedActions: RankedAction[] = cityOutput.topActions
     .slice()
     .sort((a, b) => a.rank - b.rank)
     .map((t) => {
       const action = actionMap.get(t.actionId);
       if (!action) throw new Error(`actions.json missing actionId ${t.actionId}`);
-      const stripExplanation =
-        t.rank <= 3 ? hideTop3Explanation : hideTop10Explanation;
       return {
         rank: t.rank,
         action,
         rationaleEs: t.rationaleEs,
         rationaleEn: t.rationaleEn,
-        explanationEs: stripExplanation ? undefined : t.explanationEs,
-        explanationEn: stripExplanation ? undefined : t.explanationEn,
+        explanationEs: hideExplanations ? undefined : t.explanationEs,
+        explanationEn: hideExplanations ? undefined : t.explanationEn,
       };
     });
 
