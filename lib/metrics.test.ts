@@ -73,6 +73,8 @@ describe("computeMetrics — three-stage methodology", () => {
         submittedAt: new Date(),
         ratings: [...E1_top3, ...E1_top10],
         reorderTop5: ["a1", "a2", "a3", "a4", "a5"],
+        top3Agreement: 5, // post-reveal Likert
+        top10Agreement: 3,
       },
       {
         expertId: "E2",
@@ -80,6 +82,8 @@ describe("computeMetrics — three-stage methodology", () => {
         submittedAt: new Date(),
         ratings: [...E2_top3, ...E2_top10],
         reorderTop5: ["a2", "a1", "a3", "a4", "a5"],
+        top3Agreement: 4,
+        top10Agreement: 2,
       },
     ];
     const result = computeMetrics(evals, { C1: ["a1", "a2", "a3", "a4", "a5"] });
@@ -109,6 +113,26 @@ describe("computeMetrics — three-stage methodology", () => {
 
     it("computes Spearman top-5 mean across reorders", () => {
       expect(result.perCity.C1.spearmanTop5).toBeCloseTo((1 + 0.9) / 2, 5);
+    });
+
+    it("computes top3 / top10 agreement means from the post-reveal Likerts", () => {
+      // E1: top3=5 top10=3, E2: top3=4 top10=2
+      expect(result.perCity.C1.top3AgreementMean).toBeCloseTo((5 + 4) / 2, 5);
+      expect(result.perCity.C1.top10AgreementMean).toBeCloseTo((3 + 2) / 2, 5);
+    });
+
+    it("computes agreement rate using the same ≥4 rule as P@K", () => {
+      // top3: both experts >= 4 → 2/2 = 1.0
+      // top10: neither expert >= 4 → 0/2 = 0.0
+      expect(result.perCity.C1.top3AgreementRate).toBeCloseTo(1, 5);
+      expect(result.perCity.C1.top10AgreementRate).toBeCloseTo(0, 5);
+    });
+
+    it("propagates agreement signals up to overall (mean of per-city means)", () => {
+      expect(result.overall.top3AgreementMean).toBeCloseTo(4.5, 5);
+      expect(result.overall.top10AgreementMean).toBeCloseTo(2.5, 5);
+      expect(result.overall.top3AgreementRate).toBeCloseTo(1, 5);
+      expect(result.overall.top10AgreementRate).toBeCloseTo(0, 5);
     });
 
     it("excludes evaluations that have not been submitted", () => {
@@ -195,6 +219,66 @@ describe("computeMetrics — three-stage methodology", () => {
     });
     it("returns null top10MatchRate when no top10 ratings exist", () => {
       expect(r.perCity.C1.top10MatchRate).toBeNull();
+    });
+  });
+
+  describe("backward-compat: pre-reveal evaluations (no top3/top10Agreement)", () => {
+    // Evaluations submitted before the reveal feature shipped have null
+    // agreements. They must still produce P@3 / P@10 and just leave the
+    // new agreement fields as null without throwing.
+    const evals = [
+      {
+        expertId: "E1",
+        cityId: "C1",
+        submittedAt: new Date(),
+        ratings: [top3Rating(1, 5), top3Rating(2, 5), top3Rating(3, 5)],
+        reorderTop5: null,
+        // top3Agreement / top10Agreement intentionally omitted
+      },
+    ];
+    const r = computeMetrics(evals, { C1: ["a1", "a2", "a3", "a4", "a5"] });
+    it("P@3 still computes", () => {
+      expect(r.perCity.C1.top3MatchRate).toBeCloseTo(1.0, 5);
+    });
+    it("agreement fields are null, not NaN, when no agreements exist", () => {
+      expect(r.perCity.C1.top3AgreementMean).toBeNull();
+      expect(r.perCity.C1.top10AgreementMean).toBeNull();
+      expect(r.perCity.C1.top3AgreementRate).toBeNull();
+      expect(r.perCity.C1.top10AgreementRate).toBeNull();
+      expect(r.overall.top3AgreementMean).toBeNull();
+      expect(r.overall.top10AgreementMean).toBeNull();
+    });
+  });
+
+  describe("mixed cohort — one expert pre-reveal, one with agreements", () => {
+    // A submitted-pre-reveal expert E1 and a post-reveal expert E2 share a city.
+    // City-level means should average only the non-null agreements (i.e. E2's).
+    const evals = [
+      {
+        expertId: "E1",
+        cityId: "C1",
+        submittedAt: new Date(),
+        ratings: [top3Rating(1, 5), top3Rating(2, 5), top3Rating(3, 5)],
+        reorderTop5: null,
+        // no agreements
+      },
+      {
+        expertId: "E2",
+        cityId: "C1",
+        submittedAt: new Date(),
+        ratings: [top3Rating(1, 4), top3Rating(2, 4), top3Rating(3, 4)],
+        reorderTop5: null,
+        top3Agreement: 5,
+        top10Agreement: 4,
+      },
+    ];
+    const r = computeMetrics(evals, { C1: ["a1", "a2", "a3", "a4", "a5"] });
+    it("agreement mean is just E2's value (E1 contributes no signal)", () => {
+      expect(r.perCity.C1.top3AgreementMean).toBeCloseTo(5, 5);
+      expect(r.perCity.C1.top10AgreementMean).toBeCloseTo(4, 5);
+    });
+    it("expertsCompleted still counts both experts", () => {
+      expect(r.perCity.C1.expertsCompleted).toBe(2);
     });
   });
 });

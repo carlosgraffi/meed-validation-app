@@ -115,9 +115,10 @@ export function AdminDashboard({
             <div>
               <CardTitle>Demo expert</CardTitle>
               <CardDescription>
-                Wipe the demo expert's evaluations, ratings, reorders, and onboarding
-                state. The demo cities (city_03, city_05, city_10) are re-assigned.
-                Use this between demo runs to start clean.
+                Wipe the demo expert's evaluations, ratings, reorders, agreement
+                Likerts, and onboarding state. The canonical demo cities
+                (CL ZAL, CL PAO, CL RNC) are re-assigned. Use this between
+                demo runs to start clean.
               </CardDescription>
             </div>
             <div className="flex items-center gap-2">
@@ -186,7 +187,8 @@ export function AdminDashboard({
         <CardHeader>
           <CardTitle>City coverage</CardTitle>
           <CardDescription>
-            Cities below 5 completed evaluations are highlighted in red. Target is 5–6 per city.
+            With the 3-city panel every expert is assigned all three cities, so the
+            target is one completed evaluation per consenting expert.
           </CardDescription>
         </CardHeader>
         <CardContent className="overflow-x-auto">
@@ -207,7 +209,12 @@ export function AdminDashboard({
                   <td className="py-2 pr-4">{c.started}</td>
                   <td
                     className={
-                      c.completed < 5 ? "py-2 pr-4 text-destructive font-semibold" : "py-2 pr-4"
+                      // Red-flag when fewer than 70% of assigned experts have finished.
+                      // Scales gracefully across panel sizes; on a 14-expert panel
+                      // that fires when fewer than ~10 evaluations have completed.
+                      c.assigned > 0 && c.completed / c.assigned < 0.7
+                        ? "py-2 pr-4 text-destructive font-semibold"
+                        : "py-2 pr-4"
                     }
                   >
                     {c.completed}
@@ -224,7 +231,7 @@ export function AdminDashboard({
           <div className="flex items-center justify-between">
             <div>
               <CardTitle>Expert progress</CardTitle>
-              <CardDescription>13 experts × cities assigned / started / completed. Last activity per expert.</CardDescription>
+              <CardDescription>Per-expert assigned / started / completed counts, plus last activity timestamp.</CardDescription>
             </div>
             <ReassignDialog cities={cities} experts={expertRows} />
           </div>

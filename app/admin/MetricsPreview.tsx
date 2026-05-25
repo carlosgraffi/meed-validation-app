@@ -49,17 +49,51 @@ export function MetricsPreview() {
           <p className="text-xs text-muted-foreground mt-3">
             Precision@3 is the contract bar. Precision@10 is more statistically stable
             (per-city numbers are built from ~50 ratings vs ~15 for top-3) and reads
-            the model better when interpreted alongside top-3.
+            the model better when interpreted alongside top-3. Both are collected
+            BLIND — experts have not yet seen the model's rank order or rationale.
           </p>
+
+          {/* Post-reveal "informed agreement" — captured AFTER the expert
+              has seen the model's ranking + LLM rationale on the reveal
+              stages. Reads on the same agreement axis (≥4 of 5) as P@N. */}
+          <div className="mt-6">
+            <h4 className="text-sm font-semibold mb-2">Post-reveal informed agreement</h4>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <Stat
+                label="Top-3 ranking agreement (mean Likert)"
+                value={mean5(metrics.overall.top3AgreementMean)}
+              />
+              <Stat
+                label="Top-3 agreement rate (≥4)"
+                value={pct(metrics.overall.top3AgreementRate)}
+              />
+              <Stat
+                label="Top-10 ranking agreement (mean Likert)"
+                value={mean5(metrics.overall.top10AgreementMean)}
+              />
+              <Stat
+                label="Top-10 agreement rate (≥4)"
+                value={pct(metrics.overall.top10AgreementRate)}
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              Collected on Reveal-1 / Reveal-2, AFTER the binary P@3 / P@10
+              ratings. Compare against P@N to see how much the model's reasoning
+              moved expert agreement.
+            </p>
+          </div>
+
           <div className="mt-4 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="text-left text-xs uppercase tracking-wide text-muted-foreground border-b">
                   <th className="py-2 pr-4">City</th>
-                  <th className="py-2 pr-4">Experts completed</th>
-                  <th className="py-2 pr-4">Precision@3</th>
-                  <th className="py-2 pr-4">Precision@10</th>
+                  <th className="py-2 pr-4">Experts</th>
+                  <th className="py-2 pr-4">P@3</th>
+                  <th className="py-2 pr-4">P@10</th>
                   <th className="py-2 pr-4">Spearman top-5</th>
+                  <th className="py-2 pr-4">Top-3 agree</th>
+                  <th className="py-2 pr-4">Top-10 agree</th>
                 </tr>
               </thead>
               <tbody>
@@ -86,6 +120,14 @@ export function MetricsPreview() {
                       {pct(m.top10MatchRate)}
                     </td>
                     <td className="py-2 pr-4">{m.spearmanTop5 != null ? m.spearmanTop5.toFixed(2) : "—"}</td>
+                    <td className="py-2 pr-4 text-xs">
+                      {mean5(m.top3AgreementMean)}{" "}
+                      <span className="text-muted-foreground">({pct(m.top3AgreementRate)})</span>
+                    </td>
+                    <td className="py-2 pr-4 text-xs">
+                      {mean5(m.top10AgreementMean)}{" "}
+                      <span className="text-muted-foreground">({pct(m.top10AgreementRate)})</span>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -109,4 +151,10 @@ function Stat({ label, value, highlight }: { label: string; value: string; highl
 function pct(v: number | null): string {
   if (v == null) return "—";
   return `${(v * 100).toFixed(1)}%`;
+}
+
+/** Format a 1..5 Likert mean as "x.xx / 5". */
+function mean5(v: number | null): string {
+  if (v == null) return "—";
+  return `${v.toFixed(2)} / 5`;
 }

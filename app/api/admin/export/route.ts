@@ -37,6 +37,11 @@ export async function GET() {
       likert: r.likert,
       notSure: r.notSure,
     })),
+    // Post-reveal overall-agreement Likerts (1..5). Null when the expert
+    // didn't reach the corresponding reveal — pre-2026-05-25 rows or
+    // evaluations interrupted before submit.
+    top3Agreement: e.top3Agreement,
+    top10Agreement: e.top10Agreement,
     reorderTop5: e.reorderTop5 ? (JSON.parse(e.reorderTop5.orderedActionIds) as string[]) : null,
     missingActions: e.missingActions ? (JSON.parse(e.missingActions) as string[]) : [],
     cityComment: e.cityComment ?? null,

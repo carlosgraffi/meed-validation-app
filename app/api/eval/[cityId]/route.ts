@@ -6,11 +6,11 @@ import { prisma } from "@/lib/db";
 
 const Stage = z.enum([
   "stage1",
-  "reveal1",
   "stage2",
-  "reveal2",
   "sectionC",
   "stage3",
+  "reveal1",
+  "reveal2",
   "sectionE",
   "complete",
 ]);
@@ -38,11 +38,11 @@ const PatchBody = z.object({
 
 const STAGE_ORDER = [
   "stage1",
-  "reveal1",
   "stage2",
-  "reveal2",
   "sectionC",
   "stage3",
+  "reveal1",
+  "reveal2",
   "sectionE",
   "complete",
 ] as const;

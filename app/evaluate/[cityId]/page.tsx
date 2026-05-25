@@ -24,11 +24,11 @@ export const dynamic = "force-dynamic";
 
 export type Stage =
   | "stage1"
-  | "reveal1"
   | "stage2"
-  | "reveal2"
   | "sectionC"
   | "stage3"
+  | "reveal1"
+  | "reveal2"
   | "sectionE"
   | "complete";
 
@@ -106,8 +106,12 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
   //   - top-10 (ranks 4..10) explanations are included once >= reveal2
   // Once revealed they stay in the payload (the user has already seen them
   // and the locked Reveal section can be re-expanded to review them).
+  //
+  // Note the post-2026-05-25 stage order: reveals now sit AFTER stage3 so
+  // P@3, P@10, AND Spearman ρ are all collected before any LLM-rationale
+  // exposure. The reveal gates fire later in the pipeline accordingly.
   const stageBefore = (evaluationStage: string, target: string) => {
-    const order = ["stage1", "reveal1", "stage2", "reveal2", "sectionC", "stage3", "sectionE", "complete"];
+    const order = ["stage1", "stage2", "sectionC", "stage3", "reveal1", "reveal2", "sectionE", "complete"];
     return order.indexOf(evaluationStage) < order.indexOf(target);
   };
   const currentStageRaw = (await prisma.evaluation.findUnique({

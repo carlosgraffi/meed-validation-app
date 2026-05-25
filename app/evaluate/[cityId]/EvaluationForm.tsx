@@ -45,44 +45,49 @@ export type Initial = {
 };
 
 // Linear ordering of the stage pipeline. Used to compute stage state ("active"
-// vs "complete") for the StageSection wrapper. The two `reveal*` stages sit
-// between the blind set-membership round and the next blind round, so the
-// expert always rates set membership FIRST and only then sees the model's
-// ordering + rationale.
+// vs "complete") for the StageSection wrapper.
+//
+// The reveal stages sit AFTER stage3 (the blind reorder) so all three headline
+// metrics — Precision@3, Precision@10, Spearman ρ — are collected before any
+// LLM-rationale exposure. The reveals collect the post-rationale "informed
+// agreement" Likerts as a complementary signal.
 const STAGE_RANK: Record<Stage, number> = {
   stage1: 1,
-  reveal1: 2,
-  stage2: 3,
-  reveal2: 4,
-  sectionC: 5,
-  stage3: 6,
+  stage2: 2,
+  sectionC: 3,
+  stage3: 4,
+  reveal1: 5,
+  reveal2: 6,
   sectionE: 7,
   complete: 8,
 };
 
 const NEXT_STAGE: Record<Stage, Stage> = {
-  stage1: "reveal1",
-  reveal1: "stage2",
-  stage2: "reveal2",
-  reveal2: "sectionC",
+  stage1: "stage2",
+  stage2: "sectionC",
   sectionC: "stage3",
-  stage3: "sectionE",
+  stage3: "reveal1",
+  reveal1: "reveal2",
+  reveal2: "sectionE",
   sectionE: "complete",
   complete: "complete",
 };
 
-// Top-of-page progress indicator. 3 dots for the user-facing chunks. Each
-// reveal stays grouped with its parent blind round (reveal1 → step 1 alongside
-// stage1; reveal2 → step 2 alongside stage2 + sectionC); stage3 + sectionE
-// share step 3.
+// Top-of-page progress indicator. Three top-level chunks for the expert:
+//   1. rate the top-3 (stage1)
+//   2. rate the top-10 + missing actions (stage2 + sectionC)
+//   3. reorder + see the model's reasoning + agreement + comment
+//      (stage3 + reveal1 + reveal2 + sectionE)
+// The two reveals belong with stage3 in step 3 because they're the post-blind
+// "what does the model say?" moment.
 function topLevelStageIndex(s: Stage): number {
   return {
     stage1: 1,
-    reveal1: 1,
     stage2: 2,
-    reveal2: 2,
     sectionC: 2,
     stage3: 3,
+    reveal1: 3,
+    reveal2: 3,
     sectionE: 3,
     complete: 3,
   }[s];
@@ -224,6 +229,8 @@ export function EvaluationForm({
   };
 
   const validateCurrent = (): string | null => {
+    // Blind set-membership rounds come first; reveals run AFTER stage3, so
+    // their validations fire later in the pipeline.
     if (currentStage === "stage1") {
       const top3Actions = rankedActions.slice(0, 3);
       const missingCount = top3Actions.filter(
@@ -231,14 +238,14 @@ export function EvaluationForm({
       ).length;
       if (missingCount > 0) return t("evaluate.validationMissingStage1");
     }
-    if (currentStage === "reveal1") {
-      if (top3Agreement == null) return t("evaluate.validationMissingReveal1");
-    }
     if (currentStage === "stage2") {
       const missingCount = rankedActions.filter(
         (r) => !top10Ratings[r.action.actionId]?.likert
       ).length;
       if (missingCount > 0) return t("evaluate.validationMissingStage2");
+    }
+    if (currentStage === "reveal1") {
+      if (top3Agreement == null) return t("evaluate.validationMissingReveal1");
     }
     if (currentStage === "reveal2") {
       if (top10Agreement == null) return t("evaluate.validationMissingReveal2");
@@ -373,41 +380,12 @@ export function EvaluationForm({
       {/* Footnote: actions blocked by Chilean legal assessment for this city.
           Surfaced after Stage 1 so experts learn early about the legal filter
           and can mentally account for missing actions. */}
-      {STAGE_RANK[currentStage] >= STAGE_RANK.reveal1 && discardedLegal.length > 0 && (
+      {STAGE_RANK[currentStage] >= STAGE_RANK.stage2 && discardedLegal.length > 0 && (
         <LegallyBlockedFootnote discarded={discardedLegal} actionMap={actionMap} />
       )}
 
-      {/* Reveal 1 — show the model's top-3 ordered with LLM rationale, ask
-          overall ranking-agreement. Visible only once Stage 1 advanced. */}
-      {STAGE_RANK[currentStage] >= STAGE_RANK.reveal1 && (
-        <SlideInOnMount stageKey="reveal1">
-        <StageSection
-          stageKey="reveal1"
-          state={stageState("reveal1")}
-          title={t("evaluate.reveal1ShortTitle")}
-          subtitle={stageState("reveal1") === "active" ? t("evaluate.reveal1Intro") : undefined}
-          badge={
-            stageState("reveal1") === "active"
-              ? t("evaluate.stageCurrentBadge")
-              : t("evaluate.stageCompletedBadge")
-          }
-          summary={
-            top3Agreement != null
-              ? t("evaluate.stageSummaryAgreement", { likert: top3Agreement })
-              : t("evaluate.stageSummaryAgreementPending")
-          }
-        >
-          <RevealStage
-            actions={rankedActions.slice(0, 3)}
-            agreement={top3Agreement}
-            onChange={onTop3AgreementChange}
-            readOnly={stageState("reveal1") === "complete"}
-          />
-        </StageSection>
-        </SlideInOnMount>
-      )}
-
-      {/* Stage 2 — top-10 set membership (visible only once Reveal 1 advanced) */}
+      {/* Stage 2 — top-10 set membership. Visible once Stage 1 advanced.
+          BLIND: no rank order or LLM rationale exposed. */}
       {STAGE_RANK[currentStage] >= STAGE_RANK.stage2 && (
         <SlideInOnMount stageKey="stage2">
         <StageSection
@@ -438,37 +416,7 @@ export function EvaluationForm({
         </SlideInOnMount>
       )}
 
-      {/* Reveal 2 — show the model's top-10 ordered with LLM rationale, ask
-          overall ranking-agreement. Visible only once Stage 2 advanced. */}
-      {STAGE_RANK[currentStage] >= STAGE_RANK.reveal2 && (
-        <SlideInOnMount stageKey="reveal2">
-        <StageSection
-          stageKey="reveal2"
-          state={stageState("reveal2")}
-          title={t("evaluate.reveal2ShortTitle")}
-          subtitle={stageState("reveal2") === "active" ? t("evaluate.reveal2Intro") : undefined}
-          badge={
-            stageState("reveal2") === "active"
-              ? t("evaluate.stageCurrentBadge")
-              : t("evaluate.stageCompletedBadge")
-          }
-          summary={
-            top10Agreement != null
-              ? t("evaluate.stageSummaryAgreement", { likert: top10Agreement })
-              : t("evaluate.stageSummaryAgreementPending")
-          }
-        >
-          <RevealStage
-            actions={rankedActions}
-            agreement={top10Agreement}
-            onChange={onTop10AgreementChange}
-            readOnly={stageState("reveal2") === "complete"}
-          />
-        </StageSection>
-        </SlideInOnMount>
-      )}
-
-      {/* Section C — missing actions */}
+      {/* Section C — missing actions. Optional, blind. */}
       {STAGE_RANK[currentStage] >= STAGE_RANK.sectionC && (
         <SlideInOnMount stageKey="sectionC">
         <StageSection
@@ -492,9 +440,10 @@ export function EvaluationForm({
         </SlideInOnMount>
       )}
 
-      {/* Stage 3 — reorder. Explanations intentionally NOT shown here, even
-          though the expert just saw them on reveal2: keeps Spearman ρ at
-          least as blind as we can after the reveals. */}
+      {/* Stage 3 — reorder. The model's rank order is shown by design (the
+          starting position of the drag-reorder IS the model's order — that's
+          baked into the Stage3Reorder component), but LLM rationale is NOT
+          exposed. This is the LAST blind stage, after which the reveals fire. */}
       {STAGE_RANK[currentStage] >= STAGE_RANK.stage3 && (
         <SlideInOnMount stageKey="stage3">
         <StageSection
@@ -522,6 +471,67 @@ export function EvaluationForm({
             cityPolicy={cityPolicy}
             cityFeasibility={cityFeasibility}
             legalAssessments={legalAssessments}
+          />
+        </StageSection>
+        </SlideInOnMount>
+      )}
+
+      {/* Reveal 1 — first time the LLM rationale is exposed. Shows the
+          model's top-3 ordered with prose, asks an overall agreement Likert.
+          Visible only once Stage 3 advanced. */}
+      {STAGE_RANK[currentStage] >= STAGE_RANK.reveal1 && (
+        <SlideInOnMount stageKey="reveal1">
+        <StageSection
+          stageKey="reveal1"
+          state={stageState("reveal1")}
+          title={t("evaluate.reveal1ShortTitle")}
+          subtitle={stageState("reveal1") === "active" ? t("evaluate.reveal1Intro") : undefined}
+          badge={
+            stageState("reveal1") === "active"
+              ? t("evaluate.stageCurrentBadge")
+              : t("evaluate.stageCompletedBadge")
+          }
+          summary={
+            top3Agreement != null
+              ? t("evaluate.stageSummaryAgreement", { likert: top3Agreement })
+              : t("evaluate.stageSummaryAgreementPending")
+          }
+        >
+          <RevealStage
+            actions={rankedActions.slice(0, 3)}
+            agreement={top3Agreement}
+            onChange={onTop3AgreementChange}
+            readOnly={stageState("reveal1") === "complete"}
+          />
+        </StageSection>
+        </SlideInOnMount>
+      )}
+
+      {/* Reveal 2 — full top-10 ranking with LLM rationale + overall
+          agreement Likert. Visible only once Reveal 1 advanced. */}
+      {STAGE_RANK[currentStage] >= STAGE_RANK.reveal2 && (
+        <SlideInOnMount stageKey="reveal2">
+        <StageSection
+          stageKey="reveal2"
+          state={stageState("reveal2")}
+          title={t("evaluate.reveal2ShortTitle")}
+          subtitle={stageState("reveal2") === "active" ? t("evaluate.reveal2Intro") : undefined}
+          badge={
+            stageState("reveal2") === "active"
+              ? t("evaluate.stageCurrentBadge")
+              : t("evaluate.stageCompletedBadge")
+          }
+          summary={
+            top10Agreement != null
+              ? t("evaluate.stageSummaryAgreement", { likert: top10Agreement })
+              : t("evaluate.stageSummaryAgreementPending")
+          }
+        >
+          <RevealStage
+            actions={rankedActions}
+            agreement={top10Agreement}
+            onChange={onTop10AgreementChange}
+            readOnly={stageState("reveal2") === "complete"}
           />
         </StageSection>
         </SlideInOnMount>

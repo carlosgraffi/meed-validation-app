@@ -41,6 +41,9 @@ export async function computeLiveMetrics(): Promise<MetricsOutput> {
         notSure: r.notSure,
       })),
       reorderTop5: e.reorderTop5 ? (JSON.parse(e.reorderTop5.orderedActionIds) as string[]) : null,
+      // Post-reveal overall-agreement Likerts, added with the reveal stages.
+      top3Agreement: e.top3Agreement,
+      top10Agreement: e.top10Agreement,
     })),
     top5ByCity
   );

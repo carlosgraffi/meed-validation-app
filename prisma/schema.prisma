@@ -41,14 +41,16 @@ model Evaluation {
   startedAt      DateTime     @default(now())
   submittedAt    DateTime?
   timeOnTaskSec  Int?
-  // Paginated flow with two "reveal" sub-stages where the expert sees the
-  // model's actual rank order + LLM rationale and rates overall agreement:
+  // Paginated flow. The two "reveal" sub-stages — where the expert finally
+  // sees the model's rank order + LLM rationale and rates overall agreement
+  // — sit AFTER the blind reorder, so P@3, P@10 and Spearman ρ are all
+  // collected before any rationale exposure:
   //   stage1     — top-3 set membership (blind)
-  //   reveal1    — see ranks 1–3 + explanations, rate ranking agreement
   //   stage2     — top-10 set membership (blind)
-  //   reveal2    — see ranks 1–10 + explanations, rate ranking agreement
-  //   sectionC   — missing actions
-  //   stage3     — reorder top 5 (explanations suppressed)
+  //   sectionC   — missing actions (blind)
+  //   stage3     — reorder top 5 (last blind stage; rank visible but no rationale)
+  //   reveal1    — top-3 order + explanations, rate ranking agreement
+  //   reveal2    — top-10 order + explanations, rate ranking agreement
   //   sectionE   — city comment
   //   complete
   // Each stage becomes read-only once advanced past.

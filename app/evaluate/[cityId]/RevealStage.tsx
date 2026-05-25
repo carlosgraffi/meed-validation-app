@@ -7,18 +7,22 @@ import { useLang } from "@/app/LangProvider";
 import type { RankedAction } from "./page";
 
 /**
- * Reveal stage: shown after the expert has committed a blind set-membership
- * round (Stage 1 or Stage 2). Exposes the model's ranked order plus the
- * LLM-authored, rank-positioning explanation for each action, and asks the
- * expert to rate overall agreement with the ranking on a 1–5 Likert.
+ * Reveal stage: shown AFTER the expert has finished every blind round
+ * (Stage 1 → Stage 2 → Section C → Stage 3 reorder). Exposes the model's
+ * ranked order plus the LLM-authored, rank-positioning explanation for each
+ * action, and asks the expert to rate overall agreement with the ranking
+ * on a 1–5 Likert.
  *
  * Methodological role: lets us measure "informed agreement" — i.e. how
  * persuasive the model's reasoning is once seen — separately from the
- * blind Precision@N membership signal collected in Stage 1 / Stage 2.
+ * blind P@3 / P@10 / Spearman ρ signals collected upstream. By gating the
+ * LLM rationale until after Stage 3 we keep all three headline metrics
+ * untouched by rationale-driven anchoring.
  *
  * IMPORTANT: this component shows the LLM `explanation*` fields, which are
  * rank-positioning by design ("ranks first because…"). Never render this
- * during Stage 1, Stage 2, or Stage 3 — only on the dedicated reveal stages.
+ * during Stage 1, Stage 2, Section C, or Stage 3 — only on the dedicated
+ * reveal stages, which the state machine places at the end of the pipeline.
  */
 export function RevealStage({
   actions,
