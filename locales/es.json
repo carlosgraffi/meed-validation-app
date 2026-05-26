@@ -162,6 +162,8 @@
     "stage3ModelOrderLabel": "Orden del modelo",
     "stage3ExpertOrderLabel": "Tu orden",
     "stage3Reset": "Restaurar el orden del modelo",
+    "stage3CommentLabel": "Notas sobre tu reordenamiento (opcional)",
+    "stage3CommentPlaceholder": "Si moviste alguna acción, explica brevemente por qué — o anota las que consideraste mover pero decidiste no hacerlo.",
     "mainRecommendationTag": "Recomendación principal",
     "actionRankLabel": "Posición #{{rank}}",
     "sectorLabel": "Sector",

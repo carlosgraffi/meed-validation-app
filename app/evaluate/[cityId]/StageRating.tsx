@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { useT, useActionText } from "@/app/LangProvider";
+import { SECTOR_COLOR, sectorKeyFromName } from "@/lib/sector-colors";
 import type { Action } from "@/lib/fixtures";
 import type { RankedAction } from "./page";
 
@@ -147,6 +148,8 @@ function ActionCard({
   const t = useT();
   const at = useActionText();
   const subsector = at.subsector(action);
+  const sectorKey = sectorKeyFromName(action.sector) ?? sectorKeyFromName(action.sectorEn);
+  const sectorColor = sectorKey ? SECTOR_COLOR[sectorKey] : null;
   return (
     <div
       className={cn(
@@ -166,11 +169,32 @@ function ActionCard({
         <p className="text-sm text-muted-foreground leading-relaxed">{at.description(action)}</p>
 
         <div className="flex flex-wrap items-center gap-2 text-xs">
-          <Badge variant="muted">
+          <Badge
+            variant="muted"
+            style={
+              sectorColor
+                ? { backgroundColor: `${sectorColor}1f`, color: sectorColor, borderColor: `${sectorColor}33` }
+                : undefined
+            }
+          >
+            {sectorColor && (
+              <span
+                aria-hidden
+                className="inline-block h-2 w-2 rounded-full mr-1.5"
+                style={{ backgroundColor: sectorColor }}
+              />
+            )}
             {t("evaluate.sectorLabel")}: {at.sector(action)}
           </Badge>
           {subsector && (
-            <Badge variant="muted">
+            <Badge
+              variant="muted"
+              style={
+                sectorColor
+                  ? { backgroundColor: `${sectorColor}14`, color: sectorColor, borderColor: `${sectorColor}26` }
+                  : undefined
+              }
+            >
               {t("evaluate.subsectorLabel")}: {subsector}
             </Badge>
           )}

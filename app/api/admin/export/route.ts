@@ -46,6 +46,7 @@ export async function GET() {
     top3AgreementComment: e.top3AgreementComment ?? null,
     top10AgreementComment: e.top10AgreementComment ?? null,
     reorderTop5: e.reorderTop5 ? (JSON.parse(e.reorderTop5.orderedActionIds) as string[]) : null,
+    reorderComment: e.reorderComment ?? null,
     missingActions: e.missingActions ? (JSON.parse(e.missingActions) as string[]) : [],
     cityComment: e.cityComment ?? null,
   }));

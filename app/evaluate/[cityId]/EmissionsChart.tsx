@@ -3,11 +3,7 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { formatEmissions } from "@/lib/utils";
 import { useT, useLang } from "@/app/LangProvider";
-
-const PALETTE = ["#0f766e", "#0e7490", "#65a30d", "#a16207", "#7c3aed"];
-// Distinct hue for sequestration (negative-value) sectors — slightly muted
-// emerald so it reads as "carbon sink" rather than "another emission source".
-const SINK_COLOR = "#10b981";
+import { SECTOR_COLOR, SINK_COLOR, type SectorKey } from "@/lib/sector-colors";
 
 export function EmissionsChart({
   sectors,
@@ -35,6 +31,7 @@ export function EmissionsChart({
       value,
       pct: absSum > 0 ? (Math.abs(value) / absSum) * 100 : 0,
       isSink,
+      sectorKey: s.key as SectorKey,
     };
   });
 
@@ -65,7 +62,10 @@ export function EmissionsChart({
             />
             <Bar dataKey="pct" radius={[0, 4, 4, 0]}>
               {data.map((d, i) => (
-                <Cell key={i} fill={d.isSink ? SINK_COLOR : PALETTE[i % PALETTE.length]} />
+                <Cell
+                  key={i}
+                  fill={d.isSink ? SINK_COLOR : SECTOR_COLOR[d.sectorKey] ?? "#94a3b8"}
+                />
               ))}
             </Bar>
           </BarChart>
