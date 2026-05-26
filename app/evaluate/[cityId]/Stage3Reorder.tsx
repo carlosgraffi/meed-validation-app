@@ -21,7 +21,7 @@ import { GripVertical } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useT, useActionText, useLang } from "@/app/LangProvider";
@@ -46,6 +46,8 @@ export function Stage3Reorder({
   cityPolicy,
   cityFeasibility,
   legalAssessments,
+  comment,
+  onCommentBlur,
 }: {
   modelTop5: RankedAction[];
   customOrder: string[] | null;
@@ -55,6 +57,9 @@ export function Stage3Reorder({
   cityPolicy: Record<string, PolicyScore>;
   cityFeasibility: Record<string, FeasibilityScore>;
   legalAssessments: Record<string, LegalAssessment>;
+  /** Optional free-text qualifying the reorder. Persisted on blur. */
+  comment: string;
+  onCommentBlur: (next: string) => void;
 }) {
   const t = useT();
   const orderIds: string[] = (() => {
@@ -123,8 +128,61 @@ export function Stage3Reorder({
             {t("evaluate.stage3Reset")}
           </Button>
         )}
+        <ReorderComment value={comment} onBlur={onCommentBlur} disabled={!!readOnly} />
       </CardContent>
     </Card>
+  );
+}
+
+/**
+ * Optional free-text the expert can leave to explain a reorder (or to note
+ * "I would have moved X but wasn't confident"). Same shape and 1000-char
+ * cap as the reveal-stage AgreementComment so the data column behaves the
+ * same way downstream.
+ */
+function ReorderComment({
+  value,
+  onBlur,
+  disabled,
+}: {
+  value: string;
+  onBlur: (next: string) => void;
+  disabled: boolean;
+}) {
+  const t = useT();
+  const [local, setLocal] = useState(value);
+  useEffect(() => {
+    setLocal(value);
+  }, [value]);
+  const MAX = 1000;
+  return (
+    <div className="space-y-1.5 pt-3 border-t border-dashed">
+      <label
+        htmlFor="reorder-comment"
+        className="text-xs font-medium text-muted-foreground"
+      >
+        {t("evaluate.stage3CommentLabel")}
+      </label>
+      <textarea
+        id="reorder-comment"
+        value={local}
+        onChange={(e) => setLocal(e.target.value.slice(0, MAX))}
+        onBlur={() => {
+          if (local !== value) onBlur(local);
+        }}
+        disabled={disabled}
+        placeholder={t("evaluate.stage3CommentPlaceholder")}
+        rows={3}
+        className={cn(
+          "w-full rounded-md border bg-background px-3 py-2 text-sm leading-relaxed",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          "disabled:cursor-not-allowed disabled:opacity-60"
+        )}
+      />
+      <p className="text-[10px] text-muted-foreground text-right">
+        {t("evaluate.characterCount", { count: local.length, max: MAX })}
+      </p>
+    </div>
   );
 }
 

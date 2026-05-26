@@ -45,6 +45,7 @@ export type Initial = {
   top10AgreementComment: string;
   missingActions: string[];
   reorderTop5: string[] | null;
+  reorderComment: string;
   cityComment: string;
 };
 
@@ -138,6 +139,7 @@ export function EvaluationForm({
     [...initial.missingActions, "", "", ""].slice(0, 3)
   );
   const [reorder, setReorder] = useState<string[] | null>(initial.reorderTop5);
+  const [reorderComment, setReorderComment] = useState<string>(initial.reorderComment);
   const [comment, setComment] = useState(initial.cityComment);
   const [autosaveState, setAutosaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [stageError, setStageError] = useState<string | null>(null);
@@ -220,6 +222,10 @@ export function EvaluationForm({
   const onReorderReset = () => {
     setReorder(null);
     sendPatch({ reorderTop5: null });
+  };
+  const onReorderCommentBlur = (next: string) => {
+    setReorderComment(next);
+    sendPatch({ reorderComment: next.slice(0, 1000) });
   };
   const onCommentBlur = (next: string) => {
     setComment(next);
@@ -496,6 +502,8 @@ export function EvaluationForm({
             cityPolicy={cityPolicy}
             cityFeasibility={cityFeasibility}
             legalAssessments={legalAssessments}
+            comment={reorderComment}
+            onCommentBlur={onReorderCommentBlur}
           />
         </StageSection>
         </SlideInOnMount>
@@ -598,7 +606,7 @@ export function EvaluationForm({
         </div>
       </div>
 
-      <footer className="fixed bottom-0 left-0 right-0 border-t bg-background/95 backdrop-blur p-4">
+      <footer className="fixed bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur p-4">
         <div className="max-w-6xl mx-auto flex flex-col gap-2">
           {stageError && <p className="text-sm text-destructive">{stageError}</p>}
           <div className="flex items-center justify-between gap-3">

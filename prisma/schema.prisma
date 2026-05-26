@@ -69,6 +69,10 @@ model Evaluation {
   // don't have to migrate when the cap changes.
   top3AgreementComment  String?
   top10AgreementComment String?
+  // Optional free-text alongside the Stage 3 reorder, capturing the
+  // expert's reasoning for any swaps they made (or chose not to make).
+  // Same shape/cap conventions as the agreement comments above.
+  reorderComment        String?
   expert         Expert       @relation(fields: [expertId], references: [id], onDelete: Cascade)
   ratings        Rating[]
   reorderTop5    ReorderTop5?

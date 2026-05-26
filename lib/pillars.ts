@@ -1,10 +1,10 @@
 /**
  * MEED+ ranking pillars — single source of truth.
  *
- * Weights below are taken from the May 16 prioritization trace
- * (hiap-meed/logs_temp/.../input_snapshot.json → resolved_weights). They
- * may evolve once the methodology doc is finalized; update one line here
- * and the disclosure component re-renders everywhere.
+ * Weights below match the resolved_weights from Amanda's input config
+ * (input_snapshot.json → resolved_weights) and the standard MEED+ run
+ * config. Update one line here and the disclosure component re-renders
+ * everywhere.
  *
  * Labels and descriptions live in `locales/es.json` + `locales/en.json`
  * under `pillars.<key>.label` and `pillars.<key>.description`. We keep
@@ -12,9 +12,9 @@
  * invariant that all expert-facing copy is centralized.
  */
 export const PILLARS = {
-  impact: { weight: 0.5 },
-  alignment: { weight: 0.3 },
-  feasibility: { weight: 0.2 },
+  impact: { weight: 0.55 },
+  alignment: { weight: 0.22 },
+  feasibility: { weight: 0.23 },
 } as const;
 
 export type PillarKey = keyof typeof PILLARS;

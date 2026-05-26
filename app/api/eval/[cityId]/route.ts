@@ -37,6 +37,7 @@ const PatchBody = z.object({
   top10AgreementComment: z.string().max(1000).optional(),
   missingActions: z.array(z.string().max(200)).max(3).optional(),
   reorderTop5: z.array(z.string()).length(5).nullable().optional(),
+  reorderComment: z.string().max(1000).optional(),
   cityComment: z.string().max(1000).optional(),
   advanceTo: Stage.optional(),
 });
@@ -180,6 +181,15 @@ export async function PATCH(req: Request, { params }: { params: { cityId: string
         update: { orderedActionIds: JSON.stringify(body.reorderTop5) },
       });
     }
+  }
+  if (body.reorderComment !== undefined) {
+    if (stageRank(evaluation.currentStage) > stageRank("stage3")) {
+      return NextResponse.json({ error: "stage_locked", stage: "stage3" }, { status: 409 });
+    }
+    await prisma.evaluation.update({
+      where: { id: evaluation.id },
+      data: { reorderComment: body.reorderComment.slice(0, 1000) || null },
+    });
   }
 
   if (body.advanceTo) {
