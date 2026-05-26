@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -11,6 +12,12 @@ import { cn } from "@/lib/utils";
  *
  * Renders nothing when `open` is false. Locks body scroll while open.
  * Click outside or press ESC to close.
+ *
+ * NOTE: rendered through a portal into `document.body` so the sheet escapes
+ * the stacking context of whatever parent opens it. Several callers live
+ * inside `position: sticky` wrappers, which form their own stacking context;
+ * without the portal the sheet's z-index would be scoped to that context
+ * and the fixed-position evaluation footer (z-40) would render on top.
  */
 export function Sheet({
   open,
@@ -28,6 +35,12 @@ export function Sheet({
   /** Tailwind width class. Defaults to ~448px on desktop, full-width on mobile. */
   width?: string;
 }) {
+  // Portal target only exists in the browser; guard SSR.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -41,7 +54,9 @@ export function Sheet({
     };
   }, [open, onOpenChange]);
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {open && (
         <>
@@ -87,6 +102,7 @@ export function Sheet({
           </motion.aside>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
