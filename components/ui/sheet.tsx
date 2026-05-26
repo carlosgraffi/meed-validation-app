@@ -46,7 +46,7 @@ export function Sheet({
       {open && (
         <>
           <motion.div
-            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -56,7 +56,7 @@ export function Sheet({
           />
           <motion.aside
             className={cn(
-              "fixed z-50 bg-background shadow-2xl flex flex-col",
+              "fixed z-[60] bg-background shadow-2xl flex flex-col",
               side === "right" && `top-0 right-0 h-full ${width}`,
               side === "bottom" && "left-0 right-0 bottom-0 max-h-[85vh] rounded-t-xl"
             )}
