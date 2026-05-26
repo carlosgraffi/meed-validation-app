@@ -5,6 +5,7 @@ import { signOut } from "next-auth/react";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { loadCities } from "@/lib/fixtures";
+import { aliasFor } from "@/lib/city-aliases";
 import { getServerLang, getServerT } from "@/lib/i18n-server";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -49,7 +50,7 @@ export default async function DashboardPage() {
         : "not_started";
       return {
         cityId: c.cityId,
-        displayName: lang === "en" ? c.displayNameEn : c.displayName,
+        displayName: aliasFor(c.cityId, lang),
         region: lang === "en" ? c.regionEn : c.region,
         dominantSector: dominantSectorOf(c.sectorEmissions),
         status,

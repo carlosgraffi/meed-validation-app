@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { translate, normalizeLang, type Lang } from "@/lib/i18n";
+import { aliasFor } from "@/lib/city-aliases";
 
 type Ctx = {
   lang: Lang;
@@ -68,12 +69,17 @@ export function useLang() {
  * Helper hook for components that render city fields whose value comes from
  * the fixture (display name, region, biome). Returns the right variant for
  * the current language. See also `useActionText` for action fields.
+ *
+ * `displayName` returns a neutral alias ("Ciudad A" / "City A") rather than
+ * the real city name — see `lib/city-aliases.ts` for the rationale. Use
+ * `c.displayName` directly only in admin contexts where the real name is
+ * required.
  */
 export function useCityText() {
   const [lang] = useLang();
   return {
-    displayName(c: { displayName: string; displayNameEn: string }): string {
-      return lang === "en" ? c.displayNameEn : c.displayName;
+    displayName(c: { cityId: string }): string {
+      return aliasFor(c.cityId, lang);
     },
     region(c: { region: string; regionEn: string }): string {
       return lang === "en" ? c.regionEn : c.region;
