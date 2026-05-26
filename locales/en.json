@@ -204,6 +204,8 @@
     "likert4": "Agree",
     "likert5": "Strongly agree",
     "notSureLabel": "I'm not sure about this action",
+    "ratingCommentLabel": "Comments on this rating (optional)",
+    "ratingCommentPlaceholder": "If you disagree or aren't sure, briefly explain why — this is the most valuable signal for us.",
     "sectionCtitle": "C. Are any actions missing?",
     "sectionCsubtitle": "Are there actions you expected to see among the 10 recommended ones that aren't shown? (Optional, up to 3)",
     "missingPlaceholder": "Expected action #{{n}}",

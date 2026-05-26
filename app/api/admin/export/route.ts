@@ -36,6 +36,9 @@ export async function GET() {
       question: r.question, // 'top3' (Stage 1) or 'top10' (Stage 2) — symmetric questioning preserved
       likert: r.likert,
       notSure: r.notSure,
+      // Optional free-text qualifying this specific rating. Null when blank
+      // or written before the per-rating comment was added (2026-05-26).
+      comment: r.comment ?? null,
     })),
     // Post-reveal overall-agreement Likerts (1..5). Null when the expert
     // didn't reach the corresponding reveal — pre-2026-05-25 rows or

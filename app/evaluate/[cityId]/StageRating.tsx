@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Badge } from "@/components/ui/badge";
@@ -25,7 +26,10 @@ import type { RankedAction } from "./page";
  * Ranks are NEVER shown in either group here. Stage 3 (reorder) is the only
  * place the model's ordering is revealed.
  */
-export type RatingMap = Record<string, { likert: number; notSure: boolean }>;
+export type RatingMap = Record<
+  string,
+  { likert: number; notSure: boolean; comment?: string }
+>;
 
 export function StageRating({
   question,
@@ -34,6 +38,7 @@ export function StageRating({
   ratings,
   onRatingChange,
   onNotSureChange,
+  onCommentBlur,
   readOnly,
 }: {
   question: "top3" | "top10";
@@ -42,6 +47,8 @@ export function StageRating({
   ratings: RatingMap;
   onRatingChange: (actionId: string, modelRank: number, likert: number) => void;
   onNotSureChange: (actionId: string, modelRank: number, notSure: boolean) => void;
+  /** Persist an optional free-text comment alongside the rating. Called on blur. */
+  onCommentBlur: (actionId: string, modelRank: number, comment: string) => void;
   readOnly?: boolean;
 }) {
   const t = useT();
@@ -72,6 +79,7 @@ export function StageRating({
                   promptKey={promptKey}
                   onChange={(l) => onRatingChange(r.action.actionId, r.rank, l)}
                   onNotSureChange={(b) => onNotSureChange(r.action.actionId, r.rank, b)}
+                  onCommentBlur={(c) => onCommentBlur(r.action.actionId, r.rank, c)}
                   disabled={readOnly}
                   context={false}
                 />
@@ -114,6 +122,7 @@ export function StageRating({
                     promptKey={promptKey}
                     onChange={() => {}}
                     onNotSureChange={() => {}}
+                    onCommentBlur={() => {}}
                     disabled
                     context
                   />
@@ -133,14 +142,16 @@ function ActionCard({
   promptKey,
   onChange,
   onNotSureChange,
+  onCommentBlur,
   disabled,
   context,
 }: {
   action: Action;
-  rating?: { likert: number; notSure: boolean };
+  rating?: { likert: number; notSure: boolean; comment?: string };
   promptKey: string;
   onChange: (likert: number) => void;
   onNotSureChange: (b: boolean) => void;
+  onCommentBlur: (comment: string) => void;
   disabled?: boolean;
   /** When true, the card is rendered as read-only context (no Likert). */
   context: boolean;
@@ -257,8 +268,73 @@ function ActionCard({
             />
             <span className={cn(!rating && "text-muted-foreground")}>{t("evaluate.notSureLabel")}</span>
           </label>
+          <RatingComment
+            actionId={action.actionId}
+            promptKey={promptKey}
+            value={rating?.comment ?? ""}
+            onBlur={onCommentBlur}
+            disabled={!!disabled}
+          />
         </fieldset>
       )}
+    </div>
+  );
+}
+
+/**
+ * Optional free-text the expert can leave alongside each action's Likert.
+ * Stage 1 and Stage 2 each get their own row in the Rating table (symmetric
+ * questioning), so comments are scoped per (action, question) — leaving a
+ * comment on the top-3 question does not back-fill the top-10 question.
+ *
+ * Persisted on blur (same shape as the reorder and agreement comments).
+ */
+function RatingComment({
+  actionId,
+  promptKey,
+  value,
+  onBlur,
+  disabled,
+}: {
+  actionId: string;
+  promptKey: string;
+  value: string;
+  onBlur: (next: string) => void;
+  disabled: boolean;
+}) {
+  const t = useT();
+  const [local, setLocal] = useState(value);
+  useEffect(() => {
+    setLocal(value);
+  }, [value]);
+  const MAX = 1000;
+  // Unique id so the label/textarea pairing is correct across the two
+  // possible stages in which this card can render (top3 vs top10).
+  const id = `rc-${actionId}-${promptKey}`;
+  return (
+    <div className="mt-4 space-y-1.5">
+      <label htmlFor={id} className="text-xs font-medium text-muted-foreground">
+        {t("evaluate.ratingCommentLabel")}
+      </label>
+      <textarea
+        id={id}
+        value={local}
+        onChange={(e) => setLocal(e.target.value.slice(0, MAX))}
+        onBlur={() => {
+          if (local !== value) onBlur(local);
+        }}
+        disabled={disabled}
+        placeholder={t("evaluate.ratingCommentPlaceholder")}
+        rows={2}
+        className={cn(
+          "w-full rounded-md border bg-background px-3 py-2 text-sm leading-relaxed",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          "disabled:cursor-not-allowed disabled:opacity-60"
+        )}
+      />
+      <p className="text-[10px] text-muted-foreground text-right">
+        {t("evaluate.characterCount", { count: local.length, max: MAX })}
+      </p>
     </div>
   );
 }

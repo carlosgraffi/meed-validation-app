@@ -187,7 +187,11 @@ export function EvaluationForm({
     (actionId: string, modelRank: number, likert: number) => {
       target((prev) => ({
         ...prev,
-        [actionId]: { likert, notSure: prev[actionId]?.notSure ?? false },
+        [actionId]: {
+          likert,
+          notSure: prev[actionId]?.notSure ?? false,
+          comment: prev[actionId]?.comment,
+        },
       }));
       const current = (question === "top3" ? top3Ratings : top10Ratings)[actionId];
       sendPatch({
@@ -209,6 +213,33 @@ export function EvaluationForm({
         rating: { actionId, modelRank, question, likert: source[actionId].likert, notSure },
       });
     }
+  };
+  // Per-action comment alongside the Likert. We need the existing likert +
+  // notSure to upsert through the same `rating` patch shape; if the user
+  // somehow blurs the textarea before picking a Likert (the textarea is
+  // disabled when there's no row yet, but be defensive), skip the patch.
+  const commentBlurFor = (
+    question: "top3" | "top10",
+    target: typeof setTop3Ratings,
+    source: RatingMap
+  ) => (actionId: string, modelRank: number, comment: string) => {
+    target((prev) => {
+      const cur = prev[actionId];
+      if (!cur) return prev;
+      return { ...prev, [actionId]: { ...cur, comment } };
+    });
+    const cur = source[actionId];
+    if (!cur) return;
+    sendPatch({
+      rating: {
+        actionId,
+        modelRank,
+        question,
+        likert: cur.likert,
+        notSure: cur.notSure,
+        comment: comment.slice(0, 1000),
+      },
+    });
   };
 
   const onMissingBlur = (next: string[]) => {
@@ -403,6 +434,7 @@ export function EvaluationForm({
           ratings={top3Ratings}
           onRatingChange={ratingChangeFor("top3", setTop3Ratings)}
           onNotSureChange={notSureChangeFor("top3", setTop3Ratings, top3Ratings)}
+          onCommentBlur={commentBlurFor("top3", setTop3Ratings, top3Ratings)}
           readOnly={stageState("stage1") === "complete"}
         />
       </StageSection>
@@ -441,6 +473,7 @@ export function EvaluationForm({
             ratings={top10Ratings}
             onRatingChange={ratingChangeFor("top10", setTop10Ratings)}
             onNotSureChange={notSureChangeFor("top10", setTop10Ratings, top10Ratings)}
+            onCommentBlur={commentBlurFor("top10", setTop10Ratings, top10Ratings)}
             readOnly={stageState("stage2") === "complete"}
           />
         </StageSection>

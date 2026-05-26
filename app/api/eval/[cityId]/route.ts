@@ -22,6 +22,10 @@ const RatingPatch = z.object({
   question: Question,
   likert: z.number().int().min(1).max(5),
   notSure: z.boolean(),
+  // Optional free-text alongside the rating. When the field is omitted on
+  // patch we leave the existing value untouched; when present and empty we
+  // null the column out so blanks don't pollute the export.
+  comment: z.string().max(1000).optional(),
 });
 
 const PatchBody = z.object({
@@ -95,7 +99,10 @@ export async function PATCH(req: Request, { params }: { params: { cityId: string
         { status: 409 }
       );
     }
-    const { actionId, modelRank, question, likert, notSure } = body.rating;
+    const { actionId, modelRank, question, likert, notSure, comment } = body.rating;
+    // Treat omitted comment as "don't touch"; empty string as "clear it".
+    const commentValue =
+      comment === undefined ? undefined : comment.slice(0, 1000) || null;
     await prisma.rating.upsert({
       where: {
         evaluationId_actionId_question: {
@@ -104,8 +111,21 @@ export async function PATCH(req: Request, { params }: { params: { cityId: string
           question,
         },
       },
-      create: { evaluationId: evaluation.id, actionId, question, modelRank, likert, notSure },
-      update: { likert, notSure, modelRank },
+      create: {
+        evaluationId: evaluation.id,
+        actionId,
+        question,
+        modelRank,
+        likert,
+        notSure,
+        comment: commentValue ?? null,
+      },
+      update: {
+        likert,
+        notSure,
+        modelRank,
+        ...(commentValue !== undefined ? { comment: commentValue } : {}),
+      },
     });
   }
 

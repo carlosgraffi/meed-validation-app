@@ -169,11 +169,23 @@ export default async function EvaluatePage({ params }: { params: { cityId: strin
   });
 
   // Split ratings by question so the form can render two independent stages.
-  const top3Ratings: Record<string, { likert: number; notSure: boolean }> = {};
-  const top10Ratings: Record<string, { likert: number; notSure: boolean }> = {};
+  // Comments are scoped per (action, question) — leaving a note on the top-3
+  // question does not back-fill the top-10 question for the same action.
+  const top3Ratings: Record<
+    string,
+    { likert: number; notSure: boolean; comment?: string }
+  > = {};
+  const top10Ratings: Record<
+    string,
+    { likert: number; notSure: boolean; comment?: string }
+  > = {};
   for (const r of evaluation.ratings) {
     const target = r.question === "top3" ? top3Ratings : top10Ratings;
-    target[r.actionId] = { likert: r.likert, notSure: r.notSure };
+    target[r.actionId] = {
+      likert: r.likert,
+      notSure: r.notSure,
+      comment: r.comment ?? undefined,
+    };
   }
 
   const missingActions: string[] = evaluation.missingActions

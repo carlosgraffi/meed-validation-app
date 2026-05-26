@@ -91,6 +91,10 @@ model Rating {
   question     String
   likert       Int        // 1–5
   notSure      Boolean    @default(false)
+  // Optional free-text the expert can leave alongside each rating, useful
+  // for disagree/strongly-disagree cases where the "why" is the interesting
+  // signal. Nullable; 1000-char cap enforced client + server side.
+  comment      String?
   ratedAt      DateTime   @default(now())
   evaluation   Evaluation @relation(fields: [evaluationId], references: [id], onDelete: Cascade)
 
