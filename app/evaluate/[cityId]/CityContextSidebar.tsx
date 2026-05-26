@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { EmissionsChart } from "./EmissionsChart";
 import { CityContextSheet } from "./CityContextSheet";
+import { SubsectorBreakdown } from "./SubsectorBreakdown";
 import { useT, useLang, useCityText } from "@/app/LangProvider";
 import { cn, formatNumber, formatEmissions } from "@/lib/utils";
 import type { City, CityIndicator } from "@/lib/fixtures";
@@ -100,6 +101,22 @@ export function CityContextSidebar({ city }: { city: City }) {
               }))}
             />
           </section>
+
+          {/* Subsector breakdown — compact variant so it fits the narrower
+              sidebar but still reads as primary content rather than buried
+              detail. Grouped by parent sector with colors matching the chart. */}
+          {city.subsectorEmissions && Object.keys(city.subsectorEmissions).length > 0 && (
+            <section>
+              <h3 className="text-xs uppercase tracking-wide text-muted-foreground font-medium mb-3">
+                {lang === "en" ? "By subsector" : "Por subsector"}
+              </h3>
+              <SubsectorBreakdown
+                subsectorEmissions={city.subsectorEmissions}
+                lang={lang}
+                compact
+              />
+            </section>
+          )}
 
           {/* Headline indicators (4 picks) */}
           {headline.length > 0 && (
