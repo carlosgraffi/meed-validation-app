@@ -26,6 +26,16 @@ import type { RankedAction } from "./page";
  * Ranks are NEVER shown in either group here. Stage 3 (reorder) is the only
  * place the model's ordering is revealed.
  */
+/**
+ * Likert threshold below which a written comment is required to advance
+ * out of Stage 1 / Stage 2. Anything strictly less than this value (i.e.
+ * 1 strongly disagree, 2 disagree, 3 neutral) forces a "why" — that's the
+ * highest-signal data we collect from the symmetric set-membership rounds.
+ *
+ * Exported so EvaluationForm's stage-advance validation uses the same cut.
+ */
+export const COMMENT_REQUIRED_BELOW_LIKERT = 4;
+
 export type RatingMap = Record<
   string,
   { likert: number; notSure: boolean; comment?: string }
@@ -274,6 +284,9 @@ function ActionCard({
             value={rating?.comment ?? ""}
             onBlur={onCommentBlur}
             disabled={!!disabled}
+            required={
+              !!rating && rating.likert < COMMENT_REQUIRED_BELOW_LIKERT
+            }
           />
         </fieldset>
       )}
@@ -295,12 +308,20 @@ function RatingComment({
   value,
   onBlur,
   disabled,
+  required,
 }: {
   actionId: string;
   promptKey: string;
   value: string;
   onBlur: (next: string) => void;
   disabled: boolean;
+  /**
+   * When true, the comment is required to advance the stage (likert < 4).
+   * Drives the destructive ring + the "required" copy until the user types
+   * something. Stage-advance validation in EvaluationForm enforces the same
+   * threshold so the UI cue and the gate stay in sync.
+   */
+  required: boolean;
 }) {
   const t = useT();
   const [local, setLocal] = useState(value);
@@ -311,10 +332,21 @@ function RatingComment({
   // Unique id so the label/textarea pairing is correct across the two
   // possible stages in which this card can render (top3 vs top10).
   const id = `rc-${actionId}-${promptKey}`;
+  const filled = local.trim().length > 0;
+  const showRequiredError = required && !filled;
   return (
     <div className="mt-4 space-y-1.5">
-      <label htmlFor={id} className="text-xs font-medium text-muted-foreground">
-        {t("evaluate.ratingCommentLabel")}
+      <label htmlFor={id} className="text-xs font-medium flex items-center gap-1.5">
+        <span className={showRequiredError ? "text-destructive" : "text-muted-foreground"}>
+          {required
+            ? t("evaluate.ratingCommentLabelRequired")
+            : t("evaluate.ratingCommentLabel")}
+        </span>
+        {required && (
+          <span className="text-destructive" aria-hidden>
+            *
+          </span>
+        )}
       </label>
       <textarea
         id={id}
@@ -324,14 +356,26 @@ function RatingComment({
           if (local !== value) onBlur(local);
         }}
         disabled={disabled}
-        placeholder={t("evaluate.ratingCommentPlaceholder")}
+        placeholder={
+          required
+            ? t("evaluate.ratingCommentPlaceholderRequired")
+            : t("evaluate.ratingCommentPlaceholder")
+        }
         rows={2}
+        aria-required={required}
+        aria-invalid={showRequiredError}
         className={cn(
           "w-full rounded-md border bg-background px-3 py-2 text-sm leading-relaxed",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-          "disabled:cursor-not-allowed disabled:opacity-60"
+          "disabled:cursor-not-allowed disabled:opacity-60",
+          showRequiredError && "border-destructive focus-visible:ring-destructive"
         )}
       />
+      {showRequiredError && (
+        <p className="text-[11px] text-destructive">
+          {t("evaluate.ratingCommentRequiredHelp")}
+        </p>
+      )}
       <p className="text-[10px] text-muted-foreground text-right">
         {t("evaluate.characterCount", { count: local.length, max: MAX })}
       </p>

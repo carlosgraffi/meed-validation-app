@@ -18,7 +18,7 @@ import type {
 import { SectionA } from "./SectionA";
 import { SectionC } from "./SectionC";
 import { SectionE } from "./SectionE";
-import { StageRating, type RatingMap } from "./StageRating";
+import { StageRating, type RatingMap, COMMENT_REQUIRED_BELOW_LIKERT } from "./StageRating";
 import { Stage3Reorder } from "./Stage3Reorder";
 import { StageSection } from "./StageSection";
 import { StageStepper } from "./StageStepper";
@@ -279,6 +279,18 @@ export function EvaluationForm({
     sendPatch({ top10AgreementComment: next.slice(0, 1000) });
   };
 
+  // Comment-required gate for the symmetric set-membership rounds: any rating
+  // strictly below `COMMENT_REQUIRED_BELOW_LIKERT` must carry a non-empty
+  // comment before the expert can advance, so we capture the "why" on every
+  // disagree / neutral judgement.
+  const countMissingComments = (focus: RankedAction[], ratings: RatingMap) =>
+    focus.filter((r) => {
+      const row = ratings[r.action.actionId];
+      if (!row || !row.likert) return false;
+      if (row.likert >= COMMENT_REQUIRED_BELOW_LIKERT) return false;
+      return !row.comment || row.comment.trim().length === 0;
+    }).length;
+
   const validateCurrent = (): string | null => {
     // Blind set-membership rounds come first; reveals run AFTER stage3, so
     // their validations fire later in the pipeline.
@@ -288,12 +300,20 @@ export function EvaluationForm({
         (r) => !top3Ratings[r.action.actionId]?.likert
       ).length;
       if (missingCount > 0) return t("evaluate.validationMissingStage1");
+      const missingComments = countMissingComments(top3Actions, top3Ratings);
+      if (missingComments > 0) {
+        return t("evaluate.validationMissingCommentsStage", { count: missingComments });
+      }
     }
     if (currentStage === "stage2") {
       const missingCount = rankedActions.filter(
         (r) => !top10Ratings[r.action.actionId]?.likert
       ).length;
       if (missingCount > 0) return t("evaluate.validationMissingStage2");
+      const missingComments = countMissingComments(rankedActions, top10Ratings);
+      if (missingComments > 0) {
+        return t("evaluate.validationMissingCommentsStage", { count: missingComments });
+      }
     }
     if (currentStage === "reveal1") {
       if (top3Agreement == null) return t("evaluate.validationMissingReveal1");
