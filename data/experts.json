@@ -96,5 +96,12 @@
     "fullName": "Camilo Bastías Benzi",
     "sectorSpecialization": null,
     "organization": "BID"
+  },
+  {
+    "expertId": "dcaifil",
+    "email": "dcaifil@mma.gob.cl",
+    "fullName": "Daniela Caifil",
+    "sectorSpecialization": "Cross-Sector",
+    "organization": "SEREMI Medio Ambiente de Los Ríos"
   }
 ]
