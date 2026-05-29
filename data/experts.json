@@ -103,5 +103,12 @@
     "fullName": "Daniela Caifil",
     "sectorSpecialization": "Cross-Sector",
     "organization": "SEREMI Medio Ambiente de Los Ríos"
+  },
+  {
+    "expertId": "rarias",
+    "email": "rarias@achm.cl",
+    "fullName": "Rodrigo Arias",
+    "sectorSpecialization": "Cross-Sector",
+    "organization": "Asociación de Municipios"
   }
 ]
