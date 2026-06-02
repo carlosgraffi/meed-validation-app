@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { SignOutLink } from "../dashboard/SignOutLink";
 import { ReassignDialog } from "./ReassignDialog";
 import { MetricsPreview } from "./MetricsPreview";
+import { CommentsPanel } from "./CommentsPanel";
 import { MagicLinks } from "./MagicLinks";
 
 export type CityRow = {
@@ -182,6 +183,8 @@ export function AdminDashboard({
       </Card>
 
       <MetricsPreview />
+
+      <CommentsPanel />
 
       <Card>
         <CardHeader>
