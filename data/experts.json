@@ -110,5 +110,12 @@
     "fullName": "Rodrigo Arias",
     "sectorSpecialization": "Cross-Sector",
     "organization": "Asociación de Municipios"
+  },
+  {
+    "expertId": "andrespica",
+    "email": "andrespica@gmail.com",
+    "fullName": "Andrés Pica",
+    "sectorSpecialization": null,
+    "organization": "Ex- Jefe División Cambio Climático - Ministerio del Medio Ambiente"
   }
 ]
