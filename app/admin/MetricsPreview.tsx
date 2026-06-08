@@ -5,7 +5,18 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import type { MetricsOutput } from "@/lib/metrics";
 
-type CohortMetrics = { metrics: MetricsOutput; expertCount: number; evalCount: number };
+type CohortExpert = {
+  expertId: string;
+  fullName: string;
+  citiesSubmitted: number;
+  firstSubmittedAt: string | null;
+};
+type CohortMetrics = {
+  metrics: MetricsOutput;
+  expertCount: number;
+  evalCount: number;
+  experts: CohortExpert[];
+};
 type CohortMetricsOutput = {
   cutoffISO: string;
   total: CohortMetrics;
@@ -85,7 +96,10 @@ export function MetricsPreview() {
               No submitted evaluations in this cohort yet.
             </p>
           ) : (
-            <MetricsBody metrics={current.metrics} />
+            <>
+              <Participants experts={current.experts} />
+              <MetricsBody metrics={current.metrics} />
+            </>
           )}
         </CardContent>
       )}
@@ -199,6 +213,35 @@ function MetricsBody({ metrics }: { metrics: MetricsOutput }) {
   );
 }
 
+function Participants({ experts }: { experts: CohortExpert[] }) {
+  return (
+    <div className="mb-5 rounded-md border bg-muted/30 p-3">
+      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
+        Participants ({experts.length})
+      </div>
+      <ul className="flex flex-wrap gap-2">
+        {experts.map((e) => (
+          <li
+            key={e.expertId}
+            className="inline-flex items-center gap-1.5 rounded-full border bg-background px-2.5 py-1 text-xs"
+            title={
+              e.firstSubmittedAt
+                ? `First submission: ${chileDateTime(e.firstSubmittedAt)} (Chile)`
+                : undefined
+            }
+          >
+            <span className="font-medium">{e.fullName}</span>
+            <span className="text-muted-foreground">· {e.citiesSubmitted} {e.citiesSubmitted === 1 ? "city" : "cities"}</span>
+            {e.firstSubmittedAt && (
+              <span className="text-muted-foreground">· {chileDateTime(e.firstSubmittedAt)}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function Stat({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
     <div className="rounded-md border p-3">
@@ -229,4 +272,15 @@ function chileDate(iso: string): string {
     month: "short",
     day: "numeric",
   }).format(d);
+}
+
+/** Render an ISO instant as a Chile-local date+time (e.g. "Jun 7, 8:15 PM"). */
+function chileDateTime(iso: string): string {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Santiago",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(new Date(iso));
 }

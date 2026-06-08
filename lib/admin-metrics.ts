@@ -8,7 +8,7 @@
 import { prisma } from "./db";
 import { loadExperts, loadModelOutputs } from "./fixtures";
 import { computeMetrics, type EvaluationInput, type MetricsOutput } from "./metrics";
-import { splitInputsByCohort } from "./cohorts";
+import { splitInputsByCohort, summarizeExperts, type CohortExpert } from "./cohorts";
 
 /**
  * Shared loader: pull submitted fixture-expert evaluations and hydrate them
@@ -68,6 +68,8 @@ export type CohortMetrics = {
   metrics: MetricsOutput;
   expertCount: number;
   evalCount: number;
+  /** Roster of the experts included in this cohort (sorted by name). */
+  experts: CohortExpert[];
 };
 
 export type CohortMetricsOutput = {
@@ -94,11 +96,23 @@ export async function computeCohortMetrics(
   const cutoffMs = Date.parse(cutoffISO);
   const { cohort1, cohort2 } = splitInputsByCohort(inputs, cutoffMs);
 
-  const pack = (subset: EvaluationInput[]): CohortMetrics => ({
-    metrics: computeMetrics(subset, top5ByCity),
-    expertCount: new Set(subset.map((e) => e.expertId)).size,
-    evalCount: subset.length,
+  // Resolve current display names for the roster (DB names reflect any edits
+  // the expert made at onboarding; fall back to the id if missing).
+  const nameRows = await prisma.expert.findMany({
+    where: { id: { in: [...new Set(inputs.map((e) => e.expertId))] } },
+    select: { id: true, fullName: true },
   });
+  const nameById = new Map(nameRows.map((r) => [r.id, r.fullName]));
+
+  const pack = (subset: EvaluationInput[]): CohortMetrics => {
+    const experts = summarizeExperts(subset, nameById);
+    return {
+      metrics: computeMetrics(subset, top5ByCity),
+      expertCount: experts.length,
+      evalCount: subset.length,
+      experts,
+    };
+  };
 
   return {
     cutoffISO,

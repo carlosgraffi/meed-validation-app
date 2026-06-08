@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { splitInputsByCohort } from "./cohorts";
+import { splitInputsByCohort, summarizeExperts } from "./cohorts";
 import type { EvaluationInput } from "./metrics";
 
 // Cohort cutoff used by the app: end of Sunday 7 Jun 2026 in Chile (UTC-4).
@@ -56,5 +56,33 @@ describe("splitInputsByCohort", () => {
     const { cohort1, cohort2 } = splitInputsByCohort(inputs, CUTOFF);
     expect(cohort1).toHaveLength(1);
     expect(cohort2).toHaveLength(0);
+  });
+});
+
+describe("summarizeExperts", () => {
+  it("rolls evals up per expert with city count, earliest submission, and resolved name", () => {
+    const inputs = [
+      ev("A", "CL PAO", "2026-06-06T18:00:00Z"),
+      ev("A", "CL RNC", "2026-06-05T15:00:00Z"), // earlier — should win firstSubmittedAt
+      ev("B", "CL ZAL", "2026-06-07T20:00:00Z"),
+    ];
+    const names = new Map([
+      ["A", "Ana Jara"],
+      ["B", "Bruno Campos"],
+    ]);
+    const rows = summarizeExperts(inputs, names);
+
+    expect(rows.map((r) => r.fullName)).toEqual(["Ana Jara", "Bruno Campos"]); // sorted by name
+    const ana = rows.find((r) => r.expertId === "A")!;
+    expect(ana.citiesSubmitted).toBe(2);
+    expect(ana.firstSubmittedAt).toBe("2026-06-05T15:00:00.000Z");
+    expect(rows.find((r) => r.expertId === "B")!.citiesSubmitted).toBe(1);
+  });
+
+  it("falls back to the expert id when no name is known and skips null submissions", () => {
+    const inputs = [ev("Z", "CL PAO", null), ev("Z", "CL RNC", "2026-06-06T10:00:00Z")];
+    const rows = summarizeExperts(inputs, new Map());
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({ expertId: "Z", fullName: "Z", citiesSubmitted: 1 });
   });
 });

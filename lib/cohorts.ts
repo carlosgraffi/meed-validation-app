@@ -21,6 +21,47 @@ export type CohortSplit = {
   cohort2ExpertIds: string[];
 };
 
+/** One participant's footprint within a cohort, for the admin roster. */
+export type CohortExpert = {
+  expertId: string;
+  fullName: string;
+  citiesSubmitted: number;
+  firstSubmittedAt: string | null;
+};
+
+/**
+ * Roll a set of submitted evaluations up to one row per expert: how many
+ * cities they submitted and when they first submitted. Pure — names are
+ * resolved through the supplied map (falls back to the id if unknown).
+ * Sorted by name for a stable roster.
+ */
+export function summarizeExperts(
+  inputs: EvaluationInput[],
+  nameById: Map<string, string>
+): CohortExpert[] {
+  const byExpert = new Map<string, { count: number; firstMs: number }>();
+  for (const e of inputs) {
+    if (e.submittedAt == null) continue;
+    const t = new Date(e.submittedAt).getTime();
+    const cur = byExpert.get(e.expertId);
+    if (!cur) byExpert.set(e.expertId, { count: 1, firstMs: t });
+    else {
+      cur.count += 1;
+      if (t < cur.firstMs) cur.firstMs = t;
+    }
+  }
+  return [...byExpert.entries()]
+    .map(([expertId, v]) => ({
+      expertId,
+      fullName: nameById.get(expertId) ?? expertId,
+      citiesSubmitted: v.count,
+      firstSubmittedAt: Number.isFinite(v.firstMs)
+        ? new Date(v.firstMs).toISOString()
+        : null,
+    }))
+    .sort((a, b) => a.fullName.localeCompare(b.fullName));
+}
+
 /**
  * Partition submitted evaluations into two cohorts by each expert's earliest
  * submission. `cutoffMs` is the EXCLUSIVE upper bound for Cohort 1 (i.e. a
